@@ -1,92 +1,73 @@
-import Head from 'next/head';
-import Image from 'next/image';
+import React from "react"
+import SVG from 'react-svg';
+import Logo from "../components/landing";
 
 
 export default function Home() {
   return (
-        <div className="flex flex-col items-center justify-center min-h-screen py-2">
-      <Head>
-        <title>EssentailERP</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
 
-      <main className="flex flex-col items-center justify-center w-full flex-1 px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to EssentailERP
-        </h1>
+    // heres the background colour thats white 
+    <div className="relative bg-white">
 
-        <p className="mt-3 text-2xl">
-          The all-in-one solution for managing your business
-        </p>
+      {/* here's the diagonal object giving at the top */}
+      <div
+        className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#7622FF] opacity-30 transform -skew-y-[10deg]">
+      </div>
 
-        <div className="flex flex-wrap items-center justify-around max-w-4xl mt-6 sm:w-full">
-          <div className="p-6 mt-6 text-left border w-96 rounded-xl hover:shadow-xl">
-            <Image
-              src="/finance.svg"
-              alt="finance"
-              width={120}
-              height={120}
-            />
-            <h3 className="mt-2 text-2xl font-bold">Finance Management</h3>
-            <p className="mt-2 text-xl">
-              Keep track of your finances with ease and precision.
-            </p>
-          </div>
+      <div className='flex flex-row px-5 pt-5 items-center'>
+        <div className='basis-1/5 z-50 text-center'>
+         <a className='text-lg font-semibold text-white'>Essential</a>
+          <a className='text-xl font-semibold text-[#022568]'>ERP</a>
+        </div>
 
-          <div className="p-6 mt-6 text-left border w-96 rounded-xl hover:shadow-xl">
-            <Image
-              src="/inventory.svg"
-              alt="inventory"
-              width={120}
-              height={120}
-            />
-            <h3 className="mt-2 text-2xl font-bold">Inventory Management</h3>
-            <p className="mt-2 text-xl">
-              Manage your inventory and supply chain like a pro.
-            </p>
-          </div>
-
-          <div className="p-6 mt-6 text-left border w-96 rounded-xl hover:shadow-xl">
-            <Image
-              src="/crm.svg"
-              alt="crm"
-              width={120}
-              height={120}
-            />
-            <h3 className="mt-2 text-2xl font-bold">Customer Relationship Management</h3>
-            <p className="mt-2 text-xl">
-              Build strong relationships with your customers and boost sales.
-            </p>
-          </div>
-
-          <div className="p-6 mt-6 text-left border w-96 rounded-xl hover:shadow-xl">
-            <Image
-              src="/hr.svg"
-              alt="hr"
-              width={120}
-              height={120}
-            />
-            <h3 className="mt-2 text-2xl font-bold">HR Management</h3>
-            <p className="mt-2 text-xl">
-              Streamline your HR processes and maximize employee productivity.
-            </p>
+        <div className='basis-3/5 z-50'>
+          <div className='flex flex-row px-28 font-bold text-black text-center'>
+            <div className='basis-1/4'>Home</div>
+            <div className='basis-1/4'>About Us</div>
+            <div className='basis-1/4'>Services</div>
+            <div className='basis-1/4'>Pricing</div>
           </div>
         </div>
-      </main>
 
-      <footer className="flex items-center justify-center w-full h-24 border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className="h-4 ml-2">
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
+        <div className='basis-1/5 font-semibold text-center z-50'>
+          <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-3'>Contact Us</button>
+        </div>
+      </div>
+      
+      <div className='flex flex-row pt-24 justify-center text-4xl text-black font-bold'>
+        <div className='text-center z-50'>
+          Take Control of your<br/>Business
+        </div>
+      </div>
+
+      <div className='flex flex-row pt-20 justify-center text-lg text-black font-medium'>
+        <div className='text-center z-50'>
+          EssentialERP is the world's best free open<br/>source Enterprise Resource Planning<br/>Solution
+        </div>
+      </div>
+
+      <div className='flex flex-row justify-center gap-4 pt-6 font-medium'>
+        <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-1'>GET STARTED</button>
+        <button className='rounded-xl bg-[#C4D7F8] text-[#6C63FF] px-7 py-1'>LEARN MORE</button>
+      </div>
+
+      <div className='flex flex-row justify-center'>
+        <Logo />
+      </div>
+
+      <div className='flex flex-row justify-center gap-4 pt-6 font-medium text-center'>
+        <div>
+          <div className="text-[#6C63FF]">Why Choose Us?</div>
+          <br/>
+          <div className="font-bold text-xl">OUR SYSTEM IS COMPLETE, FLEXIBLE AND ROBUST<br/><br/></div>
+          <div className="">Designed for both Simplicity and Power<br/>Everything your business needs in one space</div>
+        </div>  
+      <div/>
+
+
+      </div>
     </div>
+
+    
   )
 }
