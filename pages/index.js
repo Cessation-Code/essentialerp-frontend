@@ -1,25 +1,28 @@
 import React from "react"
-import Logo from "../public/icons/landing";
-import Logo1 from "../public/icons/landingicon01";
-import Logo2 from "../public/icons/landingicon02";
-import Logo3 from "../public/icons/landingicon03";
-import Logo4 from "../public/icons/landingicon04";
-import Logo5 from "../public/icons/landingicon05";
-import Logo6 from "../public/icons/landingicon06";
+import Link from "next/link";
 
+import Logo from "../public/icons/landingPage/landing";
+import Logo1 from "../public/icons/landingPage/landingicon01";
+import Logo2 from "../public/icons/landingPage/landingicon02";
+import Logo3 from "../public/icons/landingPage/landingicon03";
+import Logo4 from "../public/icons/landingPage/landingicon04";
+import Logo5 from "../public/icons/landingPage/landingicon05";
+import Logo6 from "../public/icons/landingPage/landingicon06";
 
 export default function Home() {
+
   return (
 
     // heres the background colour thats white 
-    <div className="flex flex-col relative bg-white">
+    <div className="flex flex-col relative bg-[white]">
 
       {/* here's the diagonal object giving at the top */}
       <div
-        className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#7622FF] opacity-50 transform -skew-y-[10deg]">
+        className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#7622FF] opacity-40 transform -skew-y-[10deg]">
       </div>
 
       <div className='flex flex-row px-5 pt-5 items-center'>
+
         <div className='basis-1/5 z-50 text-center'>
           <a className='text-lg font-semibold text-white'>Essential</a>
           <a className='text-xl font-semibold text-[#022568]'>ERP</a>
@@ -37,6 +40,7 @@ export default function Home() {
         <div className='basis-1/5 font-semibold text-center z-50'>
           <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-3'>Contact Us</button>
         </div>
+
       </div>
 
       <div className='flex flex-row pt-24 justify-center text-4xl text-black font-bold'>
@@ -52,7 +56,7 @@ export default function Home() {
       </div>
 
       <div className='flex flex-row justify-center gap-4 pt-6 font-medium'>
-        <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-1'>GET STARTED</button>
+        <Link href="signup">  <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-1'>GET STARTED</button> </Link>
         <button className='rounded-xl bg-[#C4D7F8] text-[#6C63FF] px-7 py-1'>LEARN MORE</button>
       </div>
 
@@ -74,8 +78,8 @@ export default function Home() {
         <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
           <div className="flex flex-col">
             <div> <Logo1 /> </div>
-            <div className="text-lg font-medium pb-1">Financial Accounting</div>
-            <div className="text-sm ">Get a real-time view of your cash flow. Full-fledged accounting module covering every aspect of book keeping.</div>
+            <div className="md:text-lg text-base font-medium pb-1">Financial Accounting</div>
+            <div className="md:text-sm text-xs">Get a real-time view of your cash flow. Full-fledged accounting module covering every aspect of book keeping.</div>
           </div>
         </button>
 
@@ -83,8 +87,8 @@ export default function Home() {
         <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
           <div className="flex flex-col">
             <div> <Logo2 /> </div>
-            <div className="text-lg font-medium pb-1">HR and Payroll</div>
-            <div className="text-sm ">Manage full employee life cycle, right from onboarding, payroll, expense claims, assets to separation, etc.</div>
+            <div className="md:text-lg text-base font-medium pb-1">HR and Payroll</div>
+            <div className="md:text-sm text-xs">Manage full employee life cycle, right from onboarding, payroll, expense claims, assets to separation, etc.</div>
           </div>
         </button>
 
@@ -92,8 +96,8 @@ export default function Home() {
         <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
           <div className="flex flex-col">
             <div> <Logo3 /> </div>
-            <div className="text-lg font-medium pb-1">Battle-tested Reliability </div>
-            <div className="text-sm ">Our systems operate with 99.99%+ uptime and are highly scalable and redundant. </div>
+            <div className="md:text-lg text-base font-medium pb-1">Battle-tested Reliability </div>
+            <div className="md:text-sm text-xs ">Our systems operate with 99.99%+ uptime and are highly scalable and redundant. </div>
           </div>
         </button>
       </div>
@@ -102,8 +106,8 @@ export default function Home() {
         <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
           <div className="flex flex-col">
             <div> <Logo4 /> </div>
-            <div className="text-lg font-medium pb-1">Inventory Management</div>
-            <div className="text-sm ">Track and control the flow of products in and out of a business to ensure that the right inventory is available at the right time, in the right quantity, and at the right cost.</div>
+            <div className="md:text-lg text-base font-medium pb-1">Inventory Management</div>
+            <div className="md:text-sm text-xs">Track and control the flow of products in and out of a business to ensure that the right inventory is available at the right time, in the right quantity, and at the right cost.</div>
           </div>
         </button>
 
@@ -111,8 +115,8 @@ export default function Home() {
         <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
           <div className="flex flex-col">
             <div> <Logo5 /> </div>
-            <div className="text-lg font-medium pb-1">Seamless Integrations</div>
-            <div className="text-sm ">Manage and track progress of Third Party Integration Platforms that will be consuming some aspects of the solution per organization, i.e. the inventory module. </div>
+            <div className="md:text-lg text-base font-medium pb-1">Seamless Integrations</div>
+            <div className="md:text-sm text-xs">Manage and track progress of Third Party Integration Platforms that will be consuming some aspects of the solution per organization, i.e. the inventory module. </div>
           </div>
         </button>
 
@@ -120,8 +124,8 @@ export default function Home() {
         <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
           <div className="flex flex-col">
             <div> <Logo6 /> </div>
-            <div className="text-lg font-medium pb-1">Fastest Improving Platform</div>
-            <div className="text-sm ">Manage and track progress of Third Party Integration Platforms that will be consuming some aspects of the solution per organization, i.e. the inventory module. </div>
+            <div className="md:text-lg text-base font-medium pb-1">Fastest Improving Platform</div>
+            <div className="md:text-sm text-xs ">Manage and track progress of Third Party Integration Platforms that will be consuming some aspects of the solution per organization, i.e. the inventory module. </div>
           </div>
         </button>
       </div>
