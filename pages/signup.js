@@ -5,15 +5,16 @@ import Link from "next/link";
 import Logo01 from "../public/icons/signupPage/signupicon01";
 
 export default function SignUpPage() {
-    const [com_name, setCompanyName] = useState('')
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    const [com_name, setCompanyName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [status, setStatus] = useState('');
+    const [confirm_password, setConfirmPassword] = useState('');
     const [error, setError] = useState(null);
 
     if (status === 'success') {
         console.log("Hello Motherfucker");
-      }
+    }
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -42,7 +43,7 @@ export default function SignUpPage() {
                 <Logo01 />
             </div>
 
-            <div className="flex flex-row justify-center text-center pt-5">
+            <div className="flex flex-row justify-center text-center pt-5 text-sm">
                 <div className="flex flex-col">
                     <div>
                         Create an account with email
@@ -53,10 +54,10 @@ export default function SignUpPage() {
                 </div>
             </div>
 
-            <div className="flex flex-row justify-center pt-5">
+            <div className="flex flex-row justify-center">
 
                 <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
-                <div className="mb-4">
+                    <div className="mb-4">
                         <label htmlFor="text" className="text-xs font-medium mb-2">Company Name:</label>
                         <input
                             type="text"
@@ -78,7 +79,6 @@ export default function SignUpPage() {
                             required
                         />
                     </div>
-
                     <div className="mb-6">
                         <label htmlFor="password" className="text-xs font-medium mb-2">Password:</label>
                         <input
@@ -103,9 +103,9 @@ export default function SignUpPage() {
                     </div>
 
                     <div className="flex flex-row justify-center text-sm">I agree with the&nbsp;
-                    <Link href="terms-and-conditions">
-                         <div className="text-[#7622FF] underline">Terms and Conditions</div>
-                    </Link>
+                        <Link href="terms-and-conditions">
+                            <div className="text-[#7622FF] underline">Terms and Conditions</div>
+                        </Link>
                     </div>
 
                     <div className="flex flex-row justify-center pt-5">
@@ -127,14 +127,14 @@ export default function SignUpPage() {
 function submitForm(email) {
     // Pretend it's hitting the network.
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        let shouldError = email.toLowerCase() !== 'kk.opoku@outlook.com'
-        if (shouldError) {
-          reject(new Error('Good guess but a wrong answer. Try again!'));
-          console.log("wrong mf")
-        } else {
-          resolve();
-        }
-      }, 1500);
+        setTimeout(() => {
+            let shouldError = email.toLowerCase() !== 'kk.opoku@outlook.com'
+            if (shouldError) {
+                reject(new Error('Good guess but a wrong answer. Try again!'));
+                console.log("wrong mf")
+            } else {
+                resolve();
+            }
+        }, 1500);
     });
-  }
+}
