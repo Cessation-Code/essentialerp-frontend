@@ -105,12 +105,14 @@ export default function SignUpPage() {
               required
             />
           </div>
+          
+          <div className="text-red-500 mb-4">{error}</div>
 
           <div className="flex flex-row justify-center text-sm">
             I agree with the&nbsp;
-            <div className="font-bold text-[#7622FF] underline">
-              Terms and Conditions
-            </div>
+            <Link href="/terms-and-conditions"  className="font-bold text-[#7622FF] underline">
+                Terms and Conditions
+            </Link>
           </div>
 
           <div className="flex flex-row justify-center pt-5">
@@ -121,9 +123,6 @@ export default function SignUpPage() {
               Create Account
             </button>
           </div>
-          <div className="text-red-500 mb-4">{error}</div>
-
-          
         </form>
       </div>
     </div>
