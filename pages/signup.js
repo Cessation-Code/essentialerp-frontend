@@ -11,11 +11,29 @@ export default function SignUpPage() {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        // setStatus('submitting');
+        // try {
+        //     await submitForm(email);
+        //     setStatus('success');
+        // } catch (error) {
+        //     setStatus('typing');
+        //     setError(error);
+        // }
+
 
         if (!com_name || !email || !password || !confirm_password) {
             setError("Please fill out all fields.");
             return;
         }
+
+        if (password !== confirm_password) {
+            setError("Passwords do not match.");
+            return;
+        }
+
+        // continue with account creation
+
+    }
 
         if (password !== confirm_password) {
             setError("Passwords do not match.");
@@ -117,6 +135,8 @@ export default function SignUpPage() {
             </Link>
           </div>
 
+                    <div className="flex flex-row justify-center text-sm text-red-500 mb-4">{error}</div>
+
                     <div className="flex flex-row justify-center pt-5">
                         <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                             Create Account
@@ -126,4 +146,3 @@ export default function SignUpPage() {
             </div>
         </div>
     );
-}
