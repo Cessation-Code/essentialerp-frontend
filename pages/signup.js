@@ -8,24 +8,24 @@ export default function SignUpPage() {
     const [com_name, setCompanyName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [confirm_password, setConfirmPassword] = useState('')
-    // const [status, setStatus] = useState('');
+    const [status, setStatus] = useState('');
+    const [error, setError] = useState(null);
 
-    // if (status === 'success') {
-    //     console.log("Hello Motherfucker");
-    //   }
+    if (status === 'success') {
+        console.log("Hello Motherfucker");
+      }
 
     async function handleSubmit(event) {
         event.preventDefault();
-        // setStatus('submitting');
-        // try {
-        //     await submitForm(email);
-        //     setStatus('success');
-        // } catch (err) {
-        //     setStatus('typing');
-        //     setError(err);
-        // }
-        console.log("Hello Motherfucker");
+        setStatus('submitting');
+        try {
+            await submitForm(email);
+            setStatus('success');
+        } catch (error) {
+            setStatus('typing');
+            setError(error);
+        }
+        // console.log("Hello Motherfucker");
     }
 
     return (
@@ -124,16 +124,17 @@ export default function SignUpPage() {
     )
 }
 
-// function submitForm(email) {
-//     // Pretend it's hitting the network.
-//     return new Promise((resolve, reject) => {
-//       setTimeout(() => {
-//         let shouldError = email.toLowerCase() !== 'kk.opoku@outlook.com'
-//         if (shouldError) {
-//           reject(new Error('Good guess but a wrong answer. Try again!'));
-//         } else {
-//           resolve();
-//         }
-//       }, 1500);
-//     });
-//   }
+function submitForm(email) {
+    // Pretend it's hitting the network.
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        let shouldError = email.toLowerCase() !== 'kk.opoku@outlook.com'
+        if (shouldError) {
+          reject(new Error('Good guess but a wrong answer. Try again!'));
+          console.log("wrong mf")
+        } else {
+          resolve();
+        }
+      }, 1500);
+    });
+  }
