@@ -32,7 +32,7 @@ export default function SignUpPage() {
           <a className="text-lg font-semibold text-white">Essential</a>
           <a className="text-xl font-semibold text-[#022568]">ERP</a>
         </div>
-      </div>
+     </div>
 
       <div className="flex flex-row justify-center pt-16">
         <Logo01 />
@@ -41,8 +41,10 @@ export default function SignUpPage() {
       <div className="flex flex-row justify-center text-center pt-5">
         <div className="flex flex-col">
           <div>Create an account with email</div>
-          <div>Already have an account? Login</div>
+          <div>Already have an account? &nbsp;
+            <Link href="/login" className="text-blue-500">Login</Link>
         </div>
+    </div>
       </div>
 
       <div className="flex flex-row justify-center pt-5">
@@ -110,7 +112,7 @@ export default function SignUpPage() {
 
           <div className="flex flex-row justify-center text-sm">
             I agree with the&nbsp;
-            <Link href="/terms-and-conditions"  className="font-bold text-[#7622FF] underline">
+            <Link href="/terms-and-conditions" className="font-bold text-[#7622FF] underline">
                 Terms and Conditions
             </Link>
           </div>
