@@ -57,6 +57,7 @@ export default function SignUpPage() {
               className="w-full px-3 py-1 border border-gray-400 rounded"
               value={com_name}
               onChange={(event) => setCompanyName(event.target.value)}
+              required
             />
           </div>
 
@@ -70,6 +71,7 @@ export default function SignUpPage() {
               className="w-full px-3 py-1 border border-gray-400 rounded"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
+              required
             />
           </div>
 
@@ -83,6 +85,7 @@ export default function SignUpPage() {
               className="w-full px-3 py-1 border border-gray-400 rounded"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              required
             />
           </div>
 
@@ -99,17 +102,28 @@ export default function SignUpPage() {
               className="w-full px-3 py-1 border border-gray-400 rounded"
               value={confirm_password}
               onChange={(event) => setConfirmPassword(event.target.value)}
+              required
             />
           </div>
 
+          <div className="flex flex-row justify-center text-sm">
+            I agree with the&nbsp;
+            <div className="font-bold text-[#7622FF] underline">
+              Terms and Conditions
+            </div>
+          </div>
+
+          <div className="flex flex-row justify-center pt-5">
+            <button
+              type="submit"
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            >
+              Create Account
+            </button>
+          </div>
           <div className="text-red-500 mb-4">{error}</div>
 
-          <button
-            type="submit"
-            className="w-full bg-blue-500 text-white rounded px-3 py-1"
-          >
-            Create Account
-          </button>
+          
         </form>
       </div>
     </div>
