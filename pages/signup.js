@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
+import { useState } from 'react'
 import Link from "next/link";
+
 import Logo01 from "../public/icons/signupPage/signupicon01";
 
 export default function SignUpPage() {
-    const [com_name, setCompanyName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirm_password, setConfirmPassword] = useState("");
-    const [error, setError] = useState("");
+    const [com_name, setCompanyName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [status, setStatus] = useState('');
+    const [confirm_password, setConfirmPassword] = useState('');
+    const [error, setError] = useState(null);
 
-    const handleSubmit = (event) => {
+    if (status === 'success') {
+        console.log("Hello Motherfucker");
+    }
+
+    async function handleSubmit(event) {
         event.preventDefault();
         // setStatus('submitting');
         // try {
@@ -35,42 +42,36 @@ export default function SignUpPage() {
 
     }
 
-        if (password !== confirm_password) {
-            setError("Passwords do not match.");
-            return;
-        }
+    return (
+        <div className="bg-[#C4D7F8] h-screen">
 
-        // continue with account creation
-    };
-
-  return (
-    <div className="bg-[#C4D7F8] h-screen">
-      <div className="flex flex-row pt-5">
-        <div className="basis-1/5 z-50 text-center">
-          <a className="text-lg font-semibold text-white">Essential</a>
-          <a className="text-xl font-semibold text-[#022568]">ERP</a>
-        </div>
-     </div>
+            <div className="flex flex-row pt-5">
+                <div className='basis-1/5 z-50 text-center'>
+                    <a className='text-lg font-semibold text-white'>Essential</a>
+                    <a className='text-xl font-semibold text-[#022568]'>ERP</a>
+                </div>
+            </div>
 
             <div className="flex flex-row justify-center pt-16">
                 <Logo01 />
             </div>
 
-      <div className="flex flex-row justify-center text-center pt-5">
-        <div className="flex flex-col">
-          <div>Create an account with email</div>
-          <div>Already have an account? &nbsp;
-            <Link href="/login" className="text-blue-500">Login</Link>
-        </div>
-    </div>
-      </div>
+            <div className="flex flex-row justify-center text-center pt-5 text-sm">
+                <div className="flex flex-col">
+                    <div>
+                        Create an account with email
+                    </div>
+                    <div>
+                        Already have an account? Login
+                    </div>
+                </div>
+            </div>
 
-            <div className="flex flex-row justify-center pt-5">
+            <div className="flex flex-row justify-center">
+
                 <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
                     <div className="mb-4">
-                        <label htmlFor="com_name" className="text-xs font-medium mb-2">
-                            Company Name:
-                        </label>
+                        <label htmlFor="text" className="text-xs font-medium mb-2">Company Name:</label>
                         <input
                             type="text"
                             id="com_name"
@@ -80,11 +81,8 @@ export default function SignUpPage() {
                             required
                         />
                     </div>
-
                     <div className="mb-4">
-                        <label htmlFor="email" className="text-xs font-medium mb-2">
-                            Email:
-                        </label>
+                        <label htmlFor="email" className="text-xs font-medium mb-2">Company Email:</label>
                         <input
                             type="email"
                             id="email"
@@ -94,11 +92,8 @@ export default function SignUpPage() {
                             required
                         />
                     </div>
-
-                    <div className="mb-4">
-                        <label htmlFor="password" className="text-xs font-medium mb-2">
-                            Password:
-                        </label>
+                    <div className="mb-6">
+                        <label htmlFor="password" className="text-xs font-medium mb-2">Password:</label>
                         <input
                             type="password"
                             id="password"
@@ -108,14 +103,8 @@ export default function SignUpPage() {
                             required
                         />
                     </div>
-
-                    <div className="mb-4">
-                        <label
-                            htmlFor="confirm_password"
-                            className="text-xs font-medium mb-2"
-                        >
-                            Confirm Password:
-                        </label>
+                    <div className="mb-6">
+                        <label htmlFor="password" className="text-xs font-medium mb-2">Confirm Password:</label>
                         <input
                             type="password"
                             id="confirm_password"
@@ -126,14 +115,11 @@ export default function SignUpPage() {
                         />
                     </div>
 
-                    <div className="flex flex-row justify-center text-sm text-red-500 mb-4">{error}</div>
-
-          <div className="flex flex-row justify-center text-sm">
-            I agree with the&nbsp;
-            <Link href="/terms-and-conditions" className="font-bold text-[#7622FF] underline">
-                Terms and Conditions
-            </Link>
-          </div>
+                    <div className="flex flex-row justify-center text-sm">I agree with the&nbsp;
+                        <Link href="terms-and-conditions">
+                            <div className="text-[#7622FF] underline">Terms and Conditions</div>
+                        </Link>
+                    </div>
 
                     <div className="flex flex-row justify-center text-sm text-red-500 mb-4">{error}</div>
 
@@ -142,7 +128,28 @@ export default function SignUpPage() {
                             Create Account
                         </button>
                     </div>
+
                 </form>
+
             </div>
+
+
+
         </div>
-    );
+    )
+}
+
+function submitForm(email) {
+    // Pretend it's hitting the network.
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            let shouldError = email.toLowerCase() !== 'kk.opoku@outlook.com'
+            if (shouldError) {
+                reject(new Error('Good guess but a wrong answer. Try again!'));
+                console.log("wrong mf")
+            } else {
+                resolve();
+            }
+        }, 1500);
+    });
+}
