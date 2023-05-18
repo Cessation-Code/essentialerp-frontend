@@ -5,7 +5,7 @@ const Terms = () => {
     <div className="flex flex-col relative bg-white">
       {/* here's the diagonal object giving at the top */}
       <div className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#7622FF] opacity-50 transform -skew-y-[10deg]"></div>
-      <div className="bg-white shadow-md p-8 max-w-2xl mx-auto z-10" border-radius="10px">
+      <div className="bg-white  p-8 max-w-2xl mx-auto z-10 rounded-x1 shadow-xl" >
         <h1 className="text-3xl font-bold mb-8">Terms and Conditions</h1>
         <p className="text-lg mb-4">Here are the terms and conditions of our service:</p>
         <ul className="list-disc pl-4 mb-8">
@@ -30,3 +30,4 @@ const Terms = () => {
 };
 
 export default Terms;
+
