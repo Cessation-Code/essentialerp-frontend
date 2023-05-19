@@ -32,18 +32,13 @@ export default function SignUpPage() {
     //     setError(error);
     // }
 
-    if (!com_name || !email || !password || !confirm_password || !isChecked) {
-      setError("Please fill out all fields.");
-      return;
+        if (password !== confirm_password) {
+            setError("Passwords do not match.");
+        }else{
+            setError(null);
+        }
+        // continue with account creation
     }
-
-    if (password !== confirm_password) {
-      setError("Passwords do not match.");
-      return;
-    }
-
-    // continue with account creation
-  }
 
   return (
     <div className="bg-[#C4D7F8] h-screen">
@@ -70,60 +65,55 @@ export default function SignUpPage() {
         </div>
       </div>
 
-      <div className="flex flex-row justify-center">
-        <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
-          <div className="mb-4">
-            <label htmlFor="text" className="text-xs font-medium mb-2">
-              Company Name:
-            </label>
-            <input
-              type="text"
-              id="com_name"
-              className="w-full px-3 py-1 border border-gray-400 rounded"
-              value={com_name}
-              onChange={(event) => setCompanyName(event.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="text-xs font-medium mb-2">
-              Company Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-3 py-1 border border-gray-400 rounded"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="text-xs font-medium mb-2">
-              Password:
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-3 py-1 border border-gray-400 rounded"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="text-xs font-medium mb-2">
-              Confirm Password:
-            </label>
-            <input
-              type="password"
-              id="confirm_password"
-              className="w-full px-3 py-1 border border-gray-400 rounded"
-              value={confirm_password}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              required
-            />
-          </div>
+            <div className="flex flex-row justify-center">
+
+                <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
+                    <div className="mb-4">
+                        <label htmlFor="text" className="text-xs font-medium mb-2">Company Name:</label>
+                        <input
+                            type="text"
+                            id="com_name"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                            value={com_name}
+                            onChange={(event) => setCompanyName(event.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label htmlFor="email" className="text-xs font-medium mb-2">Company Email:</label>
+                        <input
+                            type="email"
+                            id="email"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="password" className="text-xs font-medium mb-2">Password:</label>
+                        <input
+                            type="password"
+                            id="password"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            minLength={5}
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="password" className="text-xs font-medium mb-2">Confirm Password:</label>
+                        <input
+                            type="password"
+                            id="confirm_password"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                            value={confirm_password}
+                            onChange={(event) => setConfirmPassword(event.target.value)}
+                            minLength={5}
+                            required
+                        />
+                    </div>
 
           <div className="flex flex-row justify-center text-sm">
             <input
@@ -151,18 +141,20 @@ export default function SignUpPage() {
             {error}
           </div>
 
-          <div className="flex flex-row justify-center pt-5">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600"
-            >
-              Create Account
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
+                    <div className="flex flex-row justify-center">
+                        <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                            Create Account
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+
+
+        </div>
+    )
 }
 
 function submitForm(email) {
