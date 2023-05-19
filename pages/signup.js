@@ -27,23 +27,16 @@ export default function SignUpPage() {
         //     setError(error);
         // }
 
-
-        if (!com_name || !email || !password || !confirm_password) {
-            setError("Please fill out all fields.");
-            return;
-        }
-
         if (password !== confirm_password) {
             setError("Passwords do not match.");
-            return;
+        }else{
+            setError(null);
         }
-
         // continue with account creation
-
     }
 
     return (
-        <div className="bg-[#C4D7F8] h-screen">
+        <div className="bg-[#C4D7F8] h-full">
 
             <div className="flex flex-row pt-5">
                 <div className='basis-1/5 z-50 text-center'>
@@ -100,6 +93,7 @@ export default function SignUpPage() {
                             className="w-full px-3 py-1 border border-gray-400 rounded"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
+                            minLength={5}
                             required
                         />
                     </div>
@@ -111,6 +105,7 @@ export default function SignUpPage() {
                             className="w-full px-3 py-1 border border-gray-400 rounded"
                             value={confirm_password}
                             onChange={(event) => setConfirmPassword(event.target.value)}
+                            minLength={5}
                             required
                         />
                     </div>
@@ -123,7 +118,7 @@ export default function SignUpPage() {
 
                     <div className="flex flex-row justify-center text-sm text-red-500 mb-4">{error}</div>
 
-                    <div className="flex flex-row justify-center pt-5">
+                    <div className="flex flex-row justify-center">
                         <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
                             Create Account
                         </button>
