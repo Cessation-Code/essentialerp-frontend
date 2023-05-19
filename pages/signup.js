@@ -36,7 +36,7 @@ export default function SignUpPage() {
     }
 
     return (
-        <div className="bg-[#C4D7F8] h-full">
+        <div className="bg-[#C4D7F8] h-screen">
 
             <div className="flex flex-row pt-5">
                 <div className='basis-1/5 z-50 text-center'>
@@ -68,7 +68,7 @@ export default function SignUpPage() {
                         <input
                             type="text"
                             id="com_name"
-                            className="w-full px-3 py-1 border border-gray-400 rounded"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                             value={com_name}
                             onChange={(event) => setCompanyName(event.target.value)}
                             required
@@ -79,7 +79,7 @@ export default function SignUpPage() {
                         <input
                             type="email"
                             id="email"
-                            className="w-full px-3 py-1 border border-gray-400 rounded"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                             value={email}
                             onChange={(event) => setEmail(event.target.value)}
                             required
@@ -90,7 +90,7 @@ export default function SignUpPage() {
                         <input
                             type="password"
                             id="password"
-                            className="w-full px-3 py-1 border border-gray-400 rounded"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                             value={password}
                             onChange={(event) => setPassword(event.target.value)}
                             minLength={5}
@@ -102,7 +102,7 @@ export default function SignUpPage() {
                         <input
                             type="password"
                             id="confirm_password"
-                            className="w-full px-3 py-1 border border-gray-400 rounded"
+                            className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                             value={confirm_password}
                             onChange={(event) => setConfirmPassword(event.target.value)}
                             minLength={5}
