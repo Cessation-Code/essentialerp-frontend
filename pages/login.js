@@ -1,86 +1,47 @@
 import React, { useState } from "react";
-
+import { useRouter } from "next/router";
 import Logo01 from "../public/icons/loginPage/loginicon01";
 import Link from "next/link";
-
-function PasswordInput() {
-  const [showPassword, setShowPassword] = useState(false);
-  const [password, setPassword] = useState("");
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
-  return (
-    <div>
-      <label htmlFor="password"></label>
-      <input
-        type={showPassword ? "text" : "password"}
-        id="password"
-        value={password}
-        onChange={handlePasswordChange}
-      />
-      <button
-        className="text-xs font-medium mb-2"
-        onClick={togglePasswordVisibility}
-      >
-        &nbsp;&nbsp;&nbsp; {showPassword ? "Hide" : "Show"} Password
-      </button>
-    </div>
-  );
-}
+import axios from "axios";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+
+
+  function togglePasswordVisibility() {
+    setShowPassword(!showPassword);
+  }
 
   const handleSubmit = async (event) => {
+
     event.preventDefault();
 
-    // Form validation
-    if (!email || !password) {
-      setError("Please fill out all fields.");
-      return;
+    const postData = {
+      email: email,
+      password: password
     }
 
-    try {
-      // Simulating authentication API request
-      const response = await loginAPI(email, password);
-
-      // Check authentication response
-      if (response.success) {
-        // Redirect to dashboard or update state for successful login
-        // For example:
-        // setLoggedIn(true);
-        // history.push("/dashboard");
-      } else {
-        // Handle authentication failure
-        setError(response.message);
-      }
-    } catch (error) {
-      // Handle API request errors
-      setError("An error occurred. Please try again later.");
-    }
-  };
-
-  const loginAPI = (email, password) => {
-    // Simulating authentication API request
-    return new Promise((resolve, reject) => {
-      // Simulating server response
-      setTimeout(() => {
-        if (email === "example@example.com" && password === "password") {
-          resolve({ success: true, message: "Login successful." });
+    axios.post('http://localhost:8000/api/v1/auth/loginOrganisation', postData)
+      .then(response => {
+        if (response.status == 200) {
+          router.push({
+            pathname: 'dashboard',
+            query: { from: 'LoginPage', additionalData: [response.data.name, response.data.email] }
+          })
         } else {
-          resolve({ success: false, message: "Invalid credentials." });
+          console.log("Invalid Credentials")
         }
-      }, 1000);
-    });
+      }).catch(error => {
+        console.error('Error:', error.code);
+        setError("An error occured, kindly try again");
+      });
+
   };
+
 
   return (
     <div className="bg-[#C4D7F8] h-screen">
@@ -116,25 +77,38 @@ export default function LoginPage() {
               required
             />
           </div>
+
           <div className="mb-6">
             <label htmlFor="password" className="text-xs font-medium mb-2">
               Password:
             </label>
-            <PasswordInput />
+            <div>
+              <label htmlFor="password"></label>
+              <input className="px-3"
+                type={showPassword ? "text" : "password"}
+                id="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                required
+              />
+              <button className="text-xs font-medium mb-2" onClick={togglePasswordVisibility}>
+                &nbsp;&nbsp;&nbsp;{showPassword ? "Hide " : "Show "} Password
+              </button>
+            </div>
           </div>
-          {error && <div>{error}</div>}
+
+          <div className="flex flex-row justify-center text-red-600">
+            {error && <div>{error}</div>}
+          </div>
 
           <div className="flex flex-row justify-center pt-5">
-            <button
-              type="submit"
-              className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600"
-            >
+            <button type="submit" className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600">
               Login
             </button>
           </div>
           <div className="flex flex-row justify-center pt-5">
             Don't have an account? &nbsp;{" "}
-            <Link classname="text-[#6C63FF] underline" href="/signup">
+            <Link className="text-[#6C63FF] underline" href="signup">
               Sign Up!
             </Link>
           </div>
