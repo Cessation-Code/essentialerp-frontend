@@ -1,4 +1,4 @@
-![Screenshot of my app](/public/img/Screenshot (5).png)
+![Screenshot of my app](https://github.com/Cessation-Code/essentialerp-frontend/blob/0ba4aa8a67c80be9aed9a65eac97753e053640a2/public/img/Screenshot%20(5).png)
 *Screenshot of my app's main screen*
 
 
