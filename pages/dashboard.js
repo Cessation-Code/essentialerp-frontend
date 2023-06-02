@@ -84,6 +84,7 @@ export default function DashboardPage() {
     },
   ];
   const [activeMenu, setActiveMenu] = useState(menuItems[0]);
+
   const Sidebar = ({ children }) => {
     const [toggleCollapse, setToggleCollapse] = useState(false);
     const [isCollapsible, setIsCollapsible] = useState(false);
@@ -134,13 +135,7 @@ export default function DashboardPage() {
       >
         <div className="flex flex-col ">
           <div className="flex items-center justify-between relative">
-            <div className="flex items-center pl-1 gap-4">
-              <span
-                className={classNames("mt-2 text-lg font-medium text-text", {
-                  hidden: toggleCollapse,
-                })}
-              >
-                <div className="basis-1/5 z-50 text-center">
+          <div className="basis-1/5 z-50 text-center">
                   <Link href="/" className="text-lg font-semibold text-white">
                     Essential
                   </Link>
@@ -148,6 +143,13 @@ export default function DashboardPage() {
                     ERP
                   </a>
                 </div>
+            <div className="flex items-center pl-1 gap-4">
+              <span
+                className={classNames("mt-2 text-lg font-medium text-text", {
+                  hidden: toggleCollapse,
+                })}
+              >
+                
               </span>
             </div>
             {isCollapsible && (
@@ -207,6 +209,7 @@ export default function DashboardPage() {
     );
   };
 
+    
   const Navbar = () => {
     return (
       <div className="bg-[#C3A2FA] shadow">
@@ -230,90 +233,98 @@ export default function DashboardPage() {
     );
   };
 
+    const Main = () => {
+      return(
+        <div className="flex flex-col gap-4">
+        <div className="card-123-container flex flex-row gap-3">
+          <div
+            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+            style={{
+              width: cards[0].size.width,
+              height: cards[0].size.height,
+            }}
+          >
+            <h2>{cards[0].title}</h2>
+            <div className="card-body">{cards[0].content}</div>
+          </div>
+
+          <div
+            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+            style={{
+              width: cards[1].size.width,
+              height: cards[1].size.height,
+            }}
+          >
+            <h2>{cards[1].title}</h2>
+            <div className="card-body">{cards[1].content}</div>
+          </div>
+        
+
+        <div
+          className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+          style={{
+            width: cards[2].size.width,
+            height: cards[2].size.height,
+          }}
+        >
+          <h2>{cards[2].title}</h2>
+          <div className="card-body">{cards[2].content}</div>
+        </div>
+        </div>
+        <div className="card-456-container flex flex-row gap-4">
+          <div
+            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+            style={{
+              width: cards[3].size.width,
+              height: cards[3].size.height,
+            }}
+          >
+            <h2>{cards[3].title}</h2>
+            <div className="card-body">{cards[3].content}</div>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            <div
+              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+              style={{
+                width: cards[4].size.width,
+                height: cards[4].size.height,
+              }}
+            >
+              <h2>{cards[4].title}</h2>
+              <div className="card-body">{cards[4].content}</div>
+            </div>
+
+            <div
+              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+              style={{
+                width: cards[5].size.width,
+                height: cards[5].size.height,
+              }}
+            >
+              <h2>{cards[5].title}</h2>
+              <div className="card-body">{cards[5].content}</div>
+            </div>
+          </div>
+        </div>
+        </div>
+      )
+      
+    }
+
   return (
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Navbar />
         <main className="p-4">
-          <div className="flex flex-col gap-4">
-          <div className="card-123-container flex flex-row gap-3">
-            <div
-              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-              style={{
-                width: cards[0].size.width,
-                height: cards[0].size.height,
-              }}
-            >
-              <h2>{cards[0].title}</h2>
-              <div className="card-body">{cards[0].content}</div>
-            </div>
-
-            <div
-              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-              style={{
-                width: cards[1].size.width,
-                height: cards[1].size.height,
-              }}
-            >
-              <h2>{cards[1].title}</h2>
-              <div className="card-body">{cards[1].content}</div>
-            </div>
-          
-
-          <div
-            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-            style={{
-              width: cards[2].size.width,
-              height: cards[2].size.height,
-            }}
-          >
-            <h2>{cards[2].title}</h2>
-            <div className="card-body">{cards[2].content}</div>
-          </div>
-          </div>
-          <div className="card-456-container flex flex-row gap-4">
-            <div
-              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-              style={{
-                width: cards[3].size.width,
-                height: cards[3].size.height,
-              }}
-            >
-              <h2>{cards[3].title}</h2>
-              <div className="card-body">{cards[3].content}</div>
-            </div>
-
-            <div className="flex flex-col gap-4">
-              <div
-                className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-                style={{
-                  width: cards[4].size.width,
-                  height: cards[4].size.height,
-                }}
-              >
-                <h2>{cards[4].title}</h2>
-                <div className="card-body">{cards[4].content}</div>
-              </div>
-
-              <div
-                className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-                style={{
-                  width: cards[5].size.width,
-                  height: cards[5].size.height,
-                }}
-              >
-                <h2>{cards[5].title}</h2>
-                <div className="card-body">{cards[5].content}</div>
-              </div>
-            </div>
-          </div>
-          </div>
+         <Main/>
         </main>
       </div>
     </div>
   );
 }
+
 
 //   return (
 //     <div className="flex">

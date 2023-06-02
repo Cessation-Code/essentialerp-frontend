@@ -1,5 +1,5 @@
-![Screenshot of my app](https://github.com/Cessation-Code/essentialerp-frontend/blob/0ba4aa8a67c80be9aed9a65eac97753e053640a2/public/img/Screenshot%20(5).png)
-*Screenshot of my app's main screen*
+![Screenshot of my progress](https://github.com/Cessation-Code/essentialerp-frontend/blob/0ba4aa8a67c80be9aed9a65eac97753e053640a2/public/img/Screenshot%20(5).png)
+*Screenshot of my progress thus far*
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
