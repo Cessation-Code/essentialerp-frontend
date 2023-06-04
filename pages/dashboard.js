@@ -6,14 +6,17 @@ import {
   DashboardIcon,
   FinancesIcon,
   InventoryIcon,
-  BackIcon,
   ManagehrIcon,
   NotificationIcon,
   ReportIcon,
   SettingsIcon,
   ProfileIcon,
-  SearchIcon,
+  BarChartIcon,
 } from "../public/icons/dashboard/dashboardicon";
+import { RxChevronLeft } from "react-icons/rx";
+import Chart from "./dashboard/chart";
+import Card from "./dashboard/cards";
+import { cards as dashboardCards } from "../public/data/dashboard_data";
 
 export default function DashboardPage() {
   const router = useRouter();
@@ -33,56 +36,26 @@ export default function DashboardPage() {
     { id: 6, label: "Report", icon: ReportIcon, link: "/report" },
     { id: 7, label: "Settings", icon: SettingsIcon, link: "/settings" },
   ];
-  const cards = [
+
+  const Chartdata = [
     {
-      title: "Card 1",
-      content: "This is the content of card 1.",
-      size: {
-        width: 400,
-        height: 280,
-      },
+      label: "Cars",
+      color: "#57CC78",
     },
     {
-      title: "Card 2",
-      content: "This is the content of card 2.",
-      size: {
-        width: 400,
-        height: 280,
-      },
+      label: "Engines",
+      color: "#55DBDB",
     },
     {
-      title: "Card 3",
-      content: "This is the content of card 3.",
-      size: {
-        width: 740,
-        height: 280,
-      },
+      label: "Spray Machine",
+      color: "#E2FF32",
     },
     {
-      title: "Card 4",
-      content: "This is the content of card 4.",
-      size: {
-        width: 1100,
-        height: 500,
-      },
-    },
-    {
-      title: "Card 5",
-      content: "This is the content of card 5.",
-      size: {
-        width: 450,
-        height: 240,
-      },
-    },
-    {
-      title: "Card 6",
-      content: "This is the content of card 6.",
-      size: {
-        width: 450,
-        height: 240,
-      },
+      label: "Batteries",
+      color: "#FEC102",
     },
   ];
+
   const [activeMenu, setActiveMenu] = useState(menuItems[0]);
 
   const Sidebar = ({ children }) => {
@@ -113,7 +86,7 @@ export default function DashboardPage() {
       return classNames(
         "flex items-center cursor-pointer hover:bg-light-lighter rounded w-full overflow-hidden whitespace-nowrap",
         {
-          ["bg-light-lighter"]: activeMenu && activeMenu.id === menu.id, //changes made here
+          ["bg-light-lighter"]: activeMenu === menu.id, //changes made here
         }
       );
     };
@@ -135,29 +108,27 @@ export default function DashboardPage() {
       >
         <div className="flex flex-col ">
           <div className="flex items-center justify-between relative">
-          <div className="basis-1/5 z-50 text-center">
-                  <Link href="/" className="text-lg font-semibold text-white">
-                    Essential
-                  </Link>
-                  <a href="/" className="text-xl font-semibold text-[#022568]">
-                    ERP
-                  </a>
-                </div>
+            <div className="basis-1/5 z-50 text-center">
+              <Link href="/" className="text-lg font-semibold text-white">
+                Essential
+              </Link>
+              <a href="/" className="text-xl font-semibold text-[#022568]">
+                ERP
+              </a>
+            </div>
             <div className="flex items-center pl-1 gap-4">
               <span
                 className={classNames("mt-2 text-lg font-medium text-text", {
                   hidden: toggleCollapse,
                 })}
-              >
-                
-              </span>
+              ></span>
             </div>
             {isCollapsible && (
               <button
                 className={collapseIconClasses}
                 onClick={handleSidebarToggle}
               >
-                <BackIcon />
+                <RxChevronLeft />
               </button>
             )}
           </div>
@@ -209,14 +180,11 @@ export default function DashboardPage() {
     );
   };
 
-    
   const Navbar = () => {
     return (
       <div className="bg-[#C3A2FA] shadow">
         <nav className="flex justify-between px-4 py-6">
-          <h1 className="text-2xl font-semibold px-4 py-2">
-            Welcome to the Dashboard!
-          </h1>
+          <h1 className="text-2xl font-semibold px-4 py-2">Welcome, Edem!</h1>
           <div>
             {/* search bar */}
             <input
@@ -233,84 +201,63 @@ export default function DashboardPage() {
     );
   };
 
-    const Main = () => {
-      return(
-        <div className="flex flex-col gap-4">
-        <div className="card-123-container flex flex-row gap-3">
-          <div
-            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-            style={{
-              width: cards[0].size.width,
-              height: cards[0].size.height,
-            }}
-          >
-            <h2>{cards[0].title}</h2>
-            <div className="card-body">{cards[0].content}</div>
+  const Main = () => {
+    return (
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-row gap-4">
+          <div className="card-123-container flex flex-col gap-3">
+            {dashboardCards.slice(0, 2).map((card, index) => (
+              <Card key={index} {...card} />
+            ))}
           </div>
-
-          <div
-            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-            style={{
-              width: cards[1].size.width,
-              height: cards[1].size.height,
-            }}
-          >
-            <h2>{cards[1].title}</h2>
-            <div className="card-body">{cards[1].content}</div>
+          <div className="flex flex-col gap-4">
+            {dashboardCards.slice(3,3).map((card, index) => (
+              <Card key={index} {...card} />
+            ))}
           </div>
-        
-
-        <div
-          className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-          style={{
-            width: cards[2].size.width,
-            height: cards[2].size.height,
-          }}
-        >
-          <h2>{cards[2].title}</h2>
-          <div className="card-body">{cards[2].content}</div>
-        </div>
         </div>
         <div className="card-456-container flex flex-row gap-4">
           <div
             className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
             style={{
-              width: cards[3].size.width,
-              height: cards[3].size.height,
+              width: dashboardCards[3].size.width,
+              height: dashboardCards[3].size.height,
             }}
           >
-            <h2>{cards[3].title}</h2>
-            <div className="card-body">{cards[3].content}</div>
+            <div className="flex flex-row justify-between  pb-4">
+              <p className="text-xl text-leftfont-bold px-1 py-1">
+                Sales Trend
+              </p>
+              <div className="flex flex-row gap-3 justify-center items-center">
+                {Chartdata.map((item, index) => (
+                  <div key={index} className="flex flex-row gap-1 items-center">
+                    <div
+                      className="rounded-full"
+                      style={{
+                        backgroundColor: item.color,
+                        width: "9px",
+                        height: "9px",
+                      }}
+                    ></div>
+                    <p className="text-xs font-semibold">{item.label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="w-full h-full pb-12">
+              <Chart />
+            </div>
           </div>
 
           <div className="flex flex-col gap-4">
-            <div
-              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-              style={{
-                width: cards[4].size.width,
-                height: cards[4].size.height,
-              }}
-            >
-              <h2>{cards[4].title}</h2>
-              <div className="card-body">{cards[4].content}</div>
-            </div>
-
-            <div
-              className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
-              style={{
-                width: cards[5].size.width,
-                height: cards[5].size.height,
-              }}
-            >
-              <h2>{cards[5].title}</h2>
-              <div className="card-body">{cards[5].content}</div>
-            </div>
+            {dashboardCards.slice(3,6).map((card, index) => (
+              <Card key={index} {...card} />
+            ))}
           </div>
         </div>
-        </div>
-      )
-      
-    }
+      </div>
+    );
+  };
 
   return (
     <div className="flex">
@@ -318,13 +265,12 @@ export default function DashboardPage() {
       <div className="flex flex-col flex-1">
         <Navbar />
         <main className="p-4">
-         <Main/>
+          <Main />
         </main>
       </div>
     </div>
   );
 }
-
 
 //   return (
 //     <div className="flex">
@@ -379,7 +325,7 @@ export default function DashboardPage() {
 //               <p className="text-gray-600">Card 6 Content</p>
 //             </div>
 //           </div>
-              
+
 //         </main>
 //       </div>
 //     </div>
