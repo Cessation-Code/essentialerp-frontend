@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
+import axios from "axios";
 
 import Logo01 from "../public/icons/signupPage/signupicon01";
 
@@ -22,22 +23,43 @@ export default function SignUpPage() {
   }
 
   async function handleSubmit(event) {
+
     event.preventDefault();
-    // setStatus('submitting');
-    // try {
-    //     await submitForm(email);
-    //     setStatus('success');
-    // } catch (error) {
-    //     setStatus('typing');
-    //     setError(error);
-    // }
+
+    if(!isChecked){
+      setError('Agree with terms and conditions to proceed')
+      return
+    }
 
     if (password !== confirm_password) {
       setError("Passwords do not match.");
     } else {
       setError(null);
     }
-    // continue with account creation
+
+    const registerData = {
+      organisation_name: com_name,
+      email: email,
+      password: password
+    }
+
+    axios.post('http://localhost:8000/api/v1/auth/registerOrganisation', registerData)
+      .then(function (response) {
+        if (response.status == 201) {
+          router.push({
+            pathname: 'dashboard',
+            query: { from: 'LoginPage', additionalData: [response.data.oraganisation.name, response.data.oraganisation.email] }
+          })
+        }else{
+          setError(response.data.message)
+        }
+      }).catch(function (error) {
+        if (error.response.status == 400){
+          setError(error.response.data.message)
+        }
+      });
+
+
   }
 
   return (
@@ -60,7 +82,7 @@ export default function SignUpPage() {
             Already have an account?{" "}
             <Link className="text-[#3e399c] underline" href={"/login"}>
               Login
-            </Link>{" "}
+            </Link>
           </div>
         </div>
       </div>
@@ -131,7 +153,7 @@ export default function SignUpPage() {
             </label>
           </div>
 
-          <div className="flex flex-row justify-center text-sm text-red-500 mb-4">
+          <div className="flex flex-row text-center justify-center text-sm text-red-500 mb-4">
             {error}
           </div>
 
@@ -146,22 +168,6 @@ export default function SignUpPage() {
       </div>
 
 
-
     </div>
   )
-}
-
-function submitForm(email) {
-  // Pretend it's hitting the network.
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      let shouldError = email.toLowerCase() !== "kk.opoku@outlook.com";
-      if (shouldError) {
-        reject(new Error("Good guess but a wrong answer. Try again!"));
-        console.log("wrong mf");
-      } else {
-        resolve();
-      }
-    }, 1500);
-  });
 }
