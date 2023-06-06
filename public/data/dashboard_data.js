@@ -1,8 +1,5 @@
-
-
- export const cards = [
+export const cards = [
   {
-    
     percent: "50%",
     extra: "Today",
     main: true,
@@ -31,8 +28,8 @@
     title: "Card 3",
     value: "This is the content of card 3.",
     size: {
-      width: 640,
-      height: 140,
+      width: 1040,
+      height: 300,
     },
   },
   {
@@ -43,7 +40,7 @@
     value: "This is the content of card 4.",
     size: {
       width: 1100,
-      height: 510,
+      height: 500,
     },
   },
   {
@@ -54,15 +51,18 @@
     value: "This is the content of card 5.",
     size: {
       width: 450,
-      height: 245,
+      height: 240,
     },
   },
   {
+    percent: "Percent 5",
+    extra: "Extra 5",
+    main: false,
     title: "Card 6",
     content: "This is the content of card 6.",
     size: {
       width: 450,
-      height: 245,
+      height: 240,
     },
   },
 ];

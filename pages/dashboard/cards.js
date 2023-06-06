@@ -10,7 +10,7 @@ const Card = ({ title, value, percent, extra, main, size }) => {
   };
 
   return (
-    <div className="h-[184px] w-[276px] bg-gray-200 rounded-xl shadow-md" style={cardStyle} >
+    <div className=" bg-gray-200 rounded-xl shadow-md" >
       <div className="flex flex-col justify-center items-start p-5">
         <p className=" font-normal text-sm  mb-4 ">{title}</p>
         <p
@@ -20,7 +20,7 @@ const Card = ({ title, value, percent, extra, main, size }) => {
               : "font-normal text-base text-[#929292]"
           }`}
         >{value}
-          {" "}
+          
           
         </p>
         <div className="flex flex-row justify-center items-center">

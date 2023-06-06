@@ -203,31 +203,32 @@ export default function DashboardPage() {
 
   const Main = () => {
     return (
-      <div className="flex flex-col gap-4">
-        <div className="flex flex-row gap-4">
-          <div className="card-123-container flex flex-col gap-3">
-            {dashboardCards.slice(0, 2).map((card, index) => (
-              <Card key={index} {...card} />
-            ))}
+      <div className="all-cards-container flex flex-col gap-3">
+        <div className="card-123-container flex flex-row gap-3">
+          <div
+            className="card-1-2-container flex flex-col gap-3"
+            style={{ width: dashboardCards[0].size.width, height: dashboardCards[0].size.height, display: "grid", gap: "1rem" }}
+          >
+            <Card {...dashboardCards[0]} />
+            <Card {...dashboardCards[1]} />
           </div>
-          <div className="flex flex-col gap-4">
-            {dashboardCards.slice(3,3).map((card, index) => (
-              <Card key={index} {...card} />
-            ))}
+          <div
+            className="card-3-container flex-grow flex"
+            style={{ flexBasis: `calc(${dashboardCards[0].size.width}px * 0.3)`, display: "grid", gap: "1rem" }}
+          >
+            <Card {...dashboardCards[2]} />
           </div>
         </div>
-        <div className="card-456-container flex flex-row gap-4">
+        <div className="card-456-container flex flex-row gap-3">
           <div
-            className="card-header bg-gray-200 px-4 py-2 font-bold rounded shadow"
+            className="card-4-container bg-gray-200 px-4 py-2 font-bold rounded shadow"
             style={{
               width: dashboardCards[3].size.width,
               height: dashboardCards[3].size.height,
             }}
           >
-            <div className="flex flex-row justify-between  pb-4">
-              <p className="text-xl text-leftfont-bold px-1 py-1">
-                Sales Trend
-              </p>
+            <div className="flex flex-row justify-between pb-3">
+              <p className="text-xl text-left font-bold px-1 py-1">Sales Trend</p>
               <div className="flex flex-row gap-3 justify-center items-center">
                 {Chartdata.map((item, index) => (
                   <div key={index} className="flex flex-row gap-1 items-center">
@@ -248,23 +249,24 @@ export default function DashboardPage() {
               <Chart />
             </div>
           </div>
-
-          <div className="flex flex-col gap-4">
-            {dashboardCards.slice(3,6).map((card, index) => (
-              <Card key={index} {...card} />
-            ))}
+          <div
+            className="card-5-6-container flex flex-col gap-3"
+            style={{ width: dashboardCards[4].size.width, height: dashboardCards[4].size.height, display: "grid", gap: "1rem" }}
+          >
+            <Card {...dashboardCards[4]} />
+            <Card {...dashboardCards[5]} />
           </div>
         </div>
       </div>
     );
-  };
-
+                    }    
+  
   return (
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col flex-1">
         <Navbar />
-        <main className="p-4">
+        <main className="p-3">
           <Main />
         </main>
       </div>
