@@ -17,28 +17,33 @@ export default function LoginPage() {
   }
 
   const handleSubmit = async (event) => {
-
     event.preventDefault();
-
-    const postData = {
+    const loginData = {
       email: email,
       password: password
     }
 
-    axios.post('http://localhost:8000/api/v1/auth/loginOrganisation', postData)
-      .then(response => {
-        if (response.status == 200) {
-          router.push({
-            pathname: 'dashboard',
-            query: { from: 'LoginPage', additionalData: [response.data.name, response.data.email] }
-          })
-        } else {
-          console.log("Invalid Credentials")
-        }
-      }).catch(error => {
-        console.error('Error:', error.code);
-        setError("An error occured, kindly try again");
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/auth/loginOrganisation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
       });
+      const responseData = await response.json();
+
+      if (response.status == 200) {
+        router.push({
+          pathname: 'dashboard',
+          query: { from: 'LoginPage', additionalData: [responseData.organisation.organisation_name, responseData.organisation.email] }
+        })
+      } else {
+        setError("Invalid Credentials")
+      }
+    } catch (error) {
+      setError("An error occured, kindly try again");
+    }
 
   };
 
@@ -91,7 +96,7 @@ export default function LoginPage() {
                 onChange={(event) => setPassword(event.target.value)}
                 required
               />
-              <button className="text-xs font-medium mb-2" onClick={togglePasswordVisibility}>
+              <button type="button" className="text-xs font-medium mb-2" onClick={togglePasswordVisibility}>
                 &nbsp;&nbsp;&nbsp;{showPassword ? "Hide " : "Show "} Password
               </button>
             </div>

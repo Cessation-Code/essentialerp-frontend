@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
-
+import { useRouter } from "next/router";
 import Logo01 from "../public/icons/signupPage/signupicon01";
 
 export default function SignUpPage() {
@@ -13,6 +13,7 @@ export default function SignUpPage() {
   const [confirm_password, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const router = useRouter();
 
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
@@ -26,7 +27,7 @@ export default function SignUpPage() {
 
     event.preventDefault();
 
-    if(!isChecked){
+    if (!isChecked) {
       setError('Agree with terms and conditions to proceed')
       return
     }
@@ -43,22 +44,26 @@ export default function SignUpPage() {
       password: password
     }
 
-    axios.post('http://localhost:8000/api/v1/auth/registerOrganisation', registerData)
-      .then(function (response) {
-        if (response.status == 201) {
-          router.push({
-            pathname: 'dashboard',
-            query: { from: 'LoginPage', additionalData: [response.data.oraganisation.name, response.data.oraganisation.email] }
-          })
-        }else{
-          setError(response.data.message)
-        }
-      }).catch(function (error) {
-        if (error.response.status == 400){
-          setError(error.response.data.message)
-        }
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/auth/registerOrganisation', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(registerData),
       });
-
+      const responseData = await response.json();
+      if(response.status == 201){
+        router.push({
+          pathname: 'dashboard',
+          query: { from: 'LoginPage', additionalData: [responseData.organisation.name, responseData.organisation.email] }
+        })
+      }else{
+        setError(responseData.message)
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
 
   }
 
