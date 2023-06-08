@@ -1,29 +1,24 @@
 import React from "react";
 
 export const DiagonalObject = () => {
-    // Calculate the remaining space in the main content
-    const mainContentWidth = window.innerWidth * 0.75;
-    const mainContentHeight = window.innerHeight;
-  
-    return (
-      <svg
-        width={mainContentWidth}
-        height={mainContentHeight}
-        viewBox={`0 0 ${mainContentWidth} ${mainContentHeight}`}
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M1 1016C217.697 437.243 698.091 219.793 2105 -4H1V1016Z"
-          fill="#7622FF"
-          fill-opacity="0.16"
-          stroke="#7622FF"
-          stroke-opacity="0.16"
-        />
-      </svg>
-    );
-  };
-  
+  return (
+    <svg
+      width="1995"
+      height="900"
+      viewBox="0 0 1985 895"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1 1016C217.697 437.243 698.091 219.793 2105 -4H1V1016Z"
+        fill="#DACDF0"
+        stroke="#7622FF"
+        stroke-opacity="0.16"
+      />
+    </svg>
+  );
+};
+
 export const EmailIcon = () => {
   return (
     <svg

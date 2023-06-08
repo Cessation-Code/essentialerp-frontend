@@ -207,14 +207,23 @@ export default function DashboardPage() {
         <div className="card-123-container flex flex-row gap-3">
           <div
             className="card-1-2-container flex flex-col gap-3"
-            style={{ width: dashboardCards[0].size.width, height: dashboardCards[0].size.height, display: "grid", gap: "1rem" }}
+            style={{
+              width: dashboardCards[0].size.width,
+              height: dashboardCards[0].size.height,
+              display: "grid",
+              gap: "1rem",
+            }}
           >
             <Card {...dashboardCards[0]} />
             <Card {...dashboardCards[1]} />
           </div>
           <div
             className="card-3-container flex-grow flex"
-            style={{ flexBasis: `calc(${dashboardCards[0].size.width}px * 0.3)`, display: "grid", gap: "1rem" }}
+            style={{
+              flexBasis: `calc(${dashboardCards[0].size.width}px * 0.3)`,
+              display: "grid",
+              gap: "1rem",
+            }}
           >
             <Card {...dashboardCards[2]} />
           </div>
@@ -228,7 +237,9 @@ export default function DashboardPage() {
             }}
           >
             <div className="flex flex-row justify-between pb-3">
-              <p className="text-xl text-left font-bold px-1 py-1">Sales Trend</p>
+              <p className="text-xl text-left font-bold px-1 py-1">
+                Sales Trend
+              </p>
               <div className="flex flex-row gap-3 justify-center items-center">
                 {Chartdata.map((item, index) => (
                   <div key={index} className="flex flex-row gap-1 items-center">
@@ -251,7 +262,12 @@ export default function DashboardPage() {
           </div>
           <div
             className="card-5-6-container flex flex-col gap-3"
-            style={{ width: dashboardCards[4].size.width, height: dashboardCards[4].size.height, display: "grid", gap: "1rem" }}
+            style={{
+              width: dashboardCards[4].size.width,
+              height: dashboardCards[4].size.height,
+              display: "grid",
+              gap: "1rem",
+            }}
           >
             <Card {...dashboardCards[4]} />
             <Card {...dashboardCards[5]} />
@@ -259,8 +275,8 @@ export default function DashboardPage() {
         </div>
       </div>
     );
-                    }    
-  
+  };
+
   return (
     <div className="flex">
       <Sidebar />
