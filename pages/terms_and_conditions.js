@@ -1,11 +1,29 @@
 import React, { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 const TermsAndConditions = () => {
-  const [activeTab, setActiveTab] = useState("terms-of-use");
+  const [activeTab_index, setactiveTab_index] = useState(0);
+  const router = useRouter();
+  const handleTabClick = (tab_index) => {
+    setactiveTab_index(tab_index);
+  };
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
+  const handleAcceptClick = () => {
+    
+    router.push("/dashboard");
+  }
+
+  const ContinueToNextPage = (props) => {
+    const { next_tab_index } = props;
+    return (
+      <button
+        className="w-38 py-2 px-4  rounded-xl shadow-lg text-black bg-[#DACDF0]  item-center font-semibold hover:bg-[#B48DF3]"
+        onClick={() => handleTabClick(next_tab_index)}
+      >
+        Continue to next page
+      </button>
+    );
   };
 
   return (
@@ -24,25 +42,25 @@ const TermsAndConditions = () => {
           <ul className="list-none pt-40 space-y-4 items flex-end text-end">
             <li
               className={`cursor-pointer mb-2 ${
-                activeTab === "terms-of-use" ? "font-bold" : ""
+                activeTab_index === 0 ? "font-bold" : ""
               }`}
-              onClick={() => handleTabClick("terms-of-use")}
+              onClick={() => handleTabClick(0)}
             >
               Terms of Use
             </li>
             <li
               className={`cursor-pointer mb-2 ${
-                activeTab === "governing-laws" ? "font-bold" : ""
+                activeTab_index === 1 ? "font-bold" : ""
               }`}
-              onClick={() => handleTabClick("governing-laws")}
+              onClick={() => handleTabClick(1)}
             >
               Governing Laws
             </li>
             <li
               className={`cursor-pointer mb-2 ${
-                activeTab === "prohibited-activities" ? "font-bold" : ""
+                activeTab_index === "prohibited-2" ? "font-bold" : ""
               }`}
-              onClick={() => handleTabClick("prohibited-activities")}
+              onClick={() => handleTabClick(2)}
             >
               Prohibited Activities
             </li>
@@ -56,7 +74,7 @@ const TermsAndConditions = () => {
           TERMS AND CONDITIONS
         </p>
         <div className=" mr-40 flex flex-col text-start items-center pt-4">
-          {activeTab === "terms-of-use" && (
+          {activeTab_index === 0 && (
             <div className="ml-8">
               <h2 className="text-lg font-semibold text-[#B48DF3]">
                 Terms of Use
@@ -83,13 +101,11 @@ const TermsAndConditions = () => {
                 viruses, spam, or any malicious code. <br /> <br />
               </p>
               <div className="flex justify-center">
-              <button className="w-38 py-2 px-4  rounded-xl shadow-lg text-black bg-[#9747FF]  item-center font-semibold hover:bg-blue-600" onClick={() => handleTabClick("governing-laws")}>
-                Continue to next page
-              </button>
+                <ContinueToNextPage next_tab_index={1} />
               </div>
             </div>
           )}
-          {activeTab === "governing-laws" && (
+          {activeTab_index === 1 && (
             <div className="ml-8">
               <h2 className="text-lg font-semibold text-[#B48DF3]">
                 Governing Laws
@@ -104,13 +120,11 @@ const TermsAndConditions = () => {
                 <br /> <br />
               </p>
               <div className="flex justify-center">
-              <button className="w-38 py-2 px-4 mt-20 rounded-xl shadow-lg text-black bg-[#9747FF]  item-center font-semibold hover:bg-blue-600" onClick={() => handleTabClick("prohibited-activities")}>
-                Continue to next page
-              </button>
+                <ContinueToNextPage next_tab_index= {2} />
               </div>
             </div>
           )}
-          {activeTab === "prohibited-activities" && (
+          {activeTab_index === 2 && (
             <div className="ml-8">
               <h2 className="text-lg font-semibold text-[#B48DF3]">
                 Prohibited Activities
@@ -129,10 +143,13 @@ const TermsAndConditions = () => {
                 <br /> <br />
               </p>
               <div className="scroll-mt-2 flex flex-row justify-center pt-10  gap-8">
-                <button className="w-28 py-2  px-4 rounded-xl shadow-lg bg-[#DFDFE0] text-black font-semibold hover:bg-red-600">
-                  Decline
+                <button
+                  onClick={() => handleTabClick(0)}
+                  className="w-fit py-2  px-4 rounded-xl shadow-lg bg-[#B48DF3] text-black font-semibold hover:bg-[#DACDF0]"
+                >
+                  Go Back To Terms
                 </button>
-                <button className="w-28 py-2 px-4 rounded-xl shadow-lg text-black bg-[#9747FF]  font-semibold hover:bg-blue-600">
+                <button onClick={() => handleAcceptClick()} className="w-fit py-2 px-4 rounded-xl shadow-lg text-black bg-[#DACDF0]  font-semibold hover:bg-[#B48DF3]">
                   Accept
                 </button>
               </div>
@@ -146,8 +163,6 @@ const TermsAndConditions = () => {
 };
 
 export default TermsAndConditions;
-
-
 
 // import React from "react";
 // // import Sidebar from "../pages/dashboard/";
@@ -260,10 +275,10 @@ export default TermsAndConditions;
 // import exp from "constants";
 
 // const TermsAndConditions = () => {
-//   const [activeTab, setActiveTab] = useState("terms-of-use");
+//   const [activeTab_index, setactiveTab_index] = useState("terms-of-use");
 
 //   const handleTabClick = (tab) => {
-//     setActiveTab(tab);
+//     setactiveTab_index(tab);
 //   };
 
 //   return (
@@ -282,7 +297,7 @@ export default TermsAndConditions;
 //           <ul className="list-none pt-80  space-y-4 items">
 //             <li
 //               className={`cursor-pointer mb-2 ${
-//                 activeTab === "terms-of-use" ? "font-bold" : ""
+//                 activeTab_index === "terms-of-use" ? "font-bold" : ""
 //               }`}
 //               onClick={() => handleTabClick("terms-of-use")}
 //             >
@@ -290,17 +305,17 @@ export default TermsAndConditions;
 //             </li>
 //             <li
 //               className={`cursor-pointer mb-2 ${
-//                 activeTab === "governing-laws" ? "font-bold" : ""
+//                 activeTab_index === 1 ? "font-bold" : ""
 //               }`}
-//               onClick={() => handleTabClick("governing-laws")}
+//               onClick={() => handleTabClick(1)}
 //             >
 //               Governing Laws
 //             </li>
 //             <li
 //               className={`cursor-pointer mb-2 ${
-//                 activeTab === "prohibited-activities" ? "font-bold" : ""
+//                 activeTab_index === 1 ? "font-bold" : ""
 //               }`}
-//               onClick={() => handleTabClick("prohibited-activities")}
+//               onClick={() => handleTabClick(1)}
 //             >
 //               Prohibited Activities
 //             </li>
@@ -310,7 +325,7 @@ export default TermsAndConditions;
 
 //       {/* Main Content */}
 //       <div className="w-3/4 p-4 flex flex-col justify-between">
-//         {activeTab === "terms-of-use" && (
+//         {activeTab_index === "terms-of-use" && (
 //           <div>
 //             <h2>Terms of Use</h2>
 //             <p>
@@ -320,13 +335,13 @@ export default TermsAndConditions;
 //             </p>
 //           </div>
 //         )}
-//         {activeTab === "governing-laws" && (
+//         {activeTab_index === 1 && (
 //           <div>
 //             <h2>Governing Laws</h2>
 //             <p>This is the content for the Governing Laws.</p>
 //           </div>
 //         )}
-//         {activeTab === "prohibited-activities" && (
+//         {activeTab_index === 1 && (
 //           <div>
 //             <h2>Prohibited Activities</h2>
 //             <p>This is the content for the Prohibited Activities.</p>

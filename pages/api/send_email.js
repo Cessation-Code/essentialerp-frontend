@@ -16,7 +16,7 @@ export default async function handler(req, res) {
           pass: "your-password"
         }
       });
-
+ 
       // Create the email message
       const mailOptions = {
         from: email,
