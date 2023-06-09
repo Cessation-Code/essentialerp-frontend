@@ -4,7 +4,7 @@
 ![Screenshot of my progress](https://github.com/Cessation-Code/essentialerp-frontend/blob/feature/dashboard/public/img/Screenshot%20(8).png)
 *Screenshot of my progress thus far on the dashboard*
 
-![Screenshot of my progress](https://github.com/Cessation-Code/essentialerp-frontend/blob/0ba4aa8a67c80be9aed9a65eac97753e053640a2/public/img/Screenshot%20(5).png)
+![Screenshot of my progress](https://github.com/Cessation-Code/essentialerp-frontend/blob/3ddcb751055a6fa5bdcd3556dba366ceacfc84d9/public/img/Screenshot%20(10).png)
 *Screenshot of my progress thus far on the contact page*
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
