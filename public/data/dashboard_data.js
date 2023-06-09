@@ -7,7 +7,7 @@ export const cards = [
     value: "GHC 5000",
     size: {
       width: 400,
-      height: 140,
+      height: 145,
     },
   },
   {
@@ -18,7 +18,7 @@ export const cards = [
     value: "This is the content of card 2.",
     size: {
       width: 400,
-      height: 140,
+      height: 145,
     },
   },
   {
@@ -28,7 +28,7 @@ export const cards = [
     title: "Card 3",
     value: "This is the content of card 3.",
     size: {
-      width: 1040,
+      width: 1000,
       height: 300,
     },
   },
@@ -51,7 +51,7 @@ export const cards = [
     value: "This is the content of card 5.",
     size: {
       width: 450,
-      height: 240,
+      height: 250,
     },
   },
   {
@@ -62,7 +62,7 @@ export const cards = [
     content: "This is the content of card 6.",
     size: {
       width: 450,
-      height: 240,
+      height: 250,
     },
   },
 ];
