@@ -12,42 +12,15 @@ const ContactUs = () => {
   const [email, setemail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Create a data object with form field values
-    const formData = {
-      firstName,
-      lastName,
-      email,
-      message
-    };
-  
-    // Send the form data to the server
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-      });
-  
-      if (response.ok) {
-        console.log("Form submitted successfully");
-        // You can show a success message or redirect the user to a thank-you page here
-      } else {
-        console.log("Failed to submit form");
-        // You can show an error message to the user here
-      }
-    } catch (error) {
-      console.log("Error occurred while submitting form", error);
-      // You can show an error message to the user here
-    }
+
+
+  const handleEmailCheck = () => {
+    const mailtoUrl = `mailto:${'kk.opoku@outlook.com'}?subject=${encodeURIComponent('subject')}`;
+    window.location.href = mailtoUrl;
   };
   
   return (
-    <div className="page-container flex h-screen  bg-[#DACDF0]">
+    <div className="page-container flex h-full  bg-[#DACDF0]">
       
       <div className="sidebar-container pl-6">
       <Link href="/" className="text-lg font-semibold text-white">
@@ -86,7 +59,7 @@ const ContactUs = () => {
           </div>
 
           {/* Contact form */}
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleEmailCheck}>
             <div className="flex gap-4">
               <div className="flex flex-col">
                 <label htmlFor="firstName">First Name</label>
@@ -133,10 +106,7 @@ const ContactUs = () => {
                 className="border border-gray-300 rounded-md py-2 px-3"
               ></textarea>
             </div>
-            <button
-              className="w-38 py-2 px-4 mt-8 rounded-xl shadow-lg text-black bg-[#B48DF3]  item-center font-semibold hover:bg-[#9747FF]"
-              type="submit"
-            >
+            <button className="w-38 py-2 px-4 mt-8 rounded-xl shadow-lg text-black bg-[#B48DF3]  item-center font-semibold hover:bg-[#9747FF]" type="submit">
               Send Message
             </button>
           </form>
