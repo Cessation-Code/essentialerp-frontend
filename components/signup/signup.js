@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import Link from "next/link";
 
-import Logo01 from "../public/icons/signupPage/signupicon01";
+import Logo01 from "../../public/icons/signupPage/signupicon01";
 
 export default function SignUpPage() {
   const [com_name, setCompanyName] = useState("");
@@ -44,8 +44,8 @@ export default function SignUpPage() {
     <div className="bg-[#C4D7F8] h-screen">
       <div className="flex flex-row pt-5">
         <div className="basis-1/5 z-50 text-center">
-          <a className="text-lg font-semibold text-white">Essential</a>
-          <a className="text-xl font-semibold text-[#022568]">ERP</a>
+          <Link href="/" className="text-lg font-semibold text-white">Essential</Link>
+          <Link href="/" className="text-xl font-semibold text-[#022568]">ERP</Link>
         </div>
       </div>
 

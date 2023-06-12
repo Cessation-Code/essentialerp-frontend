@@ -3,12 +3,12 @@ import {
   EmailIcon,
   PhoneIcon,
   ContactUsIcon
-} from "../public/icons/contact/contacticons";
+} from "../../public/icons/contact/contacticons";
 
 const ContactUs = () => {
 
   const handleEmailCheck = () => {
-    const mailtoUrl = `mailto:${'kk.opoku@outlook.com'}?subject=${encodeURIComponent('subject')}`;
+    const mailtoUrl = `mailto:${'kk.opoku@.com'}?subject=${encodeURIComponent('EssentialERP Customer Mail')}`;
     window.location.href = mailtoUrl;
   };
   
@@ -19,9 +19,9 @@ const ContactUs = () => {
       <Link href="/" className="text-lg font-semibold text-white">
         Essential
       </Link>
-      <a href="/" className="text-xl font-semibold text-[#022568]">
+      <Link href="/" className="text-xl font-semibold text-[#022568]">
         ERP
-      </a>
+      </Link>
     </div>
 
       {/* Main Content */}

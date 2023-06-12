@@ -8,7 +8,7 @@ import {
     Legend,
   } from "chart.js";
   import { Bar } from "react-chartjs-2";
-import { Chartdata } from "../../public/data/dashboard_data";  
+import { Chartdata } from "./dashboard_data";  
   import { faker } from "@faker-js/faker";
   
   ChartJS.register(

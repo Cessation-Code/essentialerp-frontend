@@ -1,4 +1,3 @@
-import React from "react";
 
 export const DashboardIcon = (props) => {
   const size = props;
