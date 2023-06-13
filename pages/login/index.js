@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Logo01 from "../../public/icons/loginPage/loginicon01";
+import Logo01 from "../../public/icons/login_page/loginicon01";
 import Link from "next/link";
 
 export default function LoginPage() {

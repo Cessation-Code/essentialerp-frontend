@@ -1,13 +1,13 @@
 import React from "react"
 import Link from "next/link";
 
-import Logo from "../public/icons/landingPage/landing";
-import Logo1 from "../public/icons/landingPage/landingicon01";
-import Logo2 from "../public/icons/landingPage/landingicon02";
-import Logo3 from "../public/icons/landingPage/landingicon03";
-import Logo4 from "../public/icons/landingPage/landingicon04";
-import Logo5 from "../public/icons/landingPage/landingicon05";
-import Logo6 from "../public/icons/landingPage/landingicon06";
+import Logo from "../public/icons/landing_page/landing";
+import Logo1 from "../public/icons/landing_page/landingicon01";
+import Logo2 from "../public/icons/landing_page/landingicon02";
+import Logo3 from "../public/icons/landing_page/landingicon03";
+import Logo4 from "../public/icons/landing_page/landingicon04";
+import Logo5 from "../public/icons/landing_page/landingicon05";
+import Logo6 from "../public/icons/landing_page/landingicon06";
 
 export default function Home() {
 
