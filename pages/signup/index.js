@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Logo01 from "../public/icons/signupPage/signupicon01";
+import Logo01 from "../../public/icons/signupPage/signupicon01";
 
 export default function SignUpPage() {
   const [com_name, setCompanyName] = useState("");

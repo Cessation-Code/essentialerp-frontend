@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Terms = () => {
+export default function TermsAndConditionsPage(){
   return (
     <div className="flex flex-col relative bg-white">
       {/* here's the diagonal object giving at the top */}
@@ -28,6 +28,4 @@ const Terms = () => {
     </div>
   );
 };
-
-export default Terms;
 
