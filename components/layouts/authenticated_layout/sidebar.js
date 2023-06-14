@@ -29,7 +29,7 @@ const menuItems = [
 
 const Sidebar = () => {
   return (
-    <div className="h-screen px-4 pt-8 pb-4 bg-[#C3A2FA] flex justify-between flex-col w-80 fixed z-10">
+    <div className="h-screen mt- px-4 pt-8 pb-4 bg-[#C3A2FA] flex justify-between flex-col w-80 fixed ">
 
       <div className="flex flex-col">
 
