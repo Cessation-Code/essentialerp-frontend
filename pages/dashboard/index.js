@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import AuthenticatedLayout from "../../components/layouts/authenticated_layout";
+import AuthenticatedLayout from "../../components/layouts/authenticated_layout/authenticated_layout";
 
 
 export default function DashboardPage() {

@@ -9,7 +9,7 @@ import {
   ReportIcon,
   SettingsIcon,
   ProfileIcon,
-} from "../public/icons/dashboard_page/dashboard_icons";
+} from "../../../public/icons/dashboard_page/dashboard_icons";
 
 const menuItems = [
   { id: 1, label: "Dashboard", icon: DashboardIcon, link: "/dashboard" },
@@ -30,17 +30,8 @@ const menuItems = [
 const Sidebar = () => {
   return (
     <div className="h-screen px-4 pt-8 pb-4 bg-[#C3A2FA] flex justify-between flex-col w-80 fixed z-10">
+
       <div className="flex flex-col">
-        <div className="flex items-center justify-between">
-          <div className="basis-1/5 z-50 text-center">
-            <Link href="/" className="text-lg font-semibold text-white">
-              Essential
-            </Link>
-            <Link href="/" className="text-xl font-semibold text-[#022568]">
-              ERP
-            </Link>
-          </div>
-        </div>
 
         <div className="flex flex-col items-start mt-24">
           {menuItems.map(({ icon: Icon, ...menu }) => {
@@ -50,7 +41,7 @@ const Sidebar = () => {
                   href={menu.link}
                   className="flex py-4 px-5 items-center w-full h-full"
                 >
-                  <div style={{ width: "2.5rem" }}>
+                  <div className="w-10">
                     <Icon />
                   </div>
                   <span className="text-md font-medium text-text-light">
@@ -61,6 +52,7 @@ const Sidebar = () => {
             );
           })}
         </div>
+
       </div>
 
       <Link href="profile" className={`px-3 py-4`}>
