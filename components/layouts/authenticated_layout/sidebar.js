@@ -15,7 +15,7 @@ const menuItems = [
   { id: 2, label: "Finances", icon: FinancesIcon, link: "/dashboard/finances" },
   { id: 3, label: "Manage HR", icon: ManagehrIcon, link: "/managehr" },
   { id: 4, label: "Inventory", icon: InventoryIcon, link: "/inventory" },
-  { id: 5, label: "Report", icon: TPIPIcon, link: "/report" },
+  { id: 5, label: "TPIP", icon: TPIPIcon, link: "/report" },
 ];
 
 const itemClasses = `flex items-center cursor-pointer text-black rounded-full overflow-hidden whitespace-nowrap`;
