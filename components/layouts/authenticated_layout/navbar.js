@@ -16,7 +16,7 @@ const Navbar = () => {
 
   return (
     <div className="flex flex-row w-full bg-[#DACDF0] justify-between p-4">
-      <div className="sidebar-container mt-3 pl-32">
+      <div className="mt-3">
         <Link href="/" className="text-lg font-semibold text-[#B48DF3]">
           Essential
         </Link>
