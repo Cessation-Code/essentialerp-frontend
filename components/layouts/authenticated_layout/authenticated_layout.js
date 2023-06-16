@@ -1,18 +1,19 @@
-import React from 'react'
-import Navbar from './navbar'
-import Sidebar from './sidebar'
+import React from "react";
+import Navbar from "./navbar";
+import Sidebar from "./sidebar";
 
-export default function AuthenticatedLayout({children}){
+export default function AuthenticatedLayout({ children }) {
   return (
-    <div className='flex '>
-      <Sidebar/>
+    <div className="flex bg-white">
+      <div className="z-20 w-250px">
+        <Sidebar />
+      </div>
 
-      <div className='w-full relative'>
-        <Navbar/>
-        <div className='overflow-y-auto ml-80 mt-24'>
-        {children}
-        </div>
+      <div className="flex flex-col flex-1">
+        <Navbar />
+
+        <div className="flex-1 overflow-y-auto">{children}</div>
       </div>
     </div>
-  )
+  );
 }
