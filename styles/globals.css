@@ -5,3 +5,8 @@
 .font-sans {
     font-family: 'sans';
   }  
+
+  .ml-8 {
+    max-width: 950px; 
+    word-wrap: break-word;
+  }
