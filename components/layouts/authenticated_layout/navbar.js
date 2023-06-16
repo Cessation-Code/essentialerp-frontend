@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/Link";
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -14,39 +15,48 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex justify-between items-center px-4 ml-[20rem] py-6">
-      <div className="navbar bg-[#C3A2FA]">
-        <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">daisyUI</a>
+    <div className="flex flex-row w-screen bg-[#DACDF0] justify-between p-4">
+      <div className="sidebar-container mt-3 pl-32">
+        <Link href="/" className="text-lg font-semibold text-[#B48DF3]">
+          Essential
+        </Link>
+        <Link href="/" className="text-xl font-semibold text-[#022568]">
+          ERP
+        </Link>
+      </div>
+
+      <div className="flex gap-4">
+      <div className="divider lg:divider-horizontal"></div> 
+      <div className="flex flex-col items-end justify-center">
+        <p className="text-white text-1xl ">Welcome {userDetails.name}!</p>
+        <p className="text-white text-xs ">ID: {userDetails.Id}</p>
         </div>
-        <div className="flex-none gap-2">
-          <div className="dropdown dropdown-end">
-            <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-              <div className="w-10 rounded-full">
-                <img src="https://e7.pngegg.com/pngimages/799/987/png-clipart-computer-icons-avatar-icon-design-avatar-heroes-computer-wallpaper-thumbnail.png" />
-              </div>
-            </label>
-            <ul
-              tabIndex={0}
-              className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
-            >
-              <li>
-                <a className="justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li>
-                <a>Logout</a>
-              </li>
-            </ul>
-          </div>
+        <div className="dropdown dropdown-end">
+          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+            <div className="w-10 rounded-full">
+              <img src={userDetails.profile} />
+            </div>
+          </label>
+          <ul
+            tabIndex={0}
+            className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <Link href="" className="justify-between">
+                Profile
+                <span className="badge">New</span>
+              </Link>
+            </li>
+            <li>
+              <Link href="">Settings</Link>
+            </li>
+            <li>
+              <Link href="">Logout</Link>
+            </li>
+          </ul>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 

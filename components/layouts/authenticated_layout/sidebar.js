@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import {
   DashboardIcon,
@@ -10,6 +10,7 @@ import {
   SettingsIcon,
   ProfileIcon,
 } from "../../../public/icons/dashboard_page/dashboard_icons";
+import { Router } from "next/router";
 
 const menuItems = [
   { id: 1, label: "Dashboard", icon: DashboardIcon, link: "/dashboard" },
@@ -26,47 +27,50 @@ const menuItems = [
   { id: 7, label: "Settings", icon: SettingsIcon, link: "/settings" },
 ];
 
+const itemClasses = `flex items-center cursor-pointer ${
+  menuItems.link === Router.pathname ? "bg-[#EDE9FE]" : "bg-transparent"
+} rounded-full overflow-hidden whitespace-nowrap`;
+
 
 const Sidebar = () => {
+  const [isCollapsible, setIsCollapsible] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsCollapsible(!isCollapsible);
+  };
+
   return (
-    <div className="h-screen mt- px-4 pt-8 pb-4 bg-[#C3A2FA] flex justify-between flex-col w-80 fixed ">
-
+    <div
+      onMouseEnter={toggleSidebar}
+      onMouseLeave={toggleSidebar}
+      className="h-screen  px-2  py-4 bg-[#DACDF0] flex justify-items-center items-start flex-col w-fit  "
+    >
       <div className="flex flex-col">
-
-        <div className="flex flex-col items-start mt-24">
+        <div className="flex flex-col items-start my-72">
           {menuItems.map(({ icon: Icon, ...menu }) => {
             return (
-              <div>
+              <div className={itemClasses} key={menu.id}>
                 <Link
                   href={menu.link}
                   className="flex py-4 px-5 items-center w-full h-full"
                 >
-                  <div className="w-10">
+                  <div style={{ width: "2.5rem" }}>
                     <Icon />
                   </div>
-                  <span className="text-md font-medium text-text-light">
-                    {menu.label}
-                  </span>
+                  {!isCollapsible && (
+                    <span className="text-md font-medium text-text-light">
+                      {menu.label}
+                    </span>
+                  )}
                 </Link>
               </div>
             );
           })}
         </div>
-
       </div>
-
-      <Link href="profile" className={`px-3 py-4`}>
-        <div style={{ width: "2.5rem" }}>
-          <ProfileIcon />
-        </div>
-        <span className="text-md font-medium text-text-light">
-          Ridwan
-          <br />
-          Product manager
-        </span>
-      </Link>
     </div>
   );
 };
 
 export default Sidebar;
+

@@ -1,5 +1,4 @@
 import React from "react"
-import Link from "next/link";
 import { useRouter } from 'next/router';
 import AuthenticatedLayout from "../../components/layouts/authenticated_layout/authenticated_layout";
 
@@ -18,7 +17,7 @@ export default function DashboardPage() {
     // </div>
     // find out on how to pass props to a component
 
-    <div className="flex">
+    <div className="bg-gray-200">
       <AuthenticatedLayout>
         {/* <Main /> */}
       </AuthenticatedLayout>
