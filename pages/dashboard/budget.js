@@ -12,7 +12,7 @@ export const Budget = (props) => {
   // }
 
   return (
-    <div className="bg-white shadow-md rounded-lg h-full bg-red-500" {...props}>
+    <div className="shadow-md rounded-lg h-full bg-red-500" {...props}>
       <div className="p-4">
         <div className="flex justify-between items-center mb-3">
           <p className="text-gray-500 text-xs uppercase">Asset in Cash</p>
