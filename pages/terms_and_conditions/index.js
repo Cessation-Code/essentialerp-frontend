@@ -12,7 +12,7 @@ const TermsAndConditions = () => {
   };
 
   const handleAcceptClick = () => {
-    router.push("/dashboard");
+    router.push("/signup");
   };
 
   const ContinueToNextPage = ({ nextTabIndex }) => {
@@ -27,8 +27,10 @@ const TermsAndConditions = () => {
   };
 
   return (
-    <div className="bg-gradient-to-br from-slate-400 to-slate-200 h-screen">
-      <div className=" ml-8">
+
+    
+    <div className="bg-pink-300 bg-gradient-to-br from-pink-300 to-purple-500 min-h-screen">
+      <div className="pt-4 pl-8">
         <Link href="/" className="text-lg font-semibold text-white">
           Essential
         </Link>
@@ -37,9 +39,9 @@ const TermsAndConditions = () => {
         </Link>
       </div>
 
-      {/*Main*/}
-      <div className="flex flex-col items-center justify-center my-48">
-        <div className="bg-white shadow-lg rounded-lg px-10 py-8">
+      {/* Main */}
+      <div className="flex flex-col items-center justify-center my-10 md:my-48">
+        <div className="bg-white shadow-lg rounded-lg px-10 py-8 w-full md:w-3/4 lg:w-1/2">
           <div className="text-center mb-10">
             <h1 className="text-3xl text-[#B48DF3]">TERMS AND CONDITIONS</h1>
             <div className="tabs mt-4 tabs-boxed bg-transparent justify-center">
@@ -126,7 +128,7 @@ const TermsAndConditions = () => {
             )}
             {activeTab === 1 && (
               <motion.div
-                className="ml-8 w-120 "
+                className="ml-8 w-120"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -136,7 +138,7 @@ const TermsAndConditions = () => {
                 <h2 className="text-lg font-semibold text-[#B48DF3]">
                   Governing Laws
                 </h2>
-                <p className="text-left mt-4 ">
+                <p className="text-left mt-4">
                   <b>1. Jurisdiction:</b> These terms and conditions are
                   governed by the laws of KNUST. <br /> <br />
                   <b>2. Dispute Resolution:</b> Any disputes arising from the
