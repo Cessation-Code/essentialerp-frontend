@@ -79,7 +79,7 @@ export default function Home() {
           <div className="flex flex-col">
             <div> <Logo1 /> </div>
             <div className="md:text-lg text-base font-medium pb-1">Financial Accounting</div>
-            <div className="md:text-sm text-xs">Get a real-time view of your cash flow. Full-fledged accounting module covering every aspect of book keeping.</div>
+            <div className="md:text-sm text-xs">Get a real-time view of your cash flow! Full-fledged accounting module covering every aspect of book keeping.</div>
           </div>
         </button>
 
