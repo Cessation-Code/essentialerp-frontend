@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { FaTrash, FaCheck, FaSearch, FaEdit } from "react-icons/fa";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
 import AuthenticatedLayout from "../../../components/layouts/authenticated_layout/authenticated_layout";
 
 const Inventory = () => {
@@ -108,12 +109,13 @@ const Inventory = () => {
                   onChange={handleSearch}
                 />
                 <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <FaSearch className="text-gray-400" />
+                <FontAwesomeIcon icon={faCheck} 
+ className="text-gray-400" />
                 </div>
               </div>
               {newItem ? (
                 <button className="btn btn-icon" onClick={handleApproveItem}>
-                  <FaCheck />
+                       <FontAwesomeIcon icon={faCheck} />
                 </button>
               ) : (
                 <button className="btn btn-primary" onClick={handleAddItem}>
@@ -203,7 +205,7 @@ const Inventory = () => {
                         className="btn btn-icon"
                         onClick={() => handleApproveEdit(item.id)}
                       >
-                        <FaCheck />
+                       <FontAwesomeIcon icon={faCheck} />
                       </button>
                     ) : (
                       <>
@@ -211,15 +213,14 @@ const Inventory = () => {
                           className="btn btn-icon"
                           onClick={() => handleEditItem(item.id)}
                         >
-                          <FaEdit />
-                        </button>
+ <FontAwesomeIcon icon={faEdit} />                        </button>
                         <span className="mx-1"></span>
                         {/* Add some margin between buttons */}
                         <button
                           className="btn btn-icon"
                           onClick={() => handleRemoveItem(item.id)}
                         >
-                          <FaTrash />
+                           <FontAwesomeIcon icon={faTrash} />
                         </button>
                       </>
                     )}
@@ -281,7 +282,7 @@ const Inventory = () => {
                       className="btn btn-icon"
                       onClick={handleApproveItem}
                     >
-                      <FaCheck />
+                       <FontAwesomeIcon icon={faCheck} />
                     </button>
                   </td>
                 </tr>
