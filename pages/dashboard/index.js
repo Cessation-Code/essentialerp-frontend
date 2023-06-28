@@ -1,17 +1,20 @@
 import React from "react";
 import AuthenticatedLayout from "../../components/layouts/authenticated_layout/authenticated_layout";
 import Head from "next/head";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUsers } from '@fortawesome/free-solid-svg-icons'
 
-const Card = ({ title, children, width, height, gridColumn }) => {
-  return (
-    <div className={`card w-${width} h-${height} bg-secondary-focus shadow-xl`} style={{ gridColumn }}>
-      <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        {children}
-      </div>
-    </div>
-  );
-};
+
+// const Card = ({ title, children, width, height, gridColumn }) => {
+//   return (
+//     <div className={`card w-${width} h-${height} bg-secondary-focus shadow-xl`} style={{ gridColumn }}>
+//       <div className="card-body">
+//         <h2 className="card-title">{title}</h2>
+//         {children}
+//       </div>
+//     </div>
+//   );
+// };
 
 export function DashboardPage() {
   return (
@@ -20,109 +23,31 @@ export function DashboardPage() {
         <title>Dashboard | ERP</title>
       </Head>
       <AuthenticatedLayout>
-        <div className="flex-grow py-8 flex">
-          <div className="container mx-10">
-            <div className="grid grid-cols-3 gap-4">
-              {/* First Row */}
-              {/* Card 1 */}
-              <Card
-                title="Card 1"
-                width={96}
-                height={"auto"}
-                gridColumn="span 1"
-                children={
-                  <>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end ">
-                      <button className="btn btn-primary mt-4">Buy Now</button>
-                    </div>
-                  </>
-                }
-              />
-
-              {/* Card 2 */}
-              <Card
-                title="Card 2"
-                width={96}
-                height={"auto"}
-                gridColumn="span 1"
-                children={
-                  <>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                  </>
-                }
-              />
-
-              {/* Card 3 */}
-              <Card
-                title="Card 3"
-                width={96}
-                height={"auto"}
-                gridColumn="span 2"
-                children={
-                  <>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                  </>
-                }
-              />
-
-              {/* Second Row */}
-              {/* Card 4 */}
-              <Card
-                title="Card 4"
-                width={96}
-                height={"auto"}
-                gridColumn="span 2"
-                children={
-                  <>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                  </>
-                }
-              />
-
-              {/* Card 5 */}
-              <Card
-                title="Card 5"
-                width={"15%"}
-                height={"auto"}
-                gridColumn="span 1"
-                children={
-                  <>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                  </>
-                }
-              />
-
-              {/* Card 6 */}
-              <Card
-                title="Card 6"
-                width={"15%"}
-                height={"auto"}
-                gridColumn="span 1"
-                children={
-                  <>
-                    <p>If a dog chews shoes whose shoes does he choose?</p>
-                    <div className="card-actions justify-end">
-                      <button className="btn btn-primary">Buy Now</button>
-                    </div>
-                  </>
-                }
-              />
+        <div className="flex flex-row mx-32 pt-10 gap-20">
+          {/* HR Management Card */}
+          <div className="basis-1/3 flex flex-row bg-[#E2E9FE] rounded-lg px-4 py-6 h-40 space-x-5">
+            <div className="flex flex-col justify-center">
+              <FontAwesomeIcon icon={faUsers} className="text-3xl" />
+            </div>
+            <div className="flex flex-col w-full text-start">
+              <div className="font-semibold pb-1">
+                HR MANAGEMENT
+              </div>
+              <div className="text-sm">
+                Transform Your HR Operations with Effortless Efficiency: Experience the Power of Our Comprehensive HR Management Solution
+              </div>
             </div>
           </div>
+          
+          <div className="basis-1/3 bg-[#FACC89] rounded-lg px-4 py-7 h-40">
+
+          </div>
+
+          <div className="basis-1/3 bg-[#B1FF92] rounded-lg px-4 py-7 h-40">
+
+          </div>
         </div>
+
       </AuthenticatedLayout>
     </div>
   );
