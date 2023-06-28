@@ -23,7 +23,7 @@ export default function LoginPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/loginOrganisation', {
+      const response = await fetch('https://web-production-4909.up.railway.app/api/v1/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,16 +31,17 @@ export default function LoginPage() {
         body: JSON.stringify(loginData),
       });
       const responseData = await response.json();
-
+      console.log(responseData)
       if (response.status == 200) {
         router.push({
           pathname: 'dashboard',
-          query: { from: 'LoginPage', additionalData: [responseData.organisation.organisation_name, responseData.organisation.email] }
+          query: { from: 'LoginPage', additionalData: [responseData.organisation_id, responseData.email] }
         })
       } else {
         setError("Invalid Credentials")
       }
     } catch (error) {
+      console.log(error)
       setError("An error occured, kindly try again");
     }
 

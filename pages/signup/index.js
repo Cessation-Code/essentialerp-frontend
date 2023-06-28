@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import axios from "axios";
 import { useRouter } from "next/router";
 import Logo01 from "../../public/icons/signup_page/signupicon01";
 
@@ -9,7 +8,10 @@ export default function SignUpPage() {
   const [com_name, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [status, setStatus] = useState("");
+  const [first_name, setFirstName] = useState("");
+  const [last_name, setLastName] = useState("");
+  const [phone_number, setPhoneNumber] = useState("");
+  const [stage, setStage] = useState(1);
   const [confirm_password, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
@@ -18,10 +20,6 @@ export default function SignUpPage() {
   const handleCheckboxChange = (event) => {
     setIsChecked(event.target.checked);
   };
-
-  if (status === "success") {
-    console.log("Hello Motherfucker");
-  }
 
   async function handleSubmit(event) {
 
@@ -35,40 +33,49 @@ export default function SignUpPage() {
     if (password !== confirm_password) {
       setError("Passwords do not match.");
     } else {
-      setError(null);
-    }
-
-    const registerData = {
-      organisation_name: com_name,
-      email: email,
-      password: password
-    }
-
-    try {
-      const response = await fetch('http://localhost:8000/api/v1/auth/registerOrganisation', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(registerData),
-      });
-      const responseData = await response.json();
-      if(response.status == 201){
-        router.push({
-          pathname: 'dashboard',
-          query: { from: 'LoginPage', additionalData: [responseData.organisation.name, responseData.organisation.email] }
-        })
-      }else{
-        setError(responseData.message)
+      const registerData = {
+        organisation_name: com_name,
+        email: email,
+        password: password,
+        phone_number: phone_number,
+        first_name: first_name,
+        last_name: last_name
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
 
+      try {
+        const response = await fetch('https://web-production-4909.up.railway.app/api/v1/auth/registerOrganisation', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(registerData),
+        });
+        const responseData = await response.json();
+        if (response.status == 201) {
+          router.push({
+            pathname: 'dashboard',
+            query: { from: 'LoginPage', additionalData: [responseData.organisation.name, responseData.organisation.email] }
+          })
+        } else {
+          setError(responseData.message)
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    }
   }
 
+  const handleNextStage = () => {
+    setStage(stage + 1);
+  };
+
+  const handlePreviousStage = () => {
+    setStage(stage - 1);
+  };
+
+
   return (
-    <div className="bg-[#C4D7F8] h-screen">
+    <div className="bg-[#C4D7F8] min-h-screen">
       <div className="flex flex-row pt-5">
         <div className="basis-1/5 z-50 text-center">
           <a className="text-lg font-semibold text-white">Essential</a>
@@ -92,55 +99,105 @@ export default function SignUpPage() {
         </div>
       </div>
 
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row justify-center">{/* form starts here, in scaffolded in this row */}
 
         <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
-          <div className="mb-4">
-            <label htmlFor="text" className="text-xs font-medium mb-2">Company Name:</label>
-            <input
-              type="text"
-              id="com_name"
-              className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-              value={com_name}
-              onChange={(event) => setCompanyName(event.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label htmlFor="email" className="text-xs font-medium mb-2">Company Email:</label>
-            <input
-              type="email"
-              id="email"
-              className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="text-xs font-medium mb-2">Password:</label>
-            <input
-              type="password"
-              id="password"
-              className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              minLength={5}
-              required
-            />
-          </div>
-          <div className="mb-6">
-            <label htmlFor="password" className="text-xs font-medium mb-2">Confirm Password:</label>
-            <input
-              type="password"
-              id="confirm_password"
-              className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-              value={confirm_password}
-              onChange={(event) => setConfirmPassword(event.target.value)}
-              minLength={5}
-              required
-            />
-          </div>
+          {/* first stage form */}
+          {stage === 1 && (
+            <div>
+              <div className="mb-4">
+                <label htmlFor="text" className="text-xs font-medium mb-2">Company Name:</label>
+                <input
+                  type="text"
+                  id="com_name"
+                  className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                  value={com_name}
+                  onChange={(event) => setCompanyName(event.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="email" className="text-xs font-medium mb-2">Company Email:</label>
+                <input
+                  type="email"
+                  id="email"
+                  className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="password" className="text-xs font-medium mb-2">Password:</label>
+                <input
+                  type="password"
+                  id="password"
+                  className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  minLength={5}
+                  required
+                />
+              </div>
+              <div className="mb-6">
+                <label htmlFor="password" className="text-xs font-medium mb-2">Confirm Password:</label>
+                <input
+                  type="password"
+                  id="confirm_password"
+                  className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                  value={confirm_password}
+                  onChange={(event) => setConfirmPassword(event.target.value)}
+                  minLength={5}
+                  required
+                />
+              </div>
+            </div>
+          )}
+
+          {/* next stage form */}
+          {stage === 2 && (
+            <div>
+              <div className="flex flex-row mb-4 gap-4">
+                <div>
+                  <label htmlFor="text" className="text-xs font-medium mb-2">First Name:</label>
+                  <input
+                    type="text"
+                    id="first_name"
+                    className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                    value={first_name}
+                    onChange={(event) => setFirstName(event.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label htmlFor="text" className="text-xs font-medium mb-2">Last Name:</label>
+                  <input
+                    type="text"
+                    id="last_name"
+                    className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                    value={last_name}
+                    onChange={(event) => setLastName(event.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+              <div className="mb-4">
+                <div>
+                  <label htmlFor="text" className="text-xs font-medium mb-2">Phone Number</label>
+                  <input
+                    type="text"
+                    id="phone_number"
+                    className="w-full px-3 py-1 border border-gray-400 rounded h-7"
+                    value={phone_number}
+                    onChange={(event) => setPhoneNumber(event.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+            </div>
+
+          )}
 
           <div className="flex flex-row justify-center text-sm">
             <input
@@ -158,18 +215,39 @@ export default function SignUpPage() {
             </label>
           </div>
 
+          {/* error code block */}
           <div className="flex flex-row text-center justify-center text-sm text-red-500 mb-4">
             {error}
           </div>
 
           <div className="flex flex-row justify-center">
-            <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-              Create Account
-            </button>
+            {/* show continue button on stage 1 */}
+            {stage === 1 && (
+              <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onClick={handleNextStage}>
+                Continue
+              </button>
+            )}
+
+            {/* show create account and previous button on stage 2 */}
+            {stage === 2 && (
+              <div className="flex flex-row gap-5">
+                <div>
+                  <button type="submit" className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Create Account
+                  </button>
+                </div>
+                <div>
+                  <button className="px-4 py-2 bg-red-700 text-white rounded hover:bg-green-600" onClick={handlePreviousStage}>
+                    Previous
+                  </button>
+                </div>
+              </div>
+            )}
+
+
           </div>
 
         </form>
-
       </div>
 
 
