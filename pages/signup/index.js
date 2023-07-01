@@ -54,7 +54,7 @@ export default function SignUpPage() {
         if (response.status == 201) {
           router.push({
             pathname: 'dashboard',
-            query: { from: 'LoginPage', additionalData: [responseData.organisation.name, responseData.organisation.email] }
+            query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3: responseData.employee.organisation_name }
           })
         } else {
           setError(responseData.message)

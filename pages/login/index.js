@@ -35,7 +35,7 @@ export default function LoginPage() {
       if (response.status == 200) {
         router.push({
           pathname: 'dashboard',
-          query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3:responseData.employee.organisation_name },
+          query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3:responseData.employee.organisation_name }
           // query: { from: 'LoginPage', additionalData: [responseData.employee.first_name, responseData.employee.last_name, responseData.employee.organisation_name] }
         })
       } else {
