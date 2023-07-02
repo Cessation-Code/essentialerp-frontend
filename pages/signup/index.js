@@ -52,6 +52,8 @@ export default function SignUpPage() {
         });
         const responseData = await response.json();
         if (response.status == 201) {
+          // save token in local storage
+          localStorage.setItem('token', responseData.token)
           router.push({
             pathname: 'dashboard',
             query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3: responseData.employee.organisation_name }

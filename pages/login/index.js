@@ -33,10 +33,11 @@ export default function LoginPage() {
       const responseData = await response.json();
       console.log(responseData)
       if (response.status == 200) {
+        // save token in local storage
+        localStorage.setItem('token', responseData.token)
         router.push({
           pathname: 'dashboard',
-          query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3:responseData.employee.organisation_name }
-          // query: { from: 'LoginPage', additionalData: [responseData.employee.first_name, responseData.employee.last_name, responseData.employee.organisation_name] }
+          query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3: responseData.employee.organisation_name }
         })
       } else {
         setError("Invalid Credentials")
