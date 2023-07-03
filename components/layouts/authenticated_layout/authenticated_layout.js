@@ -10,7 +10,7 @@ export default function AuthenticatedLayout({ children }) {
       </div>
       <div className="flex flex-col flex-1">
         <Navbar />
-        <div>{children}</div>
+        <div className="ml-[5.5rem] mt-[5.5rem]">{children}</div>
       </div>
     </div>
   );

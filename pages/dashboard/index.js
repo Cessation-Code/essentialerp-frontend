@@ -19,7 +19,7 @@ import { faBarChart, faUsers } from "@fortawesome/free-solid-svg-icons";
 const Card = ({ title, children, parentdivstyle, childrendivstyle }) => {
   return (
     <div className={parentdivstyle}>
-      <div className={`card-body ${childrendivstyle}`}>
+      <div className={`${childrendivstyle}`}>
         <h2 className="card-title">{title}</h2>
         {children}
       </div>
@@ -34,7 +34,7 @@ export function DashboardPage() {
         <title>Dashboard | ERP</title>
       </Head>
       <AuthenticatedLayout>
-        <div className=" grid grid-cols-3 mx-4 pt-10 gap-2">
+        <div className="grid grid-cols-3 mx-4 pt-2 gap-2 ">
           {/* HR Management Card */}
           <Card
             title="HR MANAGEMENT"
@@ -51,6 +51,12 @@ export function DashboardPage() {
                     Experience the Power of Our Comprehensive HR Management
                     Solution
                   </div>
+                  <div className="text-sm font-semibold mt-4">
+                    Employee Headcount: 250
+                  </div>
+                  <div className="text-sm font-semibold">
+                    Leave Requests: 5 pending
+                  </div>
                 </div>
               </>
             }
@@ -66,6 +72,15 @@ export function DashboardPage() {
                   Efficiently manage your inventory with our powerful Inventory
                   Management solution.
                 </div>
+                <div className="text-sm font-semibold mt-4">
+                  Total Stock Value: $500,000
+                </div>
+                <div className="text-sm font-semibold">
+                  Stock Availability: 80%
+                </div>
+                <div className="text-sm font-semibold">
+                  Critical Stock Alerts: 2 items
+                </div>
               </div>
             }
           />
@@ -80,6 +95,15 @@ export function DashboardPage() {
                   Streamline your financial processes and gain better control
                   over your finances.
                 </div>
+                <div className="text-sm font-semibold mt-4">
+                  Revenue: $1,000,000
+                </div>
+                <div className="text-sm font-semibold">
+                  Expenses: $500,000
+                </div>
+                <div className="text-sm font-semibold">
+                  Profit Margins: 50%
+                </div>
               </div>
             }
           />
@@ -89,7 +113,7 @@ export function DashboardPage() {
           {/* First Card */}
           <Card
             title="Chart Data"
-            parentdivstyle="basis-1/3 flex flex-row bg-[#E2E9FE] rounded-lg px-4 py-6 h-[804px] space-x-3"
+            parentdivstyle="basis-1/3 flex flex-row bg-[#E2E9FE] rounded-lg px-4 py-6 h-[794px] space-x-3"
             childrendivstyle="flex flex-col w-full text-start"
             children={
               <>
@@ -103,39 +127,72 @@ export function DashboardPage() {
             }
           />
 
-          {/*Twin Cards */}
+          {/* Twin Cards */}
           <div className="basis-2/3 flex flex-col col-span-2 gap-2">
-            <div className=" flex row gap-2">
+            <div className="flex row gap-2">
               <Card
-                title="Some data"
-                parentdivstyle="bg-[#D2EEFF] rounded-lg px-4 py-7 h-36 col-span-1 w-[1460px]"
+                title="Sales Performance"
+                parentdivstyle="bg-[#D2EEFF] rounded-lg px-4 h-36 col-span-1 w-[1460px]"
                 childrendivstyle="flex flex-col w-full text-start"
                 children={
                   <div className="flex flex-col w-full text-start">
-                    <div className="text-sm">Some content goes here.</div>
+                    <div className="text-sm">
+                      Total Sales Revenue: $750,000
+                    </div>
+                    <div className="text-sm font-semibold mt-4">
+                      Top Selling Product: Product X
+                    </div>
+                    <div className="text-sm font-semibold">
+                      Sales Growth Rate: 10%
+                    </div>
                   </div>
                 }
               />
               <Card
-                title="Some data"
-                parentdivstyle="bg-[#FEE2E2] rounded-lg px-4 py-7 h-36  w-[1460px]"
+                title="Task Management"
+                parentdivstyle="bg-[#FEE2E2] rounded-lg px-4 pt-2 h-36  w-[1460px]"
                 childrendivstyle="flex flex-col w-full text-start"
                 children={
                   <div className="flex flex-col w-full text-start">
-                    <div className="text-sm">Some content goes here too.</div>
+                    <div className="text-sm">
+                      Task management data content goes here.
+                    </div>
+                    <div className="text-sm font-semibold mt-4">
+                      Pending Tasks: 3
+                    </div>
+                    <div className="text-sm font-semibold">
+                      Upcoming Deadlines: 2
+                    </div>
+                    <div className="text-sm font-semibold">
+                      Task Assignment: John Doe
+                    </div>
                   </div>
                 }
               />
             </div>
 
-            <div className="flex-col">
+            <div className="flex-col col-span-2">
               <Card
-                title="Some data"
-                parentdivstyle="bg-[#FEE2E2] rounded-lg px-4 py-7 h-[640px] w-[1460px]"
+                title="Third-Party Integration Status"
+                parentdivstyle="bg-[#D9E5F7] rounded-lg px-4 py-7 h-[640px]"
                 childrendivstyle="flex flex-col w-full text-start"
                 children={
                   <div className="flex flex-col w-full text-start">
-                    <div className="text-sm">Some content goes here too.</div>
+                    <div className="text-sm">
+                      Third-party integration status content goes here.
+                    </div>
+                    <div className="text-sm font-semibold mt-4">
+                      System A: Connected
+                    </div>
+                    <div className="text-sm font-semibold">
+                      System B: Connected
+                    </div>
+                    <div className="text-sm font-semibold">
+                      System C: Connection Error
+                    </div>
+                    <div className="text-sm font-semibold">
+                      System D: Connected
+                    </div>
                   </div>
                 }
               />
@@ -146,5 +203,6 @@ export function DashboardPage() {
     </div>
   );
 }
+
 
 export default DashboardPage;

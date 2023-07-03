@@ -40,7 +40,7 @@ const Sidebar = () => {
     <div
       onMouseEnter={openSidebar}
       onMouseLeave={closeSidebar}
-      className='h-screen px-2 py-4 bg-[#DACDF0] flex justify-items-center items-center flex-col w-24 transition-all duration-500 hover:w-48'
+      className='h-screen fixed px-2 py-4 bg-[#DACDF0] flex justify-items-center items-center flex-col w-24 transition-all duration-500 hover:w-48'
     >
       
         <div className="flex flex-col justify-center h-full">

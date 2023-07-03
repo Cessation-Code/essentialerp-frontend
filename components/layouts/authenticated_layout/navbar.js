@@ -15,7 +15,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-row w-full bg-[#DACDF0] justify-between p-4">
+    <div className=" fixed flex flex-row w-full bg-[#DACDF0] justify-between p-4">
       <div className="mt-3">
         <Link href="/" className="text-lg font-semibold text-[#B48DF3]">
           Essential
