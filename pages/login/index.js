@@ -21,9 +21,9 @@ export default function LoginPage() {
       email: email,
       password: password
     }
-
+    // 
     try {
-      const response = await fetch('https://web-production-4909.up.railway.app/api/v1/auth/login', {
+      const response = await fetch('http://web-production-4909.up.railway.app/api/v1/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,6 +35,7 @@ export default function LoginPage() {
       if (response.status == 200) {
         // save token in local storage
         localStorage.setItem('token', responseData.token)
+        // route to dashboard page
         router.push({
           pathname: 'dashboard',
           query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3: responseData.employee.organisation_name }

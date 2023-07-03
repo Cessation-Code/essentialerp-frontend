@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faCoins, faBook, faHandshake, faChartSimple, faChartPie } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
 import { useRouter } from "next/router";
+import withAuth from "../../components/withAuth";
 
 
 const ButtonLikeCard = ({ basis, title, icon, description, link, bgColour }) => {
@@ -12,9 +13,9 @@ const ButtonLikeCard = ({ basis, title, icon, description, link, bgColour }) => 
     <div className={basis}>
       <Link href={link}>
         <button className={`${bgColour} flex items-center rounded-lg px-4 py-6 h-40 w-full space-x-5`}>
-          <div className="flex flex-col">
+          {icon && (<div className="flex flex-col">
             <FontAwesomeIcon icon={icon} className="text-3xl" />
-          </div>
+          </div>)}
           <div className="flex flex-col w-full text-start">
             <div className="font-semibold pb-1">
               {title}
@@ -142,4 +143,4 @@ export function DashboardPage() {
   );
 }
 
-export default DashboardPage;
+export default withAuth(DashboardPage);
