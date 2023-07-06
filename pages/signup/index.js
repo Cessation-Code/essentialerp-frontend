@@ -3,6 +3,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo01 from "../../public/icons/signup_page/signupicon01";
+import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout"
+
 
 export default function SignUpPage() {
   const [com_name, setCompanyName] = useState("");
@@ -77,7 +79,8 @@ export default function SignUpPage() {
 
 
   return (
-    <div className="bg-[#C4D7F8] min-h-screen">
+    <UnauthenticatedLayout>
+      <div className="bg-[#C4D7F8] min-h-screen">
       <div className="flex flex-row pt-5">
         <div className="basis-1/5 z-50 text-center">
           <a className="text-lg font-semibold text-white">Essential</a>
@@ -254,5 +257,6 @@ export default function SignUpPage() {
 
 
     </div>
+    </UnauthenticatedLayout>
   )
 }

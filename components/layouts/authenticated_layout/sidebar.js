@@ -30,9 +30,9 @@ const Sidebar = () => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token')
+    localStorage.setItem('token', null)
     router.push({
-      pathname: '/',
+      pathname: '/login',
     })
   }
 
