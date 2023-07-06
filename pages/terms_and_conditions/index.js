@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
-import UnauthenticatedLayout from "../components/layouts/unauthenticated_layout/unauthenticated_layout"
+import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout"
 
 const TermsAndConditions = () => {
   const [activeTab, setActiveTab] = useState(0);
