@@ -30,7 +30,7 @@ const Sidebar = () => {
   };
 
   const logout = () => {
-    localStorage.setItem('token', null)
+    localStorage.clear('token')
     router.push({
       pathname: '/login',
     })
@@ -38,9 +38,9 @@ const Sidebar = () => {
 
   return (
     <div
-      onMouseEnter={openSidebar}
-      onMouseLeave={closeSidebar}
-      className='h-screen px-2 py-4 bg-[#DACDF0] flex justify-items-center items-center flex-col w-24 transition-all duration-500 hover:w-48'
+      // onMouseEnter={openSidebar}
+      // onMouseLeave={closeSidebar}
+      className='h-screen px-2 py-4 bg-[#DACDF0] flex justify-items-center items-center flex-col w-48'
     >
 
       <div className="flex flex-col justify-center h-full">
@@ -52,7 +52,8 @@ const Sidebar = () => {
                 <div className="px-3">
                   <Icon />
                 </div>
-                {isOpen && (<span className="text-md font-medium text-text-light ">{menu.label}</span>)}
+                {/* {isOpen && (<span className="text-md font-medium text-text-light ">{menu.label}</span>)} */}
+                <span className="text-md font-medium text-text-light ">{menu.label}</span>
               </Link>
             </div>
           );
@@ -64,7 +65,8 @@ const Sidebar = () => {
               <div className="flex">
                 <LogoutIcon />
               </div>
-              {isOpen && (<div className="flex font-semibold text-sm">LOGOUT</div>)}
+              {/* {isOpen && (<div className="flex font-semibold text-sm">LOGOUT</div>)} */}
+              <div className="flex font-semibold text-sm">LOGOUT</div>
             </div>
           </button>
         </div>
