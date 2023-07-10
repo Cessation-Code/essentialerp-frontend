@@ -1,14 +1,12 @@
 import React from 'react'
-import AuthenticatedLayout from '../../../components/layouts/authenticated_layout/authenticated_layout'
+import withAuth from '../../../components/withAuth'
 
 const TPIP = () => {
   return (
     <div>
-      <AuthenticatedLayout>
       TPIP Page Component
-      </AuthenticatedLayout>
     </div>
   )
 }
 
-export default TPIP
+export default withAuth(TPIP)

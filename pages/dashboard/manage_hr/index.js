@@ -1,5 +1,5 @@
 import React from "react";
-import AuthenticatedLayout from "../../../components/layouts/authenticated_layout/authenticated_layout";
+import withAuth from "../../../components/withAuth";
 
 const Employees = [
   {
@@ -27,7 +27,6 @@ const Employees = [
 ];
 const Manage_HR = () => {
   return (
-    <AuthenticatedLayout>
       <div className="max-w-screen max-h-screen p-4 mt-16 mx-10 border-4 rounded-3xl">
         <div className="items-start justify-between sm:flex">
           <div>
@@ -90,8 +89,7 @@ const Manage_HR = () => {
           ))}
         </ul>
       </div>
-    </AuthenticatedLayout>
   );
 };
 
-export default Manage_HR;
+export default withAuth(Manage_HR);

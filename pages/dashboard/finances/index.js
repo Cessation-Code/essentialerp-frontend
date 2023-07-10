@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import AuthenticatedLayout from "../../../components/layouts/authenticated_layout/authenticated_layout";
+import withAuth from "../../../components/withAuth";
 
 const Finance = () => {
   const [entries, setEntries] = useState([
@@ -75,7 +75,6 @@ const Finance = () => {
 
   return (
     <div>
-      <AuthenticatedLayout>
         <div className="flex flex-wrap">
           <div className="w-full">
             <div className="bg-white rounded-lg p-4 mb-4">
@@ -211,9 +210,8 @@ const Finance = () => {
             </div>
           </div>
         </div>
-      </AuthenticatedLayout>
     </div>
   );
 };
 
-export default Finance;
+export default withAuth(Finance);
