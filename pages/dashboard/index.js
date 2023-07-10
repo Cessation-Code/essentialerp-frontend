@@ -30,17 +30,18 @@ const ButtonLikeCard = ({ basis, title, icon, description, link, bgColour }) => 
   );
 };
 
-export function DashboardPage() {
+export function DashboardPage(props) {
 
   const router = useRouter();
   const {prop1, prop2, prop3} = router.query;
+  console.log(props.employee)
+  
 
   return (
-    <div className="bg-gray-200">
+    <div className="bg-white h-full">
       <Head>
         <title>Dashboard | ERP</title>
       </Head>
-      <AuthenticatedLayout username={prop1 + ' ' + prop2} organisation={prop3}>
         <div className="flex flex-row mx-32 pt-10 gap-20">
           {/* HR Management Button */}
           <ButtonLikeCard
@@ -120,7 +121,7 @@ export function DashboardPage() {
             basis='basis-1/2'
             title='SOME DATA'
             // icon=''
-            description={prop1 + ' ' + prop2}
+            description={props.employee.first_name + ' ' + props.employee.last_name}
             link=''
             bgColour='bg-[#F2F5FE]'
           />
@@ -129,7 +130,7 @@ export function DashboardPage() {
             basis='basis-1/2'
             title='SOME DATA'
             // icon=''
-            description={prop3}
+            description={props.employee.employee_id}
             link=''
             bgColour='bg-[#F2F5FE]'
           />
@@ -138,7 +139,6 @@ export function DashboardPage() {
 
 
 
-      </AuthenticatedLayout>
     </div>
   );
 }
