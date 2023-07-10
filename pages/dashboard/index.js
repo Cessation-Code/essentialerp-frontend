@@ -4,7 +4,6 @@ import Head from "next/head";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faCoins, faBook, faHandshake, faChartSimple, faChartPie } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";
-import { useRouter } from "next/router";
 import withAuth from "../../components/withAuth";
 
 
@@ -31,11 +30,6 @@ const ButtonLikeCard = ({ basis, title, icon, description, link, bgColour }) => 
 };
 
 export function DashboardPage(props) {
-
-  const router = useRouter();
-  const {prop1, prop2, prop3} = router.query;
-  console.log(props.employee)
-  
 
   return (
     <div className="bg-white h-full">
