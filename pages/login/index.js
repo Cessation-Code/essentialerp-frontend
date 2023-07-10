@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Logo01 from "../../public/icons/login_page/loginicon01";
 import Link from "next/link";
+import Logo from "../../components/logo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -50,11 +51,8 @@ export default function LoginPage() {
 
   return (
     <div className="bg-[#C4D7F8] h-screen">
-      <div className="flex flex-row pt-5">
-        <div className="basis-1/5 z-50 text-center">
-          <a className="text-lg font-semibold text-white">Essential</a>
-          <a className="text-xl font-semibold text-[#022568]">ERP</a>
-        </div>
+      <div className="flex flex-row p-5">
+        <Logo/>
       </div>
 
       <div className="flex flex-row justify-center pt-16">

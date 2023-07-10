@@ -4,6 +4,7 @@ import {
     PhoneIcon,
     ContactUsIcon
 } from "../../public/icons/contact_us_page/contact_icons";
+import Logo from "../../components/logo";
 
 export default function ContactUs() {
 
@@ -13,20 +14,15 @@ export default function ContactUs() {
     };
 
     return (
-        <div className="page-container flex h-full  bg-[#DACDF0]">
+        <div className="page-container flex h-full fixed bg-[#DACDF0]">
 
-            <div className="sidebar-container pl-6">
-                <Link href="/" className="text-lg font-semibold text-white">
-                    Essential
-                </Link>
-                <Link href="/" className="text-xl font-semibold text-[#022568]">
-                    ERP
-                </Link>
+            <div className="sidebar-container p-6">
+                <Logo/>
             </div>
 
             {/* Main Content */}
-            <div className="w-5/6 pt-28 text-heading flex-col justify-center border-separate">
-                <div className="container mx-auto max-w-fit max-h-fit bg-slate-200 rounded-lg shadow-lg p-8">
+            <div className="w-screen pt-28 text-heading flex-col justify-center border-separate">
+                <div className="container mx-[30%] max-w-fit h-fit bg-slate-200 rounded-lg shadow-lg p-8">
                     <div className=" flex flex-col  items-center pt-4">
                         <p className=" text-3xl mb-10 text-[#B48DF3]">CONTACT US</p>
                         <p className=" text-2xl mb-10 text-black">

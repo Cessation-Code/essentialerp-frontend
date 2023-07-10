@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion, AnimatePresence } from "framer-motion";
+import Logo from "../../components/logo";
 
 const TermsAndConditions = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -31,12 +32,7 @@ const TermsAndConditions = () => {
     
     <div className="bg-pink-300 bg-gradient-to-br from-pink-300 to-purple-500 min-h-screen">
       <div className="pt-4 pl-8">
-        <Link href="/" className="text-lg font-semibold text-white">
-          Essential
-        </Link>
-        <Link href="/" className="text-xl font-semibold text-[#022568]">
-          ERP
-        </Link>
+       <Logo/>
       </div>
 
       {/* Main */}

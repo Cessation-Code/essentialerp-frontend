@@ -3,6 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo01 from "../../public/icons/signup_page/signupicon01";
+import Logo from "../../components/logo";
 
 export default function SignUpPage() {
   const [com_name, setCompanyName] = useState("");
@@ -78,8 +79,7 @@ export default function SignUpPage() {
     <div className="bg-[#C4D7F8] min-h-screen">
       <div className="flex flex-row pt-5">
         <div className="basis-1/5 z-50 text-center">
-          <a className="text-lg font-semibold text-white">Essential</a>
-          <a className="text-xl font-semibold text-[#022568]">ERP</a>
+          <Logo/>
         </div>
       </div>
 
@@ -157,9 +157,10 @@ export default function SignUpPage() {
           {/* next stage form */}
           {stage === 2 && (
             <div>
+              <p className="text-center text-2xl">Administrator Details</p>
               <div className="flex flex-row mb-4 gap-4">
                 <div>
-                  <label htmlFor="text" className="text-xs font-medium mb-2">First Name:</label>
+                  <label htmlFor="text" className="text- font-medium mb-2">First Name:</label>
                   <input
                     type="text"
                     id="first_name"
