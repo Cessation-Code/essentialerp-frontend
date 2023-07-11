@@ -26,6 +26,7 @@ export default function LoginPage() {
     // 
     try {
       const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/login', {
+        mode: 'no-cors',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
