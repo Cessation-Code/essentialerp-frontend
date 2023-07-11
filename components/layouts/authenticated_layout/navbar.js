@@ -25,8 +25,8 @@ const Navbar = ({ username, organisation }) => {
       <div className="flex basis-3/4 justify-end gap-x-5">
         <div className="divider lg:divider-horizontal"></div>
         <div className="flex flex-col">
-          <p className="text-white text-1xl ">Welcome {username}!</p>
-          <p className="text-white text-xs ">Organization: {organisation}</p>
+          <p className="text-white text-1xl">Welcome {username}!</p>
+          <p className="text-white text-xs">Organization: {organisation}</p>
         </div>
         <div className="flex flex-col w-10 border border-gray-500 rounded-full justify-center">
           <FontAwesomeIcon icon={faUser}/>

@@ -9,9 +9,14 @@ const withAuth = (WrappedComponent) => {
 
         const [token, setToken] = useState("")
         const [employee, setEmployee] = useState(null)
+        const [navUsername, setNavUsername] = useState()
+        const [navOrganisation, setNavOrganisation] = useState()
         const router = useRouter()
 
         useEffect(() => {
+
+            setNavUsername(localStorage.getItem('username'))
+            setNavOrganisation(localStorage.getItem('organisation'))
 
             async function fetchEmployee() {
                 try {
@@ -34,20 +39,20 @@ const withAuth = (WrappedComponent) => {
 
             const data = localStorage.getItem('token')
             setToken(data)
-            if (!data) { router.replace('/login') }
+            if (!localStorage.getItem('token') || !localStorage.getItem('username') || !localStorage.getItem('organisation')) { router.replace('/login') }
             fetchEmployee()
         }, [])
 
         // console.log(employee)
         if (!token || !employee) {
             return (
-                <AuthenticatedLayout username={'Loading...'} organisation={'Loading...'}>
+                <AuthenticatedLayout username={navUsername} organisation={navOrganisation}>
                     <LoadingSpinner />
                 </AuthenticatedLayout>
             )
         } else {
             return (
-                <AuthenticatedLayout username={employee.first_name+" "+employee.last_name} organisation={employee.organisation_name}>
+                <AuthenticatedLayout username={navUsername} organisation={navOrganisation}>
                     <WrappedComponent employee={employee} />
                 </AuthenticatedLayout>
             )

@@ -18,22 +18,22 @@ const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
-  const openSidebar = () => {
-    setTimeout(() => {
-      setIsOpen(true);// Call the function here
-    }, 180); // Delay of 2000 milliseconds (2 seconds)
+  // const openSidebar = () => {
+  //   setTimeout(() => {
+  //     setIsOpen(true);// Call the function here
+  //   }, 180); // Delay of 2000 milliseconds (2 seconds)
 
-  };
+  // };
 
-  const closeSidebar = () => {
-    setIsOpen(false);
-  };
+  // const closeSidebar = () => {
+  //   setIsOpen(false);
+  // };
 
   const logout = () => {
     localStorage.clear('token')
-    router.push({
-      pathname: '/login',
-    })
+    localStorage.clear('username')
+    localStorage.clear('organisation')
+    router.replace('/login')
   }
 
   return (

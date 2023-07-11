@@ -37,6 +37,8 @@ export default function LoginPage() {
       if (response.status == 200) {
         // save token in local storage
         localStorage.setItem('token', responseData.token)
+        localStorage.setItem('username', responseData.employee.first_name+" "+responseData.employee.last_name)
+        localStorage.setItem('organisation', responseData.employee.organisation_name)
         // route to dashboard page
         router.push({
           pathname: 'dashboard',
