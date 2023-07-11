@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import Logo from "../../logo";
 
 const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -15,14 +16,9 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex flex-row w-full bg-[#DACDF0] justify-between p-4">
+    <div className="flex flex-row w-full bg-[#DACDF0] justify-between p-4">it 
       <div className="mt-3">
-        <Link href="/" className="text-lg font-semibold text-[#B48DF3]">
-          Essential
-        </Link>
-        <Link href="/" className="text-xl font-semibold text-[#022568]">
-          ERP
-        </Link>
+       <Logo/>
       </div>
 
       <div className="flex gap-4">
