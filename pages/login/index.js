@@ -28,6 +28,7 @@ export default function LoginPage() {
       const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/login', {
         method: 'POST',
         headers: {
+          'Access-Control-Allow-Origin': '*', 
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(loginData),
