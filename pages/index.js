@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link";
-
-import Logo from "../public/icons/landing_page/landing";
+import Logo  from "../components/logo";
+import LandingComponent from "../public/icons/landing_page/landing";
 import Logo1 from "../public/icons/landing_page/landingicon01";
 import Logo2 from "../public/icons/landing_page/landingicon02";
 import Logo3 from "../public/icons/landing_page/landingicon03";
@@ -26,10 +26,7 @@ export default function Home() {
 
         <div className='flex flex-row px-5 pt-5 items-center'>
 
-          <div className='basis-1/5 z-50 text-center'>
-            <a className='text-lg font-semibold text-white'>Essential</a>
-            <a className='text-xl font-semibold text-[#022568]'>ERP</a>
-          </div>
+          <Logo/>
 
           <div className='basis-3/5 z-50'>
             <div className='flex flex-row px-28 font-bold text-black text-center'>
@@ -64,7 +61,7 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row justify-center'>
-          <Logo />
+          <LandingComponent />
         </div>
 
         <div className='flex flex-row justify-center gap-4 pt-6 font-medium text-center'>

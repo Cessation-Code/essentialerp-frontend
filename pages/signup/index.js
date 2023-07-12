@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Logo01 from "../../public/icons/signup_page/signupicon01";
 import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout"
+import Logo from "../../components/logo";
 
 
 export default function SignUpPage() {
@@ -81,12 +82,7 @@ export default function SignUpPage() {
   return (
     <UnauthenticatedLayout>
       <div className="bg-[#C4D7F8] min-h-screen">
-      <div className="flex flex-row pt-5">
-        <div className="basis-1/5 z-50 text-center">
-          <a className="text-lg font-semibold text-white">Essential</a>
-          <a className="text-xl font-semibold text-[#022568]">ERP</a>
-        </div>
-      </div>
+      <Logo/>
 
       <div className="flex flex-row justify-center pt-16">
         <Logo01 />
