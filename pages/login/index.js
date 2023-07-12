@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Logo01 from "../../public/icons/login_page/loginicon01";
 import Link from "next/link";
-import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout"
-
+import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout";
+import LoadingSpinner from "../../components/loadingSpinner";
+import Logo from "../../components/logo";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-
 
   function togglePasswordVisibility() {
     setShowPassword(!showPassword);
@@ -19,51 +20,60 @@ export default function LoginPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true);
+
     const loginData = {
       email: email,
-      password: password
-    }
-    // 
+      password: password,
+    };
+
     try {
-      const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/login', {
-        method: 'POST',
-        headers: {
-          'Access-Control-Allow-Origin': '*', 
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(loginData),
-      });
+      const response = await fetch(
+        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/login",
+        {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(loginData),
+        }
+      );
       const responseData = await response.json();
-      console.log(responseData)
+      console.log(responseData);
       if (response.status == 200) {
         // save token in local storage
-        localStorage.setItem('token', responseData.token)
-        localStorage.setItem('username', responseData.employee.first_name+" "+responseData.employee.last_name)
-        localStorage.setItem('organisation', responseData.employee.organisation_name)
+        localStorage.setItem("token", responseData.token);
+        localStorage.setItem(
+          "username",
+          responseData.employee.first_name + " " + responseData.employee.last_name
+        );
+        localStorage.setItem("organisation", responseData.employee.organisation_name);
         // route to dashboard page
         router.push({
-          pathname: 'dashboard',
-          query: { prop1: responseData.employee.first_name, prop2: responseData.employee.last_name, prop3: responseData.employee.organisation_name }
-        })
+          pathname: "dashboard",
+          query: {
+            prop1: responseData.employee.first_name,
+            prop2: responseData.employee.last_name,
+            prop3: responseData.employee.organisation_name,
+          },
+        });
       } else {
-        setError("Invalid Credentials")
+        setError("Invalid Credentials");
       }
     } catch (error) {
-      console.log(error)
-      setError("An error occured, kindly try again");
+      console.log(error);
+      setError("An error occurred, kindly try again");
+    } finally {
+      setLoading(false);
     }
-
   };
-
 
   return (
     <UnauthenticatedLayout>
       <div className="bg-[#C4D7F8] h-screen">
         <div className="flex flex-row pt-5">
-          <div className="basis-1/5 z-50 text-center">
-            <a className="text-lg font-semibold text-white">Essential</a>
-            <a className="text-xl font-semibold text-[#022568]">ERP</a>
-          </div>
+         <Logo/>
         </div>
 
         <div className="flex flex-row justify-center pt-16">
@@ -98,7 +108,8 @@ export default function LoginPage() {
               </label>
               <div>
                 <label htmlFor="password"></label>
-                <input className="px-3"
+                <input
+                  className="px-3"
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
@@ -116,9 +127,13 @@ export default function LoginPage() {
             </div>
 
             <div className="flex flex-row justify-center pt-5">
-              <button type="submit" className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600">
-                Login
-              </button>
+              {loading ? (
+                <LoadingSpinner />
+              ) : (
+                <button type="submit" className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600">
+                  Login
+                </button>
+              )}
             </div>
             <div className="flex flex-row justify-center pt-5">
               Don't have an account? &nbsp;{" "}
@@ -130,6 +145,5 @@ export default function LoginPage() {
         </div>
       </div>
     </UnauthenticatedLayout>
-
   );
 }
