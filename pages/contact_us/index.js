@@ -15,11 +15,13 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="page-container flex h-full fixed   bg-[#DACDF0]">
-      <Logo />
+    <div className="flex flex-col h-screen">
+     <header className="bg-[#DACDF0] p-4">
+        <Logo />  
+      </header>
       {/* Main Content */}
-      <div className="w-screen pt-28 text-heading flex-col justify-center border-separate">
-        <div className="container mx-[30%] max-w-fit max-h-fit bg-slate-200 rounded-lg shadow-lg p-8">
+      <main className="flex-1 overflow-y-auto">
+        <div className="container mx-auto p-8 max-w-3xl">
           <div className=" flex flex-col  items-center pt-4">
             <p className=" text-3xl mb-10 text-[#B48DF3]">CONTACT US</p>
             <p className=" text-2xl mb-10 text-black">
@@ -31,7 +33,8 @@ export default function ContactUs() {
             </div>
 
             {/* Static contact information */}
-            <div className="icons-container flex flex-row pb-12 gap-20 mb-0">
+            <div className="flex flex-wrap justify-center gap-8">
+
               <div className="email-item-container flex flex-col items-center">
                 <EmailIcon className="mb-4" />
                 <p className="text-center">Email</p>
@@ -57,7 +60,7 @@ export default function ContactUs() {
             </button>
           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 }
