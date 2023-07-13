@@ -72,9 +72,9 @@ export default function LoginPage() {
   return (
     <UnauthenticatedLayout>
       <div className="bg-[#C4D7F8] h-screen">
-        <div className="flex flex-row pt-5">
+        <header className="p-5">
          <Logo/>
-        </div>
+        </header>
 
         <div className="flex flex-row justify-center pt-16">
           <Logo01 />

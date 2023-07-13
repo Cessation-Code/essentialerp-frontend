@@ -91,7 +91,9 @@ export default function SignUpPage() {
   return (
     <UnauthenticatedLayout>
       <div className="bg-[#C4D7F8] min-h-screen">
-        <Logo />
+      <header className="p-5">
+         <Logo/>
+        </header>
 
         <div className="flex flex-row justify-center pt-16">
           <Logo01 />

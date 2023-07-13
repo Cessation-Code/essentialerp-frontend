@@ -31,7 +31,9 @@ const TermsAndConditions = () => {
   return (
     <UnauthenticatedLayout>
       <div className="bg-pink-300 bg-gradient-to-br from-pink-300 to-purple-500 min-h-screen">
-       <Logo/>
+      <header className="p-5">
+         <Logo/>
+        </header>
 
         {/* Main */}
         <div className="flex flex-col items-center justify-center my-10 md:my-48">
