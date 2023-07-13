@@ -142,7 +142,10 @@ export default function SignUpPage() {
                   />
                 </div>
                 <div className="mb-6">
-                  <label htmlFor="password" className="text-xs font-medium mb-2">
+                  <label
+                    htmlFor="password"
+                    className="text-xs font-medium mb-2"
+                  >
                     Password:
                   </label>
                   <input
@@ -156,7 +159,10 @@ export default function SignUpPage() {
                   />
                 </div>
                 <div className="mb-6">
-                  <label htmlFor="password" className="text-xs font-medium mb-2">
+                  <label
+                    htmlFor="password"
+                    className="text-xs font-medium mb-2"
+                  >
                     Confirm Password:
                   </label>
                   <input
@@ -234,7 +240,10 @@ export default function SignUpPage() {
                 className="ml-2 text-sm font-medium text-gray-900 dark:text-black dark:hover:text-300"
               >
                 I agree with the{" "}
-                <Link href="terms_and_conditions" className="text-[#7622FF] underline">
+                <Link
+                  href="terms_and_conditions"
+                  className="text-[#7622FF] underline"
+                >
                   Terms and Conditions
                 </Link>
               </label>
@@ -258,24 +267,27 @@ export default function SignUpPage() {
 
               {/* show create account and previous button on stage 2 */}
               {stage === 2 && (
-                <div className="flex flex-row gap-5">
-                  <div>
-                    {loading ? (
-                      <div className="flex justify-center items-center h-72 w-48">
-                        <LoadingSpinner />
-                      </div>
-                    ) : (
-                      <button
-                        type="submit"
-                        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                      >
-                        Create Account
-                      </button>
-                    )}
-                  </div>
-                  <div>
+                <div className="relative">
+                  {loading && (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <LoadingSpinner />
+                    </div>
+                  )}
+
+                  <div
+                    className={`${
+                      loading ? "invisible" : "visible"
+                    } flex flex-row gap-5`}
+                  >
                     <button
-                      className="px-4 py-2 items-center bg-red-700 text-white rounded hover:bg-green-600"
+                      type="submit"
+                      className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                    >
+                      Create Account
+                    </button>
+
+                    <button
+                      className="px-4 py-2 bg-red-700 text-white rounded hover:bg-green-600"
                       onClick={handlePreviousStage}
                     >
                       Previous
