@@ -12,7 +12,7 @@ const Navbar = ({ username, organisation }) => {
   };
 
   return (
-    <div className="flex flex-row w-full bg-[#DACDF0] p-5">
+    <div className="flex flex-row w-full justify-between bg-[#DACDF0] p-5">
 
      <Logo/>
 
