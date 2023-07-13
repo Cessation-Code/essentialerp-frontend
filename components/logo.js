@@ -2,7 +2,7 @@ import  Link  from 'next/link';
 
 export default function Logo() {
     return(
-        <div className="p-6">
+        <div >
             <Link href="/" className="text-lg font-semibold text-white">
                 Essential
             </Link>
