@@ -48,7 +48,7 @@ export default function SignUpPage() {
 
       try {
         const response = await fetch(
-          "https://web-production-4909.up.railway.app/api/v1/auth/registerOrganisation",
+          "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/registerOrganisation",
           {
             method: "POST",
             headers: {
@@ -60,7 +60,13 @@ export default function SignUpPage() {
         const responseData = await response.json();
         if (response.status == 201) {
           // save token in local storage
+          console.log(responseData);
           localStorage.setItem("token", responseData.token);
+          localStorage.setItem(
+            "username",
+            responseData.employee.first_name + " " + responseData.employee.last_name
+          );
+          localStorage.setItem("organisation", responseData.employee.organisation_name);
           router.push({
             pathname: "dashboard",
             query: {
