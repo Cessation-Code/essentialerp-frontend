@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import AuthenticatedLayout from "../../../components/layouts/authenticated_layout/authenticated_layout";
 import { faTrash, faEdit, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import withAuth from "../../../components/withAuth";
 
 const Finance = () => {
   const [incomeEntries, setIncomeEntries] = useState([
@@ -114,7 +114,6 @@ const Finance = () => {
 
   return (
     <div>
-      <AuthenticatedLayout>
         <div className="flex flex-wrap">
           <div className="w-full">
             <div className="bg-white rounded-lg p-4 mb-4">
@@ -354,9 +353,8 @@ const Finance = () => {
             </div>
           </div>
         </div>
-      </AuthenticatedLayout>
     </div>
   );
 };
 
-export default Finance;
+export default withAuth(Finance);
