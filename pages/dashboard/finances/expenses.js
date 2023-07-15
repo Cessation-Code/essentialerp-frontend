@@ -2,14 +2,9 @@ import React, { useState } from "react";
 import { faTrash, faEdit, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
-import Error from "../../../components/error";
+import Modal from "./modal";
 
 const ExpenseTable = () => {
-  const isValidDateEntry = (date) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/;
-    return regex.test(date);
-  };
-
   const [expenseEntries, setExpenseEntries] = useState([
     {
       id: 1,
@@ -42,8 +37,12 @@ const ExpenseTable = () => {
   });
 
   const [editedEntryId, setEditedEntryId] = useState(null);
-
   const [error, setError] = useState("");
+
+  const isValidDateEntry = (date) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(date);
+  };
 
   const addExpenseEntry = () => {
     const newEntryId = expenseEntries.length + 1;
@@ -70,48 +69,13 @@ const ExpenseTable = () => {
     });
   };
 
-  const deleteExpenseEntry = (id) => {
-    const updatedEntries = expenseEntries.filter((entry) => entry.id !== id);
-    setExpenseEntries(updatedEntries);
-  };
-
-  const handleExpenseInputChange = (id, field, value) => {
-    updateExpenseEntry(id, field, value);
-  };
-
-  const handleExpenseEntrySave = (id) => {
-    const editedEntry = expenseEntries.find((entry) => entry.id === id);
-    const { date, category, amount } = editedEntry;
-    if (date !== "" && category !== "" && amount !== "") {
-      if (!isNaN(amount)) {
-        const isValidDate = isValidDateEntry(date);
-        if (isValidDate) {
-          updateExpenseEntry(id, "editMode", false);
-          setError("");
-        } else {
-          setError("Incomplete entry data. Please fill in all fields.");
-          alert("Invalid date entry. Please enter a valid date.");
-        }
-      } else {
-        setError("Incomplete entry data. Please fill in all fields.");
-        alert("The amount field should be a valid number.")
-      }
-    } else {
-      setError("Incomplete entry data. Please fill in all fields.");
-      alert("Incomplete entry data. Please fill in all fields.")
-    }
-  };
-
   return (
     <div className="w-full px-6">
       <div className="flex flex-row justify-between mb-4">
         <h3 className="text-3xl text ml-2 font-semibold">Expense Table</h3>
-
         <div className="flex flex-row items-baseline">
-          <SearchButton/>
-          <button className="btn btn-primary" onClick={addExpenseEntry}>
-            Add Expense
-          </button>
+          <SearchButton />
+          <Modal/>
         </div>
       </div>
 
@@ -140,7 +104,7 @@ const ExpenseTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.date}
                     onChange={(e) =>
-                      handleExpenseInputChange(entry.id, "date", e.target.value)
+                      updateExpenseEntry(entry.id, "date", e.target.value)
                     }
                   />
                 ) : (
@@ -154,11 +118,7 @@ const ExpenseTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.category}
                     onChange={(e) =>
-                      handleExpenseInputChange(
-                        entry.id,
-                        "category",
-                        e.target.value
-                      )
+                      updateExpenseEntry(entry.id, "category", e.target.value)
                     }
                   />
                 ) : (
@@ -172,11 +132,7 @@ const ExpenseTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.amount}
                     onChange={(e) =>
-                      handleExpenseInputChange(
-                        entry.id,
-                        "amount",
-                        e.target.value
-                      )
+                      updateExpenseEntry(entry.id, "amount", e.target.value)
                     }
                   />
                 ) : (
@@ -213,8 +169,58 @@ const ExpenseTable = () => {
           ))}
         </tbody>
       </table>
+      <input
+        type="checkbox"
+        id="my_modal_6"
+        className="modal-toggle hidden"
+      />
+      <div className="modal hidden">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Hello!</h3>
+          <p className="py-4">This modal works with a hidden checkbox!</p>
+          <div className="modal-action">
+            <label htmlFor="my_modal_6" className="btn">
+              Close!
+            </label>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
 
 export default ExpenseTable;
+
+
+
+// const deleteExpenseEntry = (id) => {
+//   const updatedEntries = expenseEntries.filter((entry) => entry.id !== id);
+//   setExpenseEntries(updatedEntries);
+// };
+
+// const handleExpenseInputChange = (id, field, value) => {
+//   updateExpenseEntry(id, field, value);
+// };
+
+// const handleExpenseEntrySave = (id) => {
+//   const editedEntry = expenseEntries.find((entry) => entry.id === id);
+//   const { date, category, amount } = editedEntry;
+//   if (date !== "" && category !== "" && amount !== "") {
+//     if (!isNaN(amount)) {
+//       const isValidDate = isValidDateEntry(date);
+//       if (isValidDate) {
+//         updateExpenseEntry(id, "editMode", false);
+//         setError("");
+//       } else {
+//         setError("Incomplete entry data. Please fill in all fields.");
+//         alert("Invalid date entry. Please enter a valid date.");
+//       }
+//     } else {
+//       setError("Incomplete entry data. Please fill in all fields.");
+//       alert("The amount field should be a valid number.");
+//     }
+//   } else {
+//     setError("Incomplete entry data. Please fill in all fields.");
+//     alert("Incomplete entry data. Please fill in all fields.");
+//   }
+// };

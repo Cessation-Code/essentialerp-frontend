@@ -2,7 +2,7 @@ import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
-const SearchButton = ({onSearch}) => {
+const SearchButton = ({ onSearch }) => {
   const [value, setValue] = useState("");
 
   const handleChange = (e) => {
@@ -14,19 +14,15 @@ const SearchButton = ({onSearch}) => {
     onSearch(value);
   };
 
-
-
   return (
-    <form onSubmit={handleSubmit} className="mr-3 ">
+    <form onSubmit={handleSubmit} className="mr-3 flex flex-row">
       <input
-        className="outline rounded mr-3"
         type="text"
-        placeholder="Search..."
-        value={value}
-        onChange={handleChange}
-        required
+        placeholder="  Search"
+        className="input input-bordered input-primary w-full max-w-xs mr-3"
         minLength={3}
-        maxLength={20}
+        maxLength={3}
+
       />
       <button type="submit">
         <FontAwesomeIcon icon={faSearch} />
