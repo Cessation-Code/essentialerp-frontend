@@ -84,7 +84,7 @@ export function DashboardPage(props) {
 
           <ButtonLikeCard
             basis='basis-1/3'
-            title='TOTAL INCOME'
+            title='TOTAL sales'
             icon={faChartSimple}
             description={
               <div>

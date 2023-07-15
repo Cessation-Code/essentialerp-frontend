@@ -1,129 +1,121 @@
-import React, { useState }  from "react";
+import React, { useState } from "react";
 import { faTrash, faEdit, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchButton from "../../../components/search";
+import Error from "../../../components/error";
 
 const ExpenseTable = () => {
+  const isValidDateEntry = (date) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(date);
+  };
 
-    const isValidDateEntry = (date) => {
-        const regex = /^\d{4}-\d{2}-\d{2}$/;
-        return regex.test(date);
-      };
+  const [expenseEntries, setExpenseEntries] = useState([
+    {
+      id: 1,
+      date: "2023-05-02",
+      category: "Expense",
+      amount: 500,
+      editMode: false,
+    },
+    {
+      id: 2,
+      date: "2023-05-04",
+      category: "Expense",
+      amount: 800,
+      editMode: false,
+    },
+    {
+      id: 3,
+      date: "2023-05-05",
+      category: "Expense",
+      amount: 1500,
+      editMode: false,
+    },
+  ]);
 
-      const [expenseEntries, setExpenseEntries] = useState([
-        {
-          id: 1,
-          date: "2023-05-02",
-          category: "Expense",
-          amount: 500,
-          editMode: false,
-        },
-        {
-          id: 2,
-          date: "2023-05-04",
-          category: "Expense",
-          amount: 800,
-          editMode: false,
-        },
-        {
-          id: 3,
-          date: "2023-05-05",
-          category: "Expense",
-          amount: 1500,
-          editMode: false,
-        },
-      ]);
-    
-    
-      const [newExpenseEntry, setNewExpenseEntry] = useState({
-        id: null,
-        date: "",
-        category: "Expense",
-        amount: "",
+  const [newExpenseEntry, setNewExpenseEntry] = useState({
+    id: null,
+    date: "",
+    category: "Expense",
+    amount: "",
+  });
+
+  const [editedEntryId, setEditedEntryId] = useState(null);
+
+  const [error, setError] = useState("");
+
+  const addExpenseEntry = () => {
+    const newEntryId = expenseEntries.length + 1;
+    setExpenseEntries((prevExpenseEntries) => [
+      ...prevExpenseEntries,
+      {
+        id: newEntryId,
+        date: newExpenseEntry.date,
+        category: newExpenseEntry.category,
+        amount: newExpenseEntry.amount,
+        editMode: true,
+      },
+    ]);
+  };
+
+  const updateExpenseEntry = (id, field, value) => {
+    setExpenseEntries((prevExpenseEntries) => {
+      return prevExpenseEntries.map((entry) => {
+        if (entry.id === id) {
+          return { ...entry, [field]: value };
+        }
+        return entry;
       });
-    
-      const [editedEntryId, setEditedEntryId] = useState(null);
-    
-      const [error, setError] = useState("");
+    });
+  };
 
-    
-      const addExpenseEntry = () => {
-        const newEntryId = expenseEntries.length + 1;
-        setExpenseEntries((prevExpenseEntries) => [
-          ...prevExpenseEntries,
-          {
-            id: newEntryId,
-            date: newExpenseEntry.date,
-            category: newExpenseEntry.category,
-            amount: newExpenseEntry.amount,
-            editMode: true,
-          },
-        ]);
-      };
-    
-    
-      const updateExpenseEntry = (id, field, value) => {
-        setExpenseEntries((prevExpenseEntries) => {
-          return prevExpenseEntries.map((entry) => {
-            if (entry.id === id) {
-              return { ...entry, [field]: value };
-            }
-            return entry;
-          });
-        });
-      };
-      
-    
-      const deleteExpenseEntry = (id) => {
-        const updatedEntries = expenseEntries.filter((entry) => entry.id !== id);
-        setExpenseEntries(updatedEntries);
-      };
-    
-    
-    
-      const handleExpenseInputChange = (id, field, value) => {
-        updateExpenseEntry(id, field, value);
-      };
-    
-    
-      
-      const handleExpenseEntrySave = (id) => {
-        const editedEntry = expenseEntries.find((entry) => entry.id === id);
-        const { date, category, amount } = editedEntry;
-        if (date !== "" && category !== "" && amount !== "") {
-          if (!isNaN(amount)) {
-            const isValidDate = isValidDateEntry(date);
-            if (isValidDate) {
-              updateExpenseEntry(id, "editMode", false);
-              setError("");
-            } else {
-              setError("Incomplete entry data. Please fill in all fields.");
-              alert("Invalid date entry. Please enter a valid date.");
-            }
-          } else {
-            setError("Incomplete entry data. Please fill in all fields.");
-            alert("The amount field should be a valid number.");
-          }
+  const deleteExpenseEntry = (id) => {
+    const updatedEntries = expenseEntries.filter((entry) => entry.id !== id);
+    setExpenseEntries(updatedEntries);
+  };
+
+  const handleExpenseInputChange = (id, field, value) => {
+    updateExpenseEntry(id, field, value);
+  };
+
+  const handleExpenseEntrySave = (id) => {
+    const editedEntry = expenseEntries.find((entry) => entry.id === id);
+    const { date, category, amount } = editedEntry;
+    if (date !== "" && category !== "" && amount !== "") {
+      if (!isNaN(amount)) {
+        const isValidDate = isValidDateEntry(date);
+        if (isValidDate) {
+          updateExpenseEntry(id, "editMode", false);
+          setError("");
         } else {
           setError("Incomplete entry data. Please fill in all fields.");
-          alert("Incomplete entry data. Please fill in all fields.");
+          alert("Invalid date entry. Please enter a valid date.");
         }
-      };
-      
+      } else {
+        setError("Incomplete entry data. Please fill in all fields.");
+        alert("The amount field should be a valid number.")
+      }
+    } else {
+      setError("Incomplete entry data. Please fill in all fields.");
+      alert("Incomplete entry data. Please fill in all fields.")
+    }
+  };
 
-    
   return (
-    <div className="w-full">
+    <div className="w-full px-6">
       <div className="flex flex-row justify-between mb-4">
-        <h3 className="text-3xl text ml-2 font-semibold">
-          Expense Table
-        </h3>
+        <h3 className="text-3xl text ml-2 font-semibold">Expense Table</h3>
 
-        <button className="btn btn-primary" onClick={addExpenseEntry}>
-          Add Expense
-        </button>
+        <div className="flex flex-row items-baseline">
+          <SearchButton/>
+          <button className="btn btn-primary" onClick={addExpenseEntry}>
+            Add Expense
+          </button>
+        </div>
       </div>
 
-      <table className="w-full border border-gray-300 ml-2">
+      <table className="w-full border border-gray-300 ">
         <thead>
           <tr className="bg-gray-100">
             <th className="border-b border-gray-300 px-4 py-2 text-left">
@@ -180,7 +172,11 @@ const ExpenseTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.amount}
                     onChange={(e) =>
-                      handleExpenseInputChange(entry.id, "amount", e.target.value)
+                      handleExpenseInputChange(
+                        entry.id,
+                        "amount",
+                        e.target.value
+                      )
                     }
                   />
                 ) : (

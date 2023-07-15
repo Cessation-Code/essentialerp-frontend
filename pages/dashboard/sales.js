@@ -32,8 +32,8 @@ export const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: data?.incomeArray,
-        label: "Income",
+        data: data?.salesArray,
+        label: "sales",
         maxBarThickness: 10,
       },
       {
@@ -107,7 +107,7 @@ export const Sales = (props) => {
             Last 7 days
           </Button>
         }
-        title="Latest Income/Expense "
+        title="Latest sales/Expense "
       />
       <Divider />
       <CardContent>
