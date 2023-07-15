@@ -32,7 +32,7 @@ return(
             color="textPrimary"
             variant="h4"
           >
-            {data?.income}
+            {data?.sales}
           </Typography>
         </Grid>
         <Grid item>

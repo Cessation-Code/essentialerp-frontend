@@ -1,29 +1,30 @@
 import React, { useState }  from "react";
 import { faTrash, faEdit, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SearchButton from "../../../components/search";
 
 // Rename the function to PascalCase to follow React component naming convention
-const IncomeTable = () => {
+const SalesTable = () => {
 
-    const [incomeEntries, setIncomeEntries] = useState([
+    const [salesEntries, setSalesEntries] = useState([
         {
           id: 1,
           date: "2023-05-01",
-          category: "Income",
+          category: "Sales",
           amount: 1000,
           editMode: false,
         },
         {
           id: 2,
           date: "2023-05-03",
-          category: "Income",
+          category: "Sales",
           amount: 2000,
           editMode: false,
         },
         {
           id: 3,
           date: "2023-05-05",
-          category: "Income",
+          category: "Sales",
           amount: 1500,
           editMode: false,
         },
@@ -35,14 +36,14 @@ const IncomeTable = () => {
       };
 
       const [error, setError] = useState("");
-      const handleIncomeEntrySave = (id) => {
-        const editedEntry = incomeEntries.find((entry) => entry.id === id);
+      const handleSalesEntrySave = (id) => {
+        const editedEntry = salesEntries.find((entry) => entry.id === id);
         const { date, category, amount } = editedEntry;
         if (date !== "" && category !== "" && amount !== "") {
           if (!isNaN(amount)) {
             const isValidDate = isValidDateEntry(date);
             if (isValidDate) {
-              updateIncomeEntry(id, "editMode", false);
+              updatesalesEntry(id, "editMode", false);
               setError("");
             } else {
               setError("Incomplete entry data. Please fill in all fields.");
@@ -58,25 +59,25 @@ const IncomeTable = () => {
         }
       };
 
-      const [newIncomeEntry, setNewIncomeEntry] = useState({
+      const [newSalesEntry, setNewSalesEntry] = useState({
         id: null,
         date: "",
-        category: "Income",
+        category: "Sales",
         amount: "",
       });
     
-      const handleIncomeInputChange = (id, field, value) => {
-        updateIncomeEntry(id, field, value);
+      const handleSalesInputChange = (id, field, value) => {
+        updateSalesEntry(id, field, value);
       };
 
-      const deleteIncomeEntry = (id) => {
-        const updatedEntries = incomeEntries.filter((entry) => entry.id !== id);
-        setIncomeEntries(updatedEntries);
+      const deleteSalesEntry = (id) => {
+        const updatedEntries = salesEntries.filter((entry) => entry.id !== id);
+        setSalesEntries(updatedEntries);
       };
 
-      const updateIncomeEntry = (id, field, value) => {
-        setIncomeEntries((prevIncomeEntries) => {
-          return prevIncomeEntries.map((entry) => {
+      const updateSalesEntry = (id, field, value) => {
+        setSalesEntries((prevSalesEntries) => {
+          return prevSalesEntries.map((entry) => {
             if (entry.id === id) {
               return { ...entry, [field]: value };
             }
@@ -87,15 +88,15 @@ const IncomeTable = () => {
   
       const [editedEntryId, setEditedEntryId] = useState(null);
 
-      const addIncomeEntry = () => {
-        const newEntryId = incomeEntries.length + 1;
-        setIncomeEntries((prevIncomeEntries) => [
-          ...prevIncomeEntries,
+      const addSalesEntry = () => {
+        const newEntryId = salesEntries.length + 1;
+        setSalesEntries((prevSalesEntries) => [
+          ...prevSalesEntries,
           {
             id: newEntryId,
-            date: newIncomeEntry.date,
-            category: newIncomeEntry.category,
-            amount: newIncomeEntry.amount,
+            date: newSalesEntry.date,
+            category: newSalesEntry.category,
+            amount: newSalesEntry.amount,
             editMode: true,
           },
         ]);
@@ -103,12 +104,15 @@ const IncomeTable = () => {
 
 
   return (
-    <div className="w-full">
+    <div className="w-full px-6">
       <div className="flex flex-row justify-between mb-4">
-        <h3 className="text-3xl">Income Table</h3>
-        <button className="btn btn-primary mr-2" onClick={addIncomeEntry}>
-          Add Income
+        <h3 className="text-3xl">Sales Table</h3>
+        <div className="flex flex-row items-baseline">
+          <SearchButton/>
+        <button className="btn btn-primary mr-2" onClick={addSalesEntry}>
+          Add Sales
         </button>
+        </div>
       </div>
       <table className="w-full border border-gray-300 mr-4">
         <thead>
@@ -126,7 +130,7 @@ const IncomeTable = () => {
           </tr>
         </thead>
         <tbody>
-          {incomeEntries.map((entry) => (
+          {salesEntries.map((entry) => (
             <tr key={entry.id}>
               <td className="border-b border-gray-300 px-4 py-2">
                 {entry.editMode ? (
@@ -135,7 +139,7 @@ const IncomeTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.date}
                     onChange={(e) =>
-                      handleIncomeInputChange(entry.id, "date", e.target.value)
+                      handleSalesInputChange(entry.id, "date", e.target.value)
                     }
                   />
                 ) : (
@@ -149,7 +153,7 @@ const IncomeTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.category}
                     onChange={(e) =>
-                      handleIncomeInputChange(
+                      handleSalesInputChange(
                         entry.id,
                         "category",
                         e.target.value
@@ -167,7 +171,7 @@ const IncomeTable = () => {
                     className="border border-gray-300 rounded px-2 py-1 w-full"
                     value={entry.amount}
                     onChange={(e) =>
-                      handleIncomeInputChange(entry.id, "amount", e.target.value)
+                      handleSalesInputChange(entry.id, "amount", e.target.value)
                     }
                   />
                 ) : (
@@ -178,7 +182,7 @@ const IncomeTable = () => {
                 {entry.editMode ? (
                   <button
                     className="btn-icon"
-                    onClick={() => handleIncomeEntrySave(entry.id)}
+                    onClick={() => handleSalesEntrySave(entry.id)}
                   >
                     <FontAwesomeIcon icon={faCheck} className="mr-2" />
                   </button>
@@ -187,7 +191,7 @@ const IncomeTable = () => {
                     className="btn-icon mr-2"
                     onClick={() => {
                       setEditedEntryId(entry.id);
-                      updateIncomeEntry(entry.id, "editMode", true);
+                      updateSalesEntry(entry.id, "editMode", true);
                     }}
                   >
                     <FontAwesomeIcon icon={faEdit} />
@@ -195,7 +199,7 @@ const IncomeTable = () => {
                 )}
                 <button
                   className="btn-icon"
-                  onClick={() => deleteIncomeEntry(entry.id)}
+                  onClick={() => deleteSalesEntry(entry.id)}
                 >
                   <FontAwesomeIcon icon={faTrash} />
                 </button>
@@ -208,4 +212,4 @@ const IncomeTable = () => {
   );
 };
 
-export default IncomeTable;
+export default SalesTable;
