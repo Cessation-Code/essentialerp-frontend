@@ -66,12 +66,13 @@ const Report = ({ salesData, expensesData }) => {
   };
 
   return (
-    <div>
-      <Card title="Report">
-        <Bar data={chartData} />
+    // <div>
+    //   <Card title="Report">
+    //     <Bar data={chartData} />
         
-      </Card>
-    </div>
+    //   </Card>
+    // </div>
+    <div className='text-3xl'>REPORT PAGE</div>
   );
 };
 

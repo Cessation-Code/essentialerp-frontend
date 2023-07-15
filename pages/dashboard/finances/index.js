@@ -20,7 +20,6 @@ const Finance = () => {
           {/* <li>Finances</li> */}
           {activeTab === "expenses" && (
             <>
-              
               <li>Finances</li>
               <li>Expenses</li>
             </>
@@ -28,13 +27,13 @@ const Finance = () => {
           {activeTab === "sales" && (
             <>
               <li>Finances</li>
-              <li className="mr-2">Sales</li>
+              <li>Sales</li>
             </>
           )}
           {activeTab === "report" && (
             <>
             <li>Finances</li>
-              <li className="mr-2">Report</li>
+              <li>Report</li>
             </>
           )}
         </ul>
