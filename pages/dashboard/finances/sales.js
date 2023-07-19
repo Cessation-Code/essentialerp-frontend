@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
-import Modal from "./modal";
 
 // Rename the function to PascalCase to follow React component naming convention
 const SalesTable = () => {

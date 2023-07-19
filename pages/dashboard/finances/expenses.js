@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
-import Modal from "./modal";
+import Modal from "./addExpenseModal";
 
 const ExpenseTable = () => {
 
