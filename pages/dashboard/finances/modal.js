@@ -1,49 +1,80 @@
-import { faStickyNote } from "@fortawesome/free-regular-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useState } from 'react';
+import ModalLayout from '../../../components/layouts/modal_layout';
 
-const Modal = () => {
+function Modal({ isOpen, onClose }) {
+
+  const today = new Date().toISOString().split("T")[0];
+  const [error, setError] = useState(null);
+
+  const [name, setName] = useState("");
+  const [date, setDate] = useState(today);
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("Form has been submitted")
+    setName("");
+    setDate(today);
+    setAmount("");
+    setDescription("");
+    onClose();
+  }
+
+  const closeModal = async (event) => {
+    event.preventDefault();
+    console.log("Modal Cancelled")
+    setName("");
+    setDate(today);
+    setAmount("");
+    setDescription("");
+    onClose();
+  }
+
+  if (!isOpen) {
+    return null;
+  }
+
   return (
-    <div>
-      <button className="btn" onClick={() => window.my_modal_1.showModal()}>
-        Add Expense
-      </button>
-      <dialog id="my_modal_1" className="modal w-full">
-        <form method="dialog" className="modal-box">
-          <div className="flex flex-row  justify-between">
-          <h1 className="text-gray-600 text-lg font-bold mb-1  title-font">
-            Add a new Expense
-          </h1>
-          <button className="fill-black h-fit w-fit ">
-            x
-          </button>
-          </div>
-          
-          <div className="flex flex-row gap-4">
-          <div className="relative mb-4">
-            <label htmlFor="email" className="leading-7 text-sm text-gray-400">
+    <ModalLayout header={'Expenses'}>
+      {/* Form */}
+      <form onSubmit={handleSubmit}>
+        <div className="flex flex-row gap-1 mb-4">
+
+          <div className="flex flex-col basis-1/2 mb-4">
+            <label className="text-xs mb-1 text-gray-400">
               Name
             </label>
             <input
               type="text"
               id="name"
               name="name"
-              className="w-full bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-72 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+              required
+              value={name}
+              onChange={(event) => setName(event.target.value)}
             />
           </div>
-          <div className="relative mb-4">
-            <label htmlFor="email" className="leading-7 text-sm text-gray-400">
+
+          <div className="flex flex-col basis-1/4 mb-4">
+            <label className="text-xs mb-1 text-gray-400">
               Date
             </label>
             <input
               type="date"
               id="date"
               name="Date"
-              className="w-full bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-36 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
+              min={today} // Set the minimum date to today
+              max="2030-12-31" // Set the maximum date
+              required // Make the field required
+              value={date}
+              onChange={(event) => setDate(event.target.value)}
             />
           </div>
-          <div className="relative mb-4">
-            <label htmlFor="email" className="leading-7 text-sm text-gray-400">
+
+          <div className="flex flex-col basis-1/4 mb-4">
+            <label className="text-xs mb-1 text-gray-400">
               Amount
             </label>
             <input
@@ -51,41 +82,41 @@ const Modal = () => {
               id="amount"
               placeholder="GHC"
               name="number"
-              className="w-full bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-28 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
+              required // Make the field required
+              value={amount}
+              onChange={(event) => setAmount(event.target.value)}
             />
           </div>
-          </div>
-          <div className="relative mb-4">
-            <label
-              htmlFor="message"
-              className="leading-7 text-sm text-gray-400"
-            >
-              Description
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              
-              className="w-full bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
-            ></textarea>
-          </div >
-          <div className=" flex flex-row gap-2 justify-end">
-          <button className="text-white bg-gray-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-            Cancel
-          </button>
-          <button  className="text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-            Confirm
-          </button>
-          </div>
-          <p className="text-xs font-semibold text-gray-790 text-opacity-90 mt-3">
-            <FontAwesomeIcon icon={faStickyNote} className="mr-2"/>
-           Make sure to check well before finally clicking Confirm.
-          </p>
-        </form>
-      </dialog>
-    </div>
+
+        </div>
+
+        <div className="flex flex-col mb-4">
+          <label className="text-xs text-gray-400">
+            Description
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            className="w-full bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+            placeholder="Enter your description..."
+            required // Make the field required
+            value={description}
+            onChange={(event) => setDescription(event.target.value)}
+          ></textarea>
+        </div >
+      </form>
+
+      <div className="flex flex-row justify-end">
+        <button type="reset" className="bg-transparent text-black py-1 px-4 mt-4" onClick={closeModal}>
+          Cancel
+        </button>
+        <button type="submit" className="bg-[#C3A2FA] hover:bg-blue-600 text-white py-1 px-4 rounded mt-4" onClick={handleSubmit}>
+          Confirm
+        </button>
+      </div>
+    </ModalLayout>
   );
-};
+}
 
 export default Modal;
-
