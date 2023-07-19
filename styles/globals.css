@@ -3,10 +3,26 @@
 @tailwind utilities;
 
 .font-sans {
-    font-family: 'sans';
-  }  
+  font-family: 'sans';
+}
 
-  .ml-8 {
-    max-width: 950px; 
-    word-wrap: break-word;
-  }
+.ml-8 {
+  max-width: 950px;
+  word-wrap: break-word;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  /* Adjust the width as needed */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: transparent;
+  /* Adjust the track color */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /* Adjust the thumb color */
+  background-color: #888;
+}
