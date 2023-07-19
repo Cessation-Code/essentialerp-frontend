@@ -88,11 +88,6 @@ const ExpenseTable = () => {
     setIsModalOpen(false);
   };
 
-  // const isValidDateEntry = (date) => {
-  //   const regex = /^\d{4}-\d{2}-\d{2}$/;
-  //   return regex.test(date);
-  // };
-
   return (
     <div className="w-full px-6">
 
