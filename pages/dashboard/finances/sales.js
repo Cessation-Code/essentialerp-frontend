@@ -138,7 +138,7 @@ const SalesTable = () => {
         </div>
       </div>
 
-      <div className="max-h-96 overflow-y-auto custom-scrollbar">
+      <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
         <table className="w-[98%] border border-gray-300 mr-4">
           <thead>
             <tr className="bg-gray-100">
