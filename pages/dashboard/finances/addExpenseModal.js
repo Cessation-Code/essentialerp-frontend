@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ModalLayout from '../../../components/layouts/modal_layout';
 
-function Modal({ isOpen, onClose }) {
+function addExpenseModal({ isOpen, onClose }) {
 
   useEffect(() => {
     async function getEmployee() {
@@ -69,6 +69,7 @@ function Modal({ isOpen, onClose }) {
             headers: {
               "Access-Control-Allow-Origin": "*",
               "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem('token')}`
             },
             body: JSON.stringify(expenseData),
           });
@@ -192,4 +193,4 @@ function Modal({ isOpen, onClose }) {
   );
 }
 
-export default Modal;
+export default addExpenseModal;
