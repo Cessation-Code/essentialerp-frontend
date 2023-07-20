@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import ModalLayout from '../../../components/layouts/modal_layout';
 
+
+
 function Modal({ isOpen, onClose }) {
 
-  const today = new Date().toISOString().split("T")[0];
-  const [error, setError] = useState(null);
-
-  const [name, setName] = useState("");
-  const [date, setDate] = useState(today);
-  const [amount, setAmount] = useState("");
-  const [description, setDescription] = useState("");
-
-  const handleSubmit = async (event) => {
+   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log("Form has been submitted")
     setName("");
@@ -20,6 +14,16 @@ function Modal({ isOpen, onClose }) {
     setDescription("");
     onClose();
   }
+  
+  const today = new Date().toISOString().split("T")[0];
+  const [error, setError] = useState(null);
+
+  const [name, setName] = useState("");
+  const [date, setDate] = useState(today);
+  const [amount, setAmount] = useState("");
+  const [description, setDescription] = useState("");
+
+
 
   const closeModal = async (event) => {
     event.preventDefault();
