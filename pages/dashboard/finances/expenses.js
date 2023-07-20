@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
-import Modal from "./addExpenseModal";
+import AddExpenseModal from "./addExpenseModal";
 import ViewExpenseModal from "./viewExpenseModal";
 
 export const Expenses = {
@@ -13,7 +13,7 @@ export const Expenses = {
       date: "2023-05-02",
       category: "Expense",
       amount: 500,
-      editMode: false,
+      description: "This is a description",
     },
     {
       id: 2,
@@ -21,7 +21,6 @@ export const Expenses = {
       date: "2023-05-04",
       category: "Expense",
       amount: 800,
-      editMode: false,
     },
     {
       id: 3,
@@ -29,7 +28,6 @@ export const Expenses = {
       date: "2023-05-05",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 4,
@@ -37,7 +35,6 @@ export const Expenses = {
       date: "2023-05-05",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 5,
@@ -45,7 +42,6 @@ export const Expenses = {
       name: "Gob3",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 6,
@@ -53,7 +49,6 @@ export const Expenses = {
       name: "Tombrown",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 7,
@@ -62,7 +57,6 @@ export const Expenses = {
       date: "2023-05-05",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 8,
@@ -70,7 +64,6 @@ export const Expenses = {
       date: "2023-05-05",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 9,
@@ -78,7 +71,6 @@ export const Expenses = {
       date: "2023-05-05",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
     {
       id: 10,
@@ -86,36 +78,31 @@ export const Expenses = {
       date: "2023-05-05",
       category: "Expense",
       amount: 1500,
-      editMode: false,
     },
   ],
 };
 
 
 const ExpenseTable = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [ViewModal, setViewModal] = useState(false);
-  const [selectedRowData, setSelectedRowData] = useState(null); // State to hold the clicked row data
+  const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
+  const [isViewExpenseModalOpen, setIsViewExpenseModalOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState("");
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openAddExpenseModal = () => {
+    setIsAddExpenseModalOpen(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeAddExpenseModal = () => {
+    setIsAddExpenseModalOpen(false);
   };
 
-  const openViewModal = (id) => {
-    // console.log("id", id);
-    const rowData = Expenses.expenseEntries.find((entry) => entry.id === id); // Find the row data using the clicked id
-    setSelectedRowData(rowData); // Set the selected row data
-    setViewModal(true); 
+  const openViewExpenseModal = () => {
+    setIsViewExpenseModalOpen(true);
+  }
 
-    
-  // const isValidDateEntry = (date) => {
-  //   const regex = /^\d{4}-\d{2}-\d{2}$/;
-  //   return regex.test(date);
-  };
+  const closeViewExpenseModal = () => {
+    setIsViewExpenseModalOpen(false);
+  }
 
   return (
     <div className="w-full px-6">
@@ -123,21 +110,14 @@ const ExpenseTable = () => {
         <h3 className="text-3xl text ml-2 font-semibold">Expense Table</h3>
         <div className="flex flex-row items-baseline">
           <SearchButton />
-          <button className="btn" onClick={openModal}>
+          <button className="btn" onClick={openAddExpenseModal}>
             Add Expense
           </button>
         </div>
       </div>
 
-     {isModalOpen && <Modal isOpen={isModalOpen} onClose={closeModal} />}
-      {ViewModal && (
-        <ViewExpenseModal
-          rowData={selectedRowData}
-          isOpen={openViewModal}
-          onClose={() => setViewModal(false)}
-          setSelectedRowData={setSelectedRowData}
-        />
-      )}
+      {isAddExpenseModalOpen && <AddExpenseModal isOpen={openAddExpenseModal} onClose={closeAddExpenseModal} />}
+      {isViewExpenseModalOpen && <ViewExpenseModal isOpen={openViewExpenseModal} onClose={closeViewExpenseModal} selectedRowData={selectedRowData} />}
 
       <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
         <table className="w-[98%] border border-gray-300 ">
@@ -171,9 +151,8 @@ const ExpenseTable = () => {
                   <button
                     className="btn-icon"
                     onClick={() => {
-                      // setViewModal(true);
-                      openViewModal(entry.id);
-                      console.log(ViewModal);
+                      setSelectedRowData(entry);
+                      openViewExpenseModal();
                     }}
                   >
                     <FontAwesomeIcon icon={faCircleInfo} />

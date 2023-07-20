@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import Modal from '../../../components/layouts/modal_layout';
 
-const ViewExpenseModal = ({ isOpen, onClose, rowData, setSelectedRowData }) => {
-    console.log("did this")
-    console.log("rowData", rowData);
-  const today = new Date().toISOString().split('T')[0];
+const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
+
   const [isEditMode, setIsEditMode] = useState(false);
+  const [name, setName] = useState(selectedRowData.name);
+  const [amount, setAmount] = useState(selectedRowData.amount);
+  const [description, setDescription] = useState(selectedRowData.description);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Save the updated rowData details here
-    // You can handle the form submission logic based on your requirement
     setIsEditMode(false);
   };
 
   const closeModal = () => {
+    setIsEditMode(false);
     onClose();
   };
 
@@ -34,24 +34,8 @@ const ViewExpenseModal = ({ isOpen, onClose, rowData, setSelectedRowData }) => {
               name="name"
               className="w-72 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-              value={rowData.name}
-              onChange={(event) => {setSelectedRowData({...rowData, name: event.target.value})}}
-              disabled={!isEditMode} // Disable input fields in view mode
-            />
-          </div>
-
-          <div className="flex flex-col basis-1/4 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Date</label>
-            <input
-              type="date"
-              id="date"
-              name="Date"
-              className="w-36 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
-              min={today}
-              max="2030-12-31"
-              required
-              value={rowData.date}
-              onChange={(event) => {}}
+              value={name}
+              onChange={(event) => { event.target.value }}
               disabled={!isEditMode} // Disable input fields in view mode
             />
           </div>
@@ -61,12 +45,11 @@ const ViewExpenseModal = ({ isOpen, onClose, rowData, setSelectedRowData }) => {
             <input
               type="number"
               id="amount"
-            //   placeholder="GHC"
               name="number"
               className="w-28 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
               required
-              value={rowData.amount}
-              onChange={(event) => {}}
+              value={amount}
+              onChange={(event) => { event.target.value }}
               disabled={!isEditMode} // Disable input fields in view mode
             />
           </div>
@@ -80,8 +63,8 @@ const ViewExpenseModal = ({ isOpen, onClose, rowData, setSelectedRowData }) => {
             className="w-full bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
             // placeholder="Enter your description..."
             required
-            value={rowData.description}
-            onChange={(event) => {}}
+            value={description}
+            onChange={(event) => { event.target.value }}
             disabled={!isEditMode} // Disable input fields in view mode
           ></textarea>
         </div>

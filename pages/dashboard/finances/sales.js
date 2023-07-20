@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
+import ViewSaleModal from "./viewSaleModal";
 
 // Rename the function to PascalCase to follow React component naming convention
 const SalesTable = () => {
@@ -129,14 +130,15 @@ const SalesTable = () => {
     }
   ];
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [viewSaleModal, setViewSaleModal] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState("")
 
-  const openModal = () => {
-    setIsModalOpen(true);
+  const openViewSaleModal = () => {
+    setViewSaleModal(true);
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeViewSaleModal = () => {
+    setViewSaleModal(false);
   };
 
   return (
@@ -146,11 +148,13 @@ const SalesTable = () => {
         <h3 className="text-3xl">Sales Table</h3>
         <div className="flex flex-row items-baseline">
           <SearchButton />
-          <button className="btn" onClick={()=>{console.log('this should route you to inventory')}}>
+          <button className="btn" onClick={() => { console.log('this should route you to inventory') }}>
             Add Sale
           </button>
         </div>
       </div>
+
+      {viewSaleModal && <ViewSaleModal onClose={closeViewSaleModal} selectedRowData={selectedRowData} />}
 
       <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
         <table className="w-[98%] border border-gray-300 mr-4">
@@ -181,12 +185,10 @@ const SalesTable = () => {
                   {entry.date}
                 </td>
                 <td className="border-b border-gray-300 py-2">
-                  <button
-                    className="btn-icon mr-2"
-                    onClick={() =>
-                      console.log("View button for sales clicked")
-                    }
-                  >
+                  <button className="btn-icon mr-2" onClick={() => {
+                    setSelectedRowData(entry)
+                    openViewSaleModal()
+                  }}>
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </button>
                 </td>
