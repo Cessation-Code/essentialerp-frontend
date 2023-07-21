@@ -32,7 +32,7 @@ const Finance = () => {
           )}
           {activeTab === "report" && (
             <>
-            <li>Finances</li>
+              <li>Finances</li>
               <li>Report</li>
             </>
           )}
@@ -61,7 +61,7 @@ const Finance = () => {
       </div>
 
       {activeTab === "sales" && <SalesTable />}
-      {activeTab === "expenses" && <ExpenseTable />}
+      {activeTab === "expenses" && <ExpenseTable id='expenses' />}
       {activeTab === "report" && <Report />}
     </div>
   );

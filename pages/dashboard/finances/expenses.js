@@ -8,81 +8,6 @@ import LoadingSpinner from "../../../components/loadingSpinner";
 
 const ExpenseTable = () => {
 
-  // dummy data
-  const expenseEntries = [{
-    id: 1,
-    name: "Gob3",
-    date: "2023-05-02",
-    category: "Expense",
-    amount: 500,
-    description: "This is a description",
-  },
-  {
-    id: 2,
-    name: "Et)",
-    date: "2023-05-04",
-    category: "Expense",
-    amount: 800,
-  },
-  {
-    id: 3,
-    name: "Oats",
-    date: "2023-05-05",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 4,
-    name: "Waakye",
-    date: "2023-05-05",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 5,
-    date: "2023-05-05",
-    name: "Gob3",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 6,
-    date: "2023-05-05",
-    name: "Tombrown",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 7,
-    name: "",
-    name: "Gob3",
-    date: "2023-05-05",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 8,
-    name: "Oats",
-    date: "2023-05-05",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 9,
-    name: "Gob3",
-    date: "2023-05-05",
-    category: "Expense",
-    amount: 1500,
-  },
-  {
-    id: 10,
-    name: "Gob3",
-    date: "2023-05-05",
-    category: "Expense",
-    amount: 1500,
-  },
-  ]
-
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [isViewExpenseModalOpen, setIsViewExpenseModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("");
@@ -104,6 +29,7 @@ const ExpenseTable = () => {
         ).then(response => response.json()).then(data => {
           // save it to state
           setExpenseItems(data.expenses)
+          console.log(data.expenses)
         });
       } catch (error) {
         console.log(error);
@@ -127,6 +53,11 @@ const ExpenseTable = () => {
 
   const closeViewExpenseModal = () => {
     setIsViewExpenseModalOpen(false);
+  }
+
+  function formatDate(expenseDate) {
+    const date = new Date(expenseDate);
+    return date.toLocaleDateString("en-US");
   }
 
   // show loading spinner if expense aren't loaded yet
@@ -167,8 +98,8 @@ const ExpenseTable = () => {
               </tr>
             </thead>
             <tbody>
-              {expenseEntries.map((entry) => (
-                <tr key={entry.id}>
+              {expenseItems.map((entry) => (
+                <tr key={entry._id}>
                   <td className="border-b border-gray-300 px-4 py-2">
                     {entry.name}
                   </td>
@@ -176,7 +107,7 @@ const ExpenseTable = () => {
                     {entry.amount}
                   </td>
                   <td className="border-b border-gray-300 px-4 py-2">
-                    {entry.date}
+                    {formatDate(entry.created_at)}
                   </td>
                   <td className="border-b border-gray-300 py-2">
                     <button className="btn-icon" onClick={() => {
