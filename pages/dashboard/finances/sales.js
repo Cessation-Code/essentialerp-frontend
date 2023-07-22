@@ -5,10 +5,8 @@ import SearchButton from "../../../components/search";
 import ViewSaleModal from "./viewSaleModal";
 import { useRouter } from "next/router";
 
-// Rename the function to PascalCase to follow React component naming convention
-const SalesTable = () => {
-
-  const salesEntries = [
+export const Sales = {
+  salesEntries: [
     {
       id: 1,
       name: "Sale 1",
@@ -129,7 +127,10 @@ const SalesTable = () => {
       amount: 2100,
       editMode: false,
     }
-  ];
+  ],
+}
+const SalesTable = () => {
+
 
   const [viewSaleModal, setViewSaleModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("")
@@ -177,7 +178,7 @@ const SalesTable = () => {
             </tr>
           </thead>
           <tbody>
-            {salesEntries.map((entry) => (
+            {Sales.salesEntries.map((entry) => (
               <tr key={entry.id}>
                 <td className="border-b border-gray-300 px-4 py-2">
                   {entry.name}
