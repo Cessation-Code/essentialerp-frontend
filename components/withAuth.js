@@ -32,6 +32,9 @@ const withAuth = (WrappedComponent) => {
                         // console.log(data)
                     });
                 } catch (e) {
+                    if(e.status === 401){
+                        router.replace('/login')
+                    }
                     console.log(e.message);
                     setEmployee(null)
                 }
