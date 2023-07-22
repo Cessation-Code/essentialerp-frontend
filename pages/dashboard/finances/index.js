@@ -5,10 +5,31 @@ import ExpenseTable from "./expenses";
 import Report from "./report";
 
 const Finance = () => {
+
   const [activeTab, setActiveTab] = useState("sales");
+
+  useState(() => {
+
+    console.log(window.location.hash)
+    if (window.location.hash === '#expenses') {
+      setActiveTab("expenses");
+    }else if (window.location.hash === '#sales') {
+      setActiveTab("sales");
+    }else if (window.location.hash === '#report') {
+      setActiveTab("report"); 
+    }
+
+  }, []);
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
+    if (tab === 'expenses'){
+      window.location.hash = '#expenses'
+    }else if (tab === 'sales'){
+      window.location.hash = '#sales'
+    }else if (tab === 'report'){
+      window.location.hash = '#report'
+    }
   };
 
   return (

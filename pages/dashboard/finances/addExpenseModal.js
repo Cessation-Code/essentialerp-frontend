@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ModalLayout from '../../../components/layouts/modal_layout';
+import { useRouter } from 'next/router';
 
 function addExpenseModal({ isOpen, onClose }) {
 
@@ -36,6 +37,7 @@ function addExpenseModal({ isOpen, onClose }) {
   const [description, setDescription] = useState("");
   const [organisationID, setOrganistionID] = useState("")
   const [employeeID, setEmployeeID] = useState("")
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
 
@@ -81,6 +83,8 @@ function addExpenseModal({ isOpen, onClose }) {
             onClose();
             setIsLoading(false);
             setError("");
+            window.location.hash = '#expenses'
+            router.reload();
           } else {
             setIsLoading(false);
             setError("An Error Occured whiles creating expense!");
