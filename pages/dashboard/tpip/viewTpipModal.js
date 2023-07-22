@@ -1,13 +1,13 @@
 import React from "react";
 import Modal from "../../../components/layouts/modal_layout";
 
-const ViewSalesModal = ({ onClose, selectedRowData }) => {
+const ViewTPIPModal = ({ onClose, selectedRowData }) => {
   const closeModal = () => {
     onClose();
   };
 
   return (
-    <Modal header="Sale Detail View">
+    <Modal header="TPIP Detail View">
       <form onSubmit={(event) => event.preventDefault()}>
         <div className="flex flex-row gap-1 mb-4">
           <div className="flex flex-col basis-1/2 mb-4">
@@ -75,4 +75,4 @@ const ViewSalesModal = ({ onClose, selectedRowData }) => {
   );
 };
 
-export default ViewSalesModal;
+export default ViewTPIPModal;

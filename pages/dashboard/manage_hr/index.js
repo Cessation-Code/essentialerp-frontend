@@ -1,7 +1,7 @@
 import React from "react";
 import withAuth from "../../../components/withAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faUserAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faUserAlt} from "@fortawesome/free-solid-svg-icons";
 
 const Employees = [
   {
