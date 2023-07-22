@@ -3,6 +3,7 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
 import ViewSaleModal from "./viewSaleModal";
+import { useRouter } from "next/router";
 
 // Rename the function to PascalCase to follow React component naming convention
 const SalesTable = () => {
@@ -132,6 +133,7 @@ const SalesTable = () => {
 
   const [viewSaleModal, setViewSaleModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("")
+  const router = useRouter();
 
   const openViewSaleModal = () => {
     setViewSaleModal(true);
@@ -148,7 +150,9 @@ const SalesTable = () => {
         <h3 className="text-3xl">Sales Table</h3>
         <div className="flex flex-row items-baseline">
           <SearchButton />
-          <button className="btn" onClick={() => { console.log('this should route you to inventory') }}>
+          <button className="btn" onClick={() => { 
+            router.push("inventory")
+           }}>
             Add Sale
           </button>
         </div>
