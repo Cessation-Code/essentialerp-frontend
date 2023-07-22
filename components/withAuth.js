@@ -20,7 +20,7 @@ const withAuth = (WrappedComponent) => {
 
             async function fetchEmployee() {
                 try {
-                    const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/', {
+                    await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/', {
                         // const response = await fetch('https://localhost:8000/api/v1/employee', {
                         method: 'GET',
                         headers: {
@@ -28,14 +28,16 @@ const withAuth = (WrappedComponent) => {
                             Authorization: `Bearer ${localStorage.getItem('token')}`
                         }
                     }).then(response => response.json()).then(data => {
+                        // if token is invalid, redirect to login page
+                        if (data.message === 'Authentication Invalid') {
+                            localStorage.removeItem('token')
+                            localStorage.removeItem('username')
+                            localStorage.removeItem('organisation')
+                            router.replace('/login')
+                        }
                         setEmployee(data)
-                        // console.log(data)
                     });
                 } catch (e) {
-                    if(e.status === 401){
-                        router.replace('/login')
-                    }
-                    console.log(e.message);
                     setEmployee(null)
                 }
             }
