@@ -113,7 +113,7 @@ function addExpenseModal({ isOpen, onClose }) {
   }
 
   return (
-    <ModalLayout header={'Expenses'}>
+    <ModalLayout header={'Expenses'} closeModal={closeModal}>
       {/* Form */}
       <form onSubmit={handleSubmit}>
         <div className="flex flex-row gap-2 mb-4">

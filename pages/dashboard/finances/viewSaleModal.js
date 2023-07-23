@@ -7,7 +7,7 @@ const ViewSalesModal = ({ onClose, selectedRowData }) => {
   };
 
   return (
-    <Modal header="Sale Detail View">
+    <Modal header="Sale Detail View" closeModal={closeModal}>
       <form onSubmit={(event) => event.preventDefault()}>
         <div className="flex flex-row gap-1 mb-4">
           <div className="flex flex-col basis-1/2 mb-4">
