@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "../../../components/layouts/modal_layout";
 
-const CheckBox = ({ name, checked, onChange }) => {
+export const CheckBox = ({ name, checked, onChange }) => {
   return (
     <label className="flex items-center space-x-2">
       <input
@@ -16,7 +16,7 @@ const CheckBox = ({ name, checked, onChange }) => {
   );
 };
 
-const SelectOption = ({ value, label }) => {
+export const SelectOption = ({ value, label }) => {
   return <option value={value}>{label}</option>;
 };
 
@@ -86,10 +86,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
   };
 
   const handleConfirm = () => {
-    // Placeholder logic for handleConfirm.
-    // You can add your specific logic here, such as form submission, API calls, etc.
-    // For now, let's just log a message and close the modal.
-    console.log("Form submitted successfully!");
+        console.log("Form submitted successfully!");
     closeModal();
   };
 
@@ -146,8 +143,9 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               // }}
             />
           </div>
-          {/*Second Row */}
+         
         </div>
+         {/*Second Row */}
         <div className="flex flex-row gap-2 mb-4">
           <div className="flex flex-col basis-2/3 mb-4">
             <label className="text-xs mb-1 text-gray-400">E-mail</label>
@@ -252,7 +250,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
             <label className="text-sm text-gray-600">Salary:</label>
             <input
               type="number"
-              className="block full mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               value={salary}
               onChange={handleSalaryChange}
             />
@@ -292,19 +290,19 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
       </form>
 
       {/*Action Buttons Row */}
-      <div className="flex flex-row ">
+      <div className="flex flex-row gap-4">
         {/* <div className="flex basis-3/5 justify-start text-xs text-red-500 mt-5">
           {error && <p>{error}</p>}
         </div> */}
         {/*
          */}
-        <div className="flex flex-auto justify-end gap-2">
+        <div className="flex flex-auto justify-end ">
           {isLoading ? null : (
-            <div className="flex flex-row">
+            <div className="flex flex-row ">
               <button
                 type="reset"
                 onClick={handleCancel}
-                className="bg-transparent text-black text-sm py-1 px-4 mt-4"
+                className="bg-[#C3A2FA] text-black mr-2 text-sm py-1 px-4 mt-4"
               >
                 Cancel
               </button>
