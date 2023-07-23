@@ -95,7 +95,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
   }
 
   return (
-    <Modal header={"Add New Employee"} onClose={closeModal}>
+    <Modal header={"Add New Employee"} closeModal={closeModal}>
       <form onSubmit={null}>
         {/*First Row */}
         <div className="flex flex-row gap-2 mb-2">

@@ -142,7 +142,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
   return (
     <Modal
       header={isEditMode ? "Edit Employee" : "View Employee"}
-      onClose={closeModal}
+      closeModal={closeModal}
     >
       <form onSubmit={null}>
         {/*First Row */}
