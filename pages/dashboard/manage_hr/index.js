@@ -1,93 +1,79 @@
-import React from "react";
+import React, { useState } from "react";
 import withAuth from "../../../components/withAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt} from "@fortawesome/free-solid-svg-icons";
+import AddEmployeeModal from "./addEmployeeModal";
 
 const Employees = [
   {
     avatar: {},
     name: "Edem Jonathan",
     email: "unreshablekhon@example.com",
+    editMode: false,
   },
   {
     avatar: {},
     name: "Kwame Koranteng",
     email: "kkopoku@example.com",
+    editMode: false,
   },
   {
     avatar:
       {},
     name: "Big Chungus",
     email: "bigchungus@example.com",
+    editMode: false,
   },
   {
     avatar:
       {},
     name: "Dr. Nunoo",
     email: "drnunoo@example.com",
+    editMode: false,
   },
   {
     avatar:
       {},
     name: "Dr. Nunoo",
     email: "drnunoo@example.com",
+    editMode: false,
   },
   {
     avatar:
       {},
     name: "Dr. Nunoo",
     email: "drnunoo@example.com",
+    editMode: false,
   },
   {
     avatar:
       {},
     name: "Dr. Nunoo",
     email: "drnunoo@example.com",
+    editMode: false,
   },
   {
     avatar:
       {},
     name: "Dr. Nunoo",
     email: "drnunoo@example.com",
+    editMode: false,
   },
-  {
-    avatar:
-      {},
-    name: "Dr. Nunoo",
-    email: "drnunoo@example.com",
-  },
-  {
-    avatar:
-      {},
-    name: "Dr. Nunoo",
-    email: "drnunoo@example.com",
-  },
-  {
-    avatar:
-      {},
-    name: "Dr. Nunoo",
-    email: "drnunoo@example.com",
-  },
-  {
-    avatar:
-      {},
-    name: "Dr. Nunoo",
-    email: "drnunoo@example.com",
-  },
-  {
-    avatar:
-      {},
-    name: "Dr. Nunoo",
-    email: "drnunoo@example.com",
-  },
-  {
-    avatar:
-      {},
-    name: "Dr. Nunoo",
-    email: "drnunoo@example.com",
-  },
+  
 ];
+
+
 const Manage_HR = () => {
+  const [isAddEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
+
+  const viewAddEmployeeModal = () => {
+    setAddEmployeeModalOpen(true);
+  };
+
+  const closeAddEmployeeModal = () => {
+    setAddEmployeeModalOpen(false);
+  };
+
   return (
       <div className="max-w-screen max-h-screen p-4 mt-16 mx-10 border-4 rounded-3xl relative" >
         <div className="items-start justify-between sm:flex">
@@ -98,16 +84,16 @@ const Manage_HR = () => {
             </p>
           </div>
           <button
-          onClick={() => {
+          onClick={viewAddEmployeeModal}
             
-          }}
-            href="javascript:void(0)"
             className="inline-flex items-center justify-center gap-1 py-2 px-3 mt-2 font-medium text-sm text-center text-white bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 rounded-lg sm:mt-0"
           >
           
            +  New member
           </button>
         </div >
+        {isAddEmployeeModalOpen && <AddEmployeeModal isOpen={viewAddEmployeeModal} onClose={closeAddEmployeeModal} />}
+           {/* {isAddExpenseModalOpen && <AddExpenseModal isOpen={openAddExpenseModal} onClose={closeAddExpenseModal} />} */}
         <div className="max-h-[calc(78vh-4rem)] overflow-y-auto custom-scrollbar mt-4">
 
         <ul className="mt-12 divide-y ">
@@ -141,6 +127,7 @@ const Manage_HR = () => {
           ))}
         </ul>
         </div>
+        
       </div>
   );
 };
