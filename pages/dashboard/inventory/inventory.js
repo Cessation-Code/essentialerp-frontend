@@ -1,77 +1,66 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faTrash, faEdit, faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import SearchButton from "../../../components/search";
+import AddProductModal from "./addProductModal";
+import ViewProductModal from "./viewProductModal";
 
 const Inventory = () => {
-  const inventoryData = [
-    {
-      id: 1,
-      productName: "Waakye",
-      category: "Breakfast",
-      units: 50,
-      cost: 50,
-    },
-    {
-      id: 2,
-      productName: "Bacon",
-      category: "Lunch",
-      units: 100,
-      cost: 100,
-    },
-    {
-      id: 3,
-      productName: "Tombrown",
-      category: "Brunch",
-      units: 75,
-      cost: 75,
-    },
-    {
-      id: 4,
-      productName: "Gobe",
-      category: "Dessert",
-      units: 120,
-      cost: 120,
-    },
-  ];
-
 
   // constansts
-  const [isAddItemModalOpen, setIsAddItemModalOpen] = useState(false);
-  const [isViewItemModalOpen, setIsViewItemModalOpen] = useState(false);
+  const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
+  const [isViewProductModalOpen, setIsViewProductModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("");
-  const [inventoryItems, setInventoryItems] = useState(inventoryData);
+  const [inventoryItems, setInventoryItems] = useState([]);
 
 
   // functions
-  const openAddItemModal = () => {
-    setIsAddItemModalOpen(true);
+  const openAddProductModal = () => {
+    setIsAddProductModalOpen(true);
   };
 
-  const closeAddItemModal = () => {
-    setIsAddItemModalOpen(false);
+  const closeAddProductModal = () => {
+    setIsAddProductModalOpen(false);
   };
 
-  const openViewItemModal = () => {
-    setIsViewItemModalOpen(true);
+  const openViewProductModal = () => {
+    setIsViewProductModalOpen(true);
   }
 
-  const closeViewItemModal = () => {
-    setIsViewItemModalOpen(false);
+  const closeViewProductModal = () => {
+    setIsViewProductModalOpen(false);
   }
 
-  function formatDate(expenseDate) {
-    const date = new Date(expenseDate);
-    return date.toLocaleDateString("en-US");
-  }
-
-  async function handleAddItem() {
-    console.log("add item");
-  }
+  // function formatDate(xx) {
+  //   const date = new Date(xx);
+  //   return date.toLocaleDateString("en-US");
+  // }
 
   async function getInventoryItems() {
-    console.log("get inventory items");
+    try {
+      // get expense items
+      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/", {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+      }
+      ).then(response => response.json()).then(data => {
+        // save it to state
+        setInventoryItems(data.products)
+        console.log(data)
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
+
+  // get inventory items on page load
+  useEffect(() => {
+    getInventoryItems()
+  }, [])
 
   return (
     <div className="w-full px-6">
@@ -80,11 +69,16 @@ const Inventory = () => {
         <h3 className="text-3xl text ml-2 font-semibold">Inventory Table</h3>
         <div className="flex flex-row items-baseline">
           <SearchButton />
-          <button className="btn" onClick={handleAddItem}>
-            Add Item
+          <button className="btn" onClick={() => {
+            setIsAddProductModalOpen(true)
+          }}>
+            Add Product
           </button>
         </div>
       </div>
+
+      {isAddProductModalOpen && <AddProductModal isOpen={openAddProductModal} onClose={closeAddProductModal} />}
+      {isViewProductModalOpen && <ViewProductModal isOpen={openViewProductModal} onClose={closeViewProductModal} selectedRowData={selectedRowData} />}
 
       <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
         <table className="w-[98%] border border-gray-300 ">
@@ -104,20 +98,21 @@ const Inventory = () => {
           </thead>
           <tbody>
             {inventoryItems.map((entry) => (
+              console.log(entry),
               <tr key={entry._id}>
                 <td className="border-b border-gray-300 px-4 py-2">
-                  {entry.productName}
+                  {entry.name}
                 </td>
                 <td className="border-b border-gray-300 px-4 py-2">
-                  {entry.cost}
+                  {entry.price}
                 </td>
                 <td className="border-b border-gray-300 px-4 py-2">
-                  {entry.units}
+                  {entry.stock}
                 </td>
                 <td className="border-b border-gray-300 py-2">
                   <button className="btn-icon" onClick={() => {
                     setSelectedRowData(entry);
-                    openViewItemModal();
+                    openViewProductModal();
                   }}>
                     <FontAwesomeIcon icon={faCircleInfo} />
                   </button>

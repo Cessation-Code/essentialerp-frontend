@@ -85,6 +85,7 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
       setError("Something went wrong, please try again!");
       setIsEditMode(false)
     }
+
   }
 
   const closeModal = () => {

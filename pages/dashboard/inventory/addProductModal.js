@@ -13,89 +13,48 @@ function addProductModal({ isOpen, onClose }) {
     const [stock, setStock] = useState("");
     const router = useRouter();
 
-
-    async function getProducts() {
-        try {
-            // get employee details
-            await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/", {
-                method: "GET",
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                },
-            }
-            ).then(response => response.json()).then(data => {
-                setEmployeeID(data.employee_id)
-                setOrganistionID(data.organisation_id)
-            });
-        } catch (error) {
-            setIsLoading(false);
-            console.log(error);
-            setError(error);
-        }
-    }
-
-    useEffect(() => {
-        getItems()
-    }, [])
-
-
     const handleSubmit = async (event) => {
-
-        const productData = {
-            created_by: employeeID,
-            organisation_id: organisationID,
-            name: name,
-            amount: amount,
-            description: description
-        }
-
         event.preventDefault();
-
-        if (!name || !amount || !description) {
+        const productData = {
+            name: name,
+            price: price,
+            description: description,
+            stock: stock
+        }
+        if (!name || !price || !description || !stock) {
             setError("Please fill all fields!");
         }
         else {
-
             setIsLoading(true);
-            console.log(expenseData)
-
-            // create expense
-            if (!organisationID || !employeeID) {
-                setIsLoading(false);
-                console.log("An Error Occured whiles fetching employee details!");
-                setError("An Error Occured whiles fetching employee details!");
-            } else {
-                try {
-                    const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/createExpense", {
-                        method: "POST",
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${localStorage.getItem('token')}`
-                        },
-                        body: JSON.stringify(expenseData),
-                    });
-                    if (response.ok) {
-                        console.log("Expense created successfully!");
-                        setName("");
-                        setAmount("");
-                        setDescription("");
-                        onClose();
-                        setIsLoading(false);
-                        setError("");
-                        window.location.hash = '#expenses'
-                        router.reload();
-                    } else {
-                        setIsLoading(false);
-                        setError("An Error Occured whiles creating expense!");
-                    }
-                } catch (error) {
+            // create product
+            try {
+                const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/createProduct", {
+                    method: "POST",
+                    headers: {
+                        "Access-Control-Allow-Origin": "*",
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(productData),
+                });
+                if (response.ok) {
+                    console.log("Expense created successfully!");
+                    setName("");
+                    setPrice("");
+                    setStock("");
+                    setDescription("");
+                    onClose();
                     setIsLoading(false);
-                    console.log(error);
-                    setError(error);
+                    setError("");
+                    router.reload();
+                } else {
+                    setIsLoading(false);
+                    setError("An Error Occured whiles creating expense!");
                 }
+            } catch (error) {
+                setIsLoading(false);
+                console.log(error);
+                setError(error);
             }
         }
     }
@@ -104,7 +63,8 @@ function addProductModal({ isOpen, onClose }) {
         event.preventDefault();
         console.log("Modal Cancelled")
         setName("");
-        setAmount("");
+        setPrice("");
+        setStock("");
         setDescription("");
         setError("");
         onClose();
@@ -115,11 +75,10 @@ function addProductModal({ isOpen, onClose }) {
     }
 
     return (
-        <ModalLayout header={'Expenses'} closeModal={closeModal}>
+        <ModalLayout header={'Add Product'} closeModal={closeModal}>
             {/* Form */}
             <form onSubmit={handleSubmit}>
-                <div className="flex flex-row gap-2 mb-4">
-
+                <div className="flex flex-row gap-2">
                     <div className="flex flex-col basis-2/3 mb-4">
                         <label className="text-xs mb-1 text-gray-400">
                             Name
@@ -137,10 +96,9 @@ function addProductModal({ isOpen, onClose }) {
                             }}
                         />
                     </div>
-
                     <div className="flex flex-col basis-1/3 mb-4">
                         <label className="text-xs mb-1 text-gray-400">
-                            Amount
+                            Price
                         </label>
                         <input
                             type="number"
@@ -149,14 +107,25 @@ function addProductModal({ isOpen, onClose }) {
                             name="number"
                             className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
                             required // Make the field required
-                            value={amount}
+                            value={price}
                             onChange={(event) => {
-                                setAmount(event.target.value)
+                                setPrice(event.target.value)
                                 setError("")
                             }}
                         />
                     </div>
+                </div>
 
+                <div className="flex flex-col mb-4">
+                    <label className="text-xs mb-1 text-gray-400">Stock</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        className='w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out'
+                        required // Make the field required
+                        value={stock}
+                        onChange={(event) => {setStock(event.target.value)}}
+                    />
                 </div>
 
                 <div className="flex flex-col mb-4">
@@ -199,4 +168,4 @@ function addProductModal({ isOpen, onClose }) {
     );
 }
 
-export default addExpenseModal;
+export default addProductModal;
