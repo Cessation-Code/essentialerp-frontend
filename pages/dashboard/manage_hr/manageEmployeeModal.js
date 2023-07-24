@@ -147,7 +147,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
       <form onSubmit={null}>
         {/*First Row */}
         <div className="flex flex-row gap-2 mb-2">
-          <div className="flex flex-col basis-2/3 mb-2">
+          <div className="flex flex-col basis-1/3 mb-2">
             <label className="text-xs mb-1 text-gray-400">First Name</label>
             <input
               type="text"
@@ -159,7 +159,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
               onChange={handleFirstNameChange}
             />
           </div>
-          <div className="flex flex-col basis-2/3 mb-4">
+          <div className="flex flex-col basis-1/3 mb-4">
             <label className="text-xs mb-1 text-gray-400">Last Name</label>
             <input
               type="text"
@@ -187,7 +187,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
           {/*Second Row */}
         </div>
         <div className="flex flex-row gap-2 mb-4">
-          <div className="flex flex-col basis-2/3 mb-4">
+          <div className="flex flex-col basis-1/2 mb-4">
             <label className="text-xs mb-1 text-gray-400">E-mail</label>
             <input
               type="email"
@@ -199,7 +199,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
               onChange={handleEmailChange}
             />
           </div>
-          <div className="flex flex-col basis-2/3 mb-4">
+          <div className="flex flex-col basis-1/2 mb-4">
             <label className="text-xs mb-1 text-gray-400">Password</label>
             <input
               type="password"
@@ -241,7 +241,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
         <div className="flex mt-4 flex-col ">
           <h2 className=" font-bold">Contract Details</h2>
           <div className="flex flex-row gap-5  justify-between">
-            <div className=" ">
+            <div className="flex flex-col basis-1/3">
               <label className="text-sm  text-gray-600">Contract Type</label>
               <select
                 className="block w-36 mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -258,7 +258,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
                 ))}
               </select>
             </div>
-            <div className="">
+            <div className="flex flex-col basis-1/3">
               <label className="text-sm text-gray-600">Start Date</label>
               <input
                 type="date"
@@ -267,7 +267,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
                 onChange={handleStartDateChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col basis-1/3">
               <label className="text-sm text-gray-600">End Date</label>
               <input
                 type="date"
@@ -278,7 +278,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
             </div>
           </div>
           <div className="flex flex-row mt-4 gap-4">
-            <div className="flex flex-row">
+            <div className="flex flex-row basis-1/3">
               <label className="text-sm text-gray-600">Salary:</label>
               <input
                 type="number"
@@ -287,7 +287,7 @@ const ManageEmployeeModal = ({ isOpen, onClose, selectedRowData }) => {
                 onChange={handleSalaryChange}
               />
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row basis-1/2">
               <label className="text-sm text-gray-600">Status:</label>
               <select
                 className="block w-44 mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
