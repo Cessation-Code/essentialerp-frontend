@@ -47,10 +47,43 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
         setError("Something went wrong, please try again!");
       }
     } catch (error) {
-      console.log(error);
       setIsLoading(false);
       setError("Something went wrong, please try again!");
       setIsConfirmingDelete(false)
+    }
+  }
+
+  async function handleEdit() {
+    // edit expense
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/expense/editExpense', {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          _id: selectedRowData._id,
+          name: name,
+          amount: amount,
+          description: description
+        })
+      })
+      if (response.ok) {
+        closeModal();
+        setIsLoading(false);
+        setError("");
+        router.reload();
+      } else {
+        setIsLoading(false);
+        setError("Something went wrong, please try again!");
+      }
+    } catch (error) {
+      setIsLoading(false);
+      setError("Something went wrong, please try again!");
+      setIsEditMode(false)
     }
   }
 
@@ -76,7 +109,10 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
               value={name}
-              onChange={(event) => { event.target.value }}
+              onChange={(event) => {
+                setName(event.target.value)
+                setError("")
+              }}
               disabled={!isEditMode} // Disable input fields in view mode
             />
           </div>
@@ -86,11 +122,15 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
             <input
               type="number"
               id="amount"
+              placeholder="GHC"
               name="number"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
-              required
+              required // Make the field required
               value={amount}
-              onChange={(event) => { event.target.value }}
+              onChange={(event) => {
+                setAmount(event.target.value)
+                setError("")
+              }}
               disabled={!isEditMode} // Disable input fields in view mode
             />
           </div>
@@ -102,10 +142,13 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
             id="message"
             name="message"
             className="w-full bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-            // placeholder="Enter your description..."
-            required
+            placeholder="Enter your description..."
+            required // Make the field required
             value={description}
-            onChange={(event) => { event.target.value }}
+            onChange={(event) => {
+              setDescription(event.target.value)
+              setError("")
+            }}
             disabled={!isEditMode} // Disable input fields in view mode
           ></textarea>
         </div>
@@ -135,8 +178,8 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
             </button>
           )}
 
-          {(isEditMode && isConfirmingDelete) && (
-            <button type="submit" className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4">
+          {(isEditMode && !isConfirmingDelete) && (
+            <button type="submit" className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4" onClick={handleEdit}>
               Confirm
             </button>
           )}

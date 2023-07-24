@@ -4,46 +4,17 @@ import { useRouter } from 'next/router';
 
 function addExpenseModal({ isOpen, onClose }) {
 
-  useEffect(() => {
-    async function getEmployee() {
-      try {
-        // get employee details
-        await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/", {
-          method: "GET",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          },
-        }
-        ).then(response => response.json()).then(data => {
-          setEmployeeID(data.employee_id)
-          setOrganistionID(data.organisation_id)
-        });
-      } catch (error) {
-        setIsLoading(false);
-        console.log(error);
-        setError(error);
-      }
-    }
-    getEmployee()
-  }, [])
-
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
-  const [organisationID, setOrganistionID] = useState("")
-  const [employeeID, setEmployeeID] = useState("")
   const router = useRouter();
 
   const handleSubmit = async (event) => {
 
     const expenseData = {
-      created_by: employeeID,
-      organisation_id: organisationID,
       name: name,
       amount: amount,
       description: description
@@ -55,45 +26,36 @@ function addExpenseModal({ isOpen, onClose }) {
       setError("Please fill all fields!");
     }
     else {
-
       setIsLoading(true);
-      console.log(expenseData)
-
       // create expense
-      if (!organisationID || !employeeID) {
-        setIsLoading(false);
-        console.log("An Error Occured whiles fetching employee details!");
-        setError("An Error Occured whiles fetching employee details!");
-      } else {
-        try {
-          const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/createExpense", {
-            method: "POST",
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(expenseData),
-          });
-          if (response.ok) {
-            console.log("Expense created successfully!");
-            setName("");
-            setAmount("");
-            setDescription("");
-            onClose();
-            setIsLoading(false);
-            setError("");
-            window.location.hash = '#expenses'
-            router.reload();
-          } else {
-            setIsLoading(false);
-            setError("An Error Occured whiles creating expense!");
-          }
-        } catch (error) {
+      try {
+        const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/createExpense", {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify(expenseData),
+        });
+        if (response.ok) {
+          console.log("Expense created successfully!");
+          setName("");
+          setAmount("");
+          setDescription("");
+          onClose();
           setIsLoading(false);
-          console.log(error);
-          setError(error);
+          setError("");
+          window.location.hash = '#expenses'
+          router.reload();
+        } else {
+          setIsLoading(false);
+          setError("An Error Occured whiles creating expense!");
         }
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        setError(error);
       }
     }
   }
