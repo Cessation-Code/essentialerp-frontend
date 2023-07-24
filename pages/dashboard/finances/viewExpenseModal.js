@@ -2,21 +2,56 @@ import React, { useState } from 'react';
 import Modal from '../../../components/layouts/modal_layout';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from 'next/router';
 
 const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
 
+  const router = useRouter();
   const [isEditMode, setIsEditMode] = useState(false);
+  const [isConfirmingDelete, setIsConfirmingDelete] = useState(false);
   const [name, setName] = useState(selectedRowData.name);
   const [amount, setAmount] = useState(selectedRowData.amount);
   const [description, setDescription] = useState(selectedRowData.description);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setIsEditMode(false);
   };
 
-  const handleDelete = () => {
-    console.log("Delete expense");
+  async function handleDelete() {
+    // delete expense
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/expense/deleteExpense', {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({
+          _id: selectedRowData._id
+        })
+      })
+      if (response.ok) {
+        closeModal();
+        setIsLoading(false);
+        setIsConfirmingDelete(false)
+        setError("");
+        router.reload();
+      } else {
+        setIsLoading(false);
+        setIsConfirmingDelete(false)
+        setError("Something went wrong, please try again!");
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setError("Something went wrong, please try again!");
+      setIsConfirmingDelete(false)
+    }
   }
 
   const closeModal = () => {
@@ -75,24 +110,38 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
           ></textarea>
         </div>
 
-        <div className="flex flex-row justify-end gap-3">
-          {!isEditMode && (<button type="reset" className="btn-sm bg-red-500 hover:bg-red-700 rounded text-white font-semibold text-sm py-1 px-4 mt-4" onClick={handleDelete}>
-            Delete
+        {/* error message */}
+        {error && (
+          <div className='flex flex-row pt-1 text-xs font-semibold justify-center text-red-600'>{error}</div>
+        )}
+
+        {/* buttons */}
+        {!isLoading && (<div className="flex flex-row justify-end gap-3">
+          {!isEditMode && (<button type="reset" className="btn-sm bg-red-500 hover:bg-red-700 rounded text-white font-semibold text-sm py-1 px-4 mt-4" onClick={() => {
+            if (!isConfirmingDelete) {
+              setIsConfirmingDelete(true);
+              return;
+            } else {
+              handleDelete();
+            }
+          }}>
+            {isConfirmingDelete ? "Confirm Delete" : "Delete"}
             <FontAwesomeIcon icon={faTrash} className="ml-2" />
           </button>)}
 
-          {!isEditMode && (
+          {(!isEditMode && !isConfirmingDelete) && (
             <button className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4" onClick={() => setIsEditMode(true)}>
               Edit Expense
             </button>
           )}
 
-          {isEditMode && (
+          {(isEditMode && isConfirmingDelete) && (
             <button type="submit" className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4">
               Confirm
             </button>
           )}
-        </div>
+        </div>)}
+
       </form>
     </Modal>
   );
