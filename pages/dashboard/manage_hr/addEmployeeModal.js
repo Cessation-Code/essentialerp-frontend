@@ -30,6 +30,11 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
   const [endDate, setEndDate] = useState("");
   const [salary, setSalary] = useState("");
   const [status, setStatus] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [phone, setPhone] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -39,6 +44,25 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
   ];
 
   const statusOptions = ["active", "inactive"];
+
+  const handleFirstNameChange = (event) => {
+    setFirstName(event.target.value);
+  };
+
+  const handleLastNameChange = (event) => {
+    setLastName(event.target.value);
+  };
+
+  const handlePhoneChange = (event) => {
+    setPhone(event.target.value);
+  };
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
 
   const handleContractTypeChange = (event) => {
     setContractType(event.target.value);
@@ -93,13 +117,12 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
   if (!isOpen) {
     return null;
   }
-
   return (
     <Modal header={"Add New Employee"} closeModal={closeModal}>
       <form onSubmit={null}>
         {/*First Row */}
         <div className="flex flex-row gap-2 mb-2">
-          <div className="flex flex-col basis-2/3 mb-2">
+          <div className="flex flex-col basis-1/3 mb-2">
             <label className="text-xs mb-1 text-gray-400">First Name</label>
             <input
               type="text"
@@ -107,13 +130,10 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               name="name"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-            // onChange={(event) => {
-            //   setName(event.target.value);
-            //   setError("");
-            // }}
+              onChange={handleFirstNameChange}
             />
           </div>
-          <div className="flex flex-col basis-2/3 mb-4">
+          <div className="flex flex-col basis-1/3 mb-4">
             <label className="text-xs mb-1 text-gray-400">Last Name</label>
             <input
               type="text"
@@ -121,10 +141,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               name="name"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-            // onChange={(event) => {
-            //   setName(event.target.value);
-            //   setError("");
-            // }}
+              onChange={handleLastNameChange}
             />
           </div>
           <div className="flex flex-col basis-1/3 mb-4">
@@ -137,17 +154,13 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
               required // Make the field required
 
-            // onChange={(event) => {
-            //   setAmount(event.target.value);
-            //   setError("");
-            // }}
+              onChange={handlePhoneChange}
             />
           </div>
-
         </div>
         {/*Second Row */}
         <div className="flex flex-row gap-2 mb-4">
-          <div className="flex flex-col basis-2/3 mb-4">
+          <div className="flex flex-col basis-1/2 mb-4">
             <label className="text-xs mb-1 text-gray-400">E-mail</label>
             <input
               type="email"
@@ -156,13 +169,10 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
 
-            // onChange={(event) => {
-            //   setName(event.target.value);
-            //   setError("");
-            // }}
+              onChange={handleEmailChange}
             />
           </div>
-          <div className="flex flex-col basis-2/3 mb-4">
+          <div className="flex flex-col basis-1/2 mb-4">
             <label className="text-xs mb-1 text-gray-400">Password</label>
             <input
               type="password"
@@ -170,11 +180,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               name="password"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-
-            // onChange={(event) => {
-            //   setName(event.target.value);
-            //   setError("");
-            // }}
+              onChange={handlePasswordChange}
             />
           </div>
         </div>
@@ -207,12 +213,10 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
         <div className="flex mt-4 flex-col ">
           <h2 className=" font-bold">Contract Details</h2>
           <div className="flex flex-row gap-5  justify-between">
-            <div className=" ">
-              <label className="text-sm  text-gray-600">
-                Contract Type
-              </label>
+            <div className="flex flex-col basis-1/3">
+              <label className="text-sm  text-gray-600">Contract Type</label>
               <select
-                className="block w-36 mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block  mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={contractType}
                 onChange={handleContractTypeChange}
               >
@@ -226,39 +230,39 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
                 ))}
               </select>
             </div>
-            <div className="">
+            <div className="flex flex-col basis-1/3">
               <label className="text-sm text-gray-600">Start Date</label>
               <input
                 type="date"
-                className="block w-36 mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={startDate}
                 onChange={handleStartDateChange}
               />
             </div>
-            <div>
+            <div className="flex flex-col basis-1/3">
               <label className="text-sm text-gray-600">End Date</label>
               <input
                 type="date"
-                className="block w-36 mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block  mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={endDate}
                 onChange={handleEndDateChange}
               />
             </div>
           </div>
-          <div className="flex flex-row mt-4 gap-4">
-            <div className="flex flex-row">
-              <label className="text-sm text-gray-600">Salary:</label>
+          <div class="flex flex-row mt-4 gap-3">
+            <div class="flex flex-row  basis-1/2">
+              <label class="text-sm text-gray-600">Salary:&nbsp;</label>
               <input
                 type="number"
-                className="block w-full mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={salary}
                 onChange={handleSalaryChange}
               />
             </div>
-            <div className="flex flex-row">
-              <label className="text-sm text-gray-600">Status:</label>
+            <div class="flex flex-row  basis-1/2">
+              <label class="text-sm text-gray-600">Status:&nbsp;</label>
               <select
-                className="block w-44 mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="border w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={status}
                 onChange={handleStatusChange}
               >
@@ -280,10 +284,10 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               placeholder="Enter your description..."
               required // Make the field required
 
-            // onChange={(event) => {
-            //   setDescription(event.target.value);
-            //   setError("");
-            // }}
+              // onChange={(event) => {
+              //   setDescription(event.target.value);
+              //   setError("");
+              // }}
             ></textarea>
           </div>
         </div>
