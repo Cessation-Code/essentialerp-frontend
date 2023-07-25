@@ -53,7 +53,7 @@ const Sidebar = () => {
                   <Icon />
                 </div>
                 {/* {isOpen && (<span className="text-md font-medium text-text-light ">{menu.label}</span>)} */}
-                <span className="text-md font-medium text-text-light ">{menu.label}</span>
+                <span className="text-md font-medium">{menu.label}</span>
               </Link>
             </div>
           );

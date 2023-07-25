@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "../../../components/layouts/modal_layout";
+import { useRouter } from "next/router";
 
 export const CheckBox = ({ name, checked, onChange }) => {
   return (
@@ -29,79 +30,24 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [salary, setSalary] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("Active");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [role, setRole] = useState("")
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [description, setDescription] = useState("");
+  const router = useRouter()
 
   const contractTypes = [
-    { value: "full_time", label: "Full Time" },
-    { value: "part_time", label: "Part Time" },
+    { value: "Full Time", label: "Full Time" },
+    { value: "Part Time", label: "Part Time" },
   ];
 
-  const statusOptions = ["active", "inactive"];
-
-  const handleFirstNameChange = (event) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event) => {
-    setLastName(event.target.value);
-  };
-
-  const handlePhoneChange = (event) => {
-    setPhone(event.target.value);
-  };
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleContractTypeChange = (event) => {
-    setContractType(event.target.value);
-  };
-
-  const handleStartDateChange = (event) => {
-    setStartDate(event.target.value);
-  };
-
-  const handleEndDateChange = (event) => {
-    setEndDate(event.target.value);
-  };
-
-  const handleSalaryChange = (event) => {
-    setSalary(event.target.value);
-  };
-
-  const handleStatusChange = (event) => {
-    setStatus(event.target.value);
-  };
-
-  const handleHrChange = (event) => {
-    setHrChecked(event.target.checked);
-  };
-
-  const handleInventoryChange = (event) => {
-    setInventoryChecked(event.target.checked);
-  };
-
-  const handleFinanceChange = (event) => {
-    setFinanceChecked(event.target.checked);
-  };
-
-  const handleTpipChange = (event) => {
-    setTpipChecked(event.target.checked);
-  };
-
   const closeModal = () => {
-    setIsEditMode(false);
     onClose();
   };
 
@@ -109,43 +55,115 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
     closeModal();
   };
 
-  const handleConfirm = () => {
-    console.log("Form submitted successfully!");
-    closeModal();
-  };
+  async function handleSubmit(event) {
+
+    if (contractType === "Full Time") {
+      setEndDate(null);
+    }
+
+    const formData = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number_1: phone,
+      email: email,
+      password: password,
+      role: role,
+      description: description,
+      status: status,
+      // contract_type: contractType,
+      // start_date: startDate,
+      end_date: endDate,
+      salary: salary,
+      hr_management: hrChecked,
+      inventory: inventoryChecked,
+      finance: financeChecked,
+      tpip: tpipChecked,
+    }
+
+    console.log(formData)
+
+    event.preventDefault();
+    setIsLoading(true);
+
+    if (!firstName || !lastName || !email || !phone || !role) {
+      setError("Please fill all fields");
+      setIsLoading(false);
+    } else {
+      try {
+        const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/createEmployee", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify(formData),
+        });
+        console.log(response)
+        if (response.ok) {
+          console.log("Employee created successfully!");
+          setFirstName("");
+          setLastName("");
+          setPhone("");
+          setEmail("");
+          setPassword("");
+          setRole("");
+          setDescription("");
+          setStatus("");
+          setContractType("");
+          setStartDate("");
+          setEndDate("");
+          setSalary("");
+          setHrChecked(false);
+          setInventoryChecked(false);
+          setFinanceChecked(false);
+          setTpipChecked(false);
+          setError("");
+          setIsLoading(false);
+          closeModal();
+          router.reload()
+        } else {
+          setIsLoading(false);
+          setError("An Error Occured whiles creating employee!");
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        setError(error);
+      }
+    }
+  }
 
   if (!isOpen) {
     return null;
   }
   return (
     <Modal header={"Add New Employee"} closeModal={closeModal}>
-      <form onSubmit={null}>
+      <form onSubmit={handleSubmit}>
         {/*First Row */}
         <div className="flex flex-row gap-2 mb-2">
-          <div className="flex flex-col basis-1/3 mb-2">
-            <label className="text-xs mb-1 text-gray-400">First Name</label>
+          <div className="flex flex-col basis-1/3">
+            <label className="text-xs text-gray-400">First Name</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="first_name"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-              onChange={handleFirstNameChange}
+              onChange={(event) => { setFirstName(event.target.value) }}
             />
           </div>
-          <div className="flex flex-col basis-1/3 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Last Name</label>
+          <div className="flex flex-col basis-1/3">
+            <label className="text-xs text-gray-400">Last Name</label>
             <input
               type="text"
-              id="name"
-              name="name"
+              id="last_name"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-              onChange={handleLastNameChange}
+              onChange={(event) => { setLastName(event.target.value) }}
             />
           </div>
-          <div className="flex flex-col basis-1/3 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Phone Number</label>
+          <div className="flex flex-col basis-1/3 ">
+            <label className="text-xs text-gray-400">Phone Number</label>
             <input
               type="number"
               id="number"
@@ -153,72 +171,74 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               name="Phone"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
               required // Make the field required
-
-              onChange={handlePhoneChange}
+              onChange={(event) => { setPhone(event.target.value) }}
             />
           </div>
         </div>
         {/*Second Row */}
-        <div className="flex flex-row gap-2 mb-4">
-          <div className="flex flex-col basis-1/2 mb-4">
-            <label className="text-xs mb-1 text-gray-400">E-mail</label>
+        <div className="flex flex-row gap-2">
+          <div className="flex flex-col basis-1/2">
+            <label className="text-xs text-gray-400">E-mail</label>
             <input
               type="email"
               id="email"
               name="email"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-
-              onChange={handleEmailChange}
+              onChange={(event) => { setEmail(event.target.value) }}
             />
           </div>
           <div className="flex flex-col basis-1/2 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Password</label>
+            <label className="text-xs text-gray-400">Password</label>
             <input
               type="password"
               id="password"
               name="password"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-              onChange={handlePasswordChange}
+              onChange={(event) => { setPassword(event.target.value) }}
             />
           </div>
         </div>
         {/*Third Row */}
         <div className="flex flex-col">
-          <h2>Portal Access</h2>
+          <div className="font-semibold">Portal Access</div>
           <div className="flex flex-row justify-between">
-            <CheckBox name="HR" checked={hrChecked} onChange={handleHrChange} />
+            <CheckBox name="HR" checked={hrChecked} onChange={(event) => {
+              setHrChecked(event.target.checked)
+            }} />
+
             <CheckBox
               name="Inventory"
               checked={inventoryChecked}
-              onChange={handleInventoryChange}
+              onChange={(event) => { setInventoryChecked(event.target.checked) }}
             />
 
             <CheckBox
               name="Finance"
               checked={financeChecked}
-              onChange={handleFinanceChange}
+              onChange={(event) => { setFinanceChecked(event.target.checked) }}
             />
             <CheckBox
               name="TPIP"
               checked={tpipChecked}
-              onChange={handleTpipChange}
+              onChange={(event) => { setTpipChecked(event.target.checked) }}
             />
           </div>
         </div>
 
         {/*Fourth Row */}
-
-        <div className="flex mt-4 flex-col ">
-          <h2 className=" font-bold">Contract Details</h2>
+        <div className="flex mt-4 flex-col mb-2">
+          <div className=" font-semibold">Contract Details</div>
           <div className="flex flex-row gap-5  justify-between">
-            <div className="flex flex-col basis-1/3">
-              <label className="text-sm  text-gray-600">Contract Type</label>
+            <div className="flex flex-col basis-1/2">
+              <label className="text-xs font-base text-gray-400">Contract Type</label>
               <select
-                className="block  mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block border border-black rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={contractType}
-                onChange={handleContractTypeChange}
+                onChange={(event) => {
+                  setContractType(event.target.value)
+                }}
               >
                 <option value="">Select Type</option>
                 {contractTypes.map((option) => (
@@ -230,47 +250,47 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
                 ))}
               </select>
             </div>
-            <div className="flex flex-col basis-1/3">
-              <label className="text-sm text-gray-600">Start Date</label>
+            {/* <div className="flex flex-col basis-1/3">
+              <label className="text-xs font-base text-gray-400">Start Date</label>
               <input
                 type="date"
-                className="block mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block border border-black rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={startDate}
-                onChange={handleStartDateChange}
+                onChange={(event) => { setStartDate(event.target.value) }}
               />
-            </div>
-            <div className="flex flex-col basis-1/3">
-              <label className="text-sm text-gray-600">End Date</label>
+            </div> */}
+            {(contractType !== "Full Time") && (<div className="flex flex-col basis-1/2">
+              <label className="text-xs font-base text-gray-400">End Date</label>
               <input
                 type="date"
-                className="block  mt-1 border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="block border border-black rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm w-full"
                 value={endDate}
-                onChange={handleEndDateChange}
+                onChange={(event) => {
+                  setEndDate(event.target.value)
+                }}
               />
-            </div>
+            </div>)}
           </div>
+
           <div class="flex flex-row mt-4 gap-3">
-            <div class="flex flex-row  basis-1/2">
-              <label class="text-sm text-gray-600">Salary:&nbsp;</label>
+            <div class="flex flex-col  basis-1/2">
+              <label class="text-xs font-base text-gray-400">Salary(GHS):&nbsp;</label>
               <input
                 type="number"
-                className="border rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="border border-black rounded-md px-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={salary}
-                onChange={handleSalaryChange}
+                onChange={(event) => { setSalary(event.target.value) }}
               />
             </div>
-            <div class="flex flex-row  basis-1/2">
-              <label class="text-sm text-gray-600">Status:&nbsp;</label>
-              <select
-                className="border w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                value={status}
-                onChange={handleStatusChange}
-              >
-                <option value="">Select Status</option>
-                {statusOptions.map((option) => (
-                  <SelectOption key={option} value={option} label={option} />
-                ))}
-              </select>
+            <div class="flex flex-col basis-1/2">
+              <label class="text-xs font-base text-gray-400">Role:&nbsp;</label>
+              <input
+                className="px-2 border border-black w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                value={role}
+                onChange={(event) => {
+                  setRole(event.target.value)
+                }}
+              />
             </div>
           </div>
 
@@ -283,36 +303,35 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               className="w-full bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               placeholder="Enter your description..."
               required // Make the field required
-
-              // onChange={(event) => {
-              //   setDescription(event.target.value);
-              //   setError("");
-              // }}
+              onChange={(event) => {
+                setDescription(event.target.value);
+                setError("");
+              }}
             ></textarea>
           </div>
         </div>
       </form>
 
+      {/* Error message */}
+      {error && (<div className="flex flex-row justify-start text-xs text-red-500 mt-5">
+        {error}
+      </div>)}
+
       {/*Action Buttons Row */}
       <div className="flex flex-row gap-4">
-        {/* <div className="flex basis-3/5 justify-start text-xs text-red-500 mt-5">
-          {error && <p>{error}</p>}
-        </div> */}
-        {/*
-         */}
         <div className="flex flex-auto justify-end ">
           {isLoading ? null : (
             <div className="flex flex-row ">
               <button
                 type="reset"
                 onClick={handleCancel}
-                className="bg-[#C3A2FA] text-black mr-2 text-sm py-1 px-4 mt-4"
+                className="bg-slate-200 hover:bg-slate-300 text-black mr-2 text-sm py-1 px-4 mt-4"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                onClick={handleConfirm}
+                onClick={handleSubmit}
                 className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4"
               >
                 Confirm
