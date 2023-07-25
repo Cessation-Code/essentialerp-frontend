@@ -99,7 +99,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
           },
           body: JSON.stringify(formData),
         });
-        console.log(response)
+        // console.log(response)
         if (response.ok) {
           console.log("Employee created successfully!");
           setFirstName("");
@@ -272,9 +272,9 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
             </div>)}
           </div>
 
-          <div class="flex flex-row mt-4 gap-3">
-            <div class="flex flex-col  basis-1/2">
-              <label class="text-xs font-base text-gray-400">Salary(GHS):&nbsp;</label>
+          <div className="flex flex-row mt-4 gap-3">
+            <div className="flex flex-col  basis-1/2">
+              <label className="text-xs font-base text-gray-400">Salary(GHS):&nbsp;</label>
               <input
                 type="number"
                 className="border border-black rounded-md px-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -282,8 +282,8 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
                 onChange={(event) => { setSalary(event.target.value) }}
               />
             </div>
-            <div class="flex flex-col basis-1/2">
-              <label class="text-xs font-base text-gray-400">Role:&nbsp;</label>
+            <div className="flex flex-col basis-1/2">
+              <label className="text-xs font-base text-gray-400">Role:&nbsp;</label>
               <input
                 className="px-2 border border-black w-full rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 value={role}

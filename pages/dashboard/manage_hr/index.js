@@ -156,15 +156,15 @@ const Manage_HR = () => {
           selectedRowData={selectedRowData}
         />
       )}
-      <div className="max-h-[calc(78vh-4rem)] overflow-y-auto custom-scrollbar mt-4">
-        <ul className="mt-12 divide-y ">
+      <div className="max-h-[55vh] overflow-y-auto custom-scrollbar mt-4">
+        <ul className="mt-5 divide-y">
           {employeeRecords.map((employee) => (
-            <li key={employee._id} className="py-5 flex items-start justify-between">
+            <li id={employee._id} key={employee.email} className="py-5 flex items-start justify-between">
               <div className="flex gap-3">
                 <div>
                   <FontAwesomeIcon
                     icon={faUserAlt}
-                    className="flex-none w-12 h-12  "
+                    className="flex-none w-12 h-12 "
                   />
                 </div>
                 <div>
