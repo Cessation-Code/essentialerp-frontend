@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SearchButton from "../../../components/search";
 import ViewSaleModal from "./viewSaleModal";
 import { useRouter } from "next/router";
+import AddSales from "./addSales";
 
 export const Sales = {
   salesEntries: [
@@ -130,7 +131,7 @@ export const Sales = {
   ],
 }
 const SalesTable = () => {
-
+  const [addSaleModal, setaddSaleModal] = useState(false);
 
   const [viewSaleModal, setViewSaleModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("")
@@ -144,6 +145,14 @@ const SalesTable = () => {
     setViewSaleModal(false);
   };
 
+  const openAddSaleModal = () => {
+    setaddSaleModal(true);
+  };
+
+  const closeAddSaleModal = () => {
+    setaddSaleModal(false);
+  };
+
   return (
     <div className="w-full px-6">
 
@@ -151,15 +160,14 @@ const SalesTable = () => {
         <h3 className="text-3xl">Sales Table</h3>
         <div className="flex flex-row items-baseline">
           <SearchButton />
-          <button className="btn" onClick={() => { 
-            router.push("inventory")
-           }}>
+          <button className="btn" onClick={openAddSaleModal}>
             Add Sale
           </button>
         </div>
       </div>
 
       {viewSaleModal && <ViewSaleModal onClose={closeViewSaleModal} selectedRowData={selectedRowData} />}
+      {addSaleModal && <AddSales  onClose={closeAddSaleModal}  />}
 
       <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
         <table className="w-[98%] border border-gray-300 mr-4">
