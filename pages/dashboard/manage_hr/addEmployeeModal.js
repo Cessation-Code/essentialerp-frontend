@@ -57,6 +57,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
 
   async function handleSubmit(event) {
 
+    // make end date null if contract type is full time
     if (contractType === "Full Time") {
       setEndDate(null);
     }
