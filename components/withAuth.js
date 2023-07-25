@@ -20,7 +20,7 @@ const withAuth = (WrappedComponent) => {
 
             async function fetchEmployee() {
                 try {
-                    await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/', {
+                    await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/getEmployee', {
                         // const response = await fetch('https://localhost:8000/api/v1/employee', {
                         method: 'GET',
                         headers: {

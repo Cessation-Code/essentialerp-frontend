@@ -31,6 +31,7 @@ const ButtonLikeCard = ({ basis, title, icon, description, link, bgColour }) => 
 
 export function DashboardPage(props) {
 
+  console.log(props.employee.employee);
   return (
     <div className="bg-white h-full">
       <Head>
@@ -115,7 +116,7 @@ export function DashboardPage(props) {
             basis='basis-1/2'
             title='SOME DATA'
             // icon=''
-            description={props.employee.first_name + ' ' + props.employee.last_name}
+            description={props.employee.employee.first_name + ' ' + props.employee.employee.last_name}
             link=''
             bgColour='bg-[#F2F5FE]'
           />
@@ -124,7 +125,7 @@ export function DashboardPage(props) {
             basis='basis-1/2'
             title='SOME DATA'
             // icon=''
-            description={props.employee.employee_id}
+            description={props.employee.employee._id}
             link=''
             bgColour='bg-[#F2F5FE]'
           />
