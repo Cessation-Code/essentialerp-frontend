@@ -104,13 +104,15 @@ const AddSales = () => {
 
   return (
     <div className="w-[85vw] h-full p-4 mt-6 mx-3 border-4 rounded-3xl relative">
-      <div className="items-start  gap-4 justify-between sm:flex grid grid-cols-2">
+      <div className="items-start gap-4 justify-between sm:flex grid grid-cols-2">
         {/* The select products column */}
         <div className="col-span-1 w-full flex flex-col">
-          <h4 className="text-gray-800 text-lg font-semibold">
+          <div className="text-gray-800 text-base font-semibold">
             Select Products
-          </h4>
-          <SearchButton />
+          </div>
+          <div className="flex flex-row pt-10">
+            <SearchButton />
+          </div>
 
           <div className="overflow-y-auto max-h-[50vh] custom-scrollbar">
             <table className="w-full border-collapse my-4 border">
