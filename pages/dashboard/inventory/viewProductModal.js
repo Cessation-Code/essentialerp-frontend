@@ -25,7 +25,7 @@ const ViewProductModal = ({ isOpen, onClose, selectedRowData }) => {
         // delete expense
         setIsLoading(true);
         try {
-            const response = await fetch('http://localhost:8000/api/v1/expense/deleteProduct', {
+            const response = await fetch('http://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/deleteProduct', {
                 method: "POST",
                 headers: {
                     "Access-Control-Allow-Origin": "*",
@@ -180,7 +180,7 @@ const ViewProductModal = ({ isOpen, onClose, selectedRowData }) => {
                             setIsConfirmingDelete(true);
                             return;
                         } else {
-                            // handleDelete();
+                            handleDelete();
                             setIsConfirmingDelete(false);
                         }
                     }}>
