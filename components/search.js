@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 const SearchButton = ({ onSearch }) => {
-  const [value, setValue] = useState("");
+ // const [value, setValue] = useState("");
 
   // const handleChange = (e) => {
   //   setValue(e.target.value);
@@ -18,6 +18,7 @@ const SearchButton = ({ onSearch }) => {
     <form onSubmit={null} className="mr-3 flex flex-row">
       <input
         type="text"
+        onClick={onSearch}
         placeholder="  Search"
         className="input input-bordered input-primary w-full max-w-xs mr-3"
       />

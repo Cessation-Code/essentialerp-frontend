@@ -12,6 +12,7 @@ import {
     Title,
     Tooltip
   } from 'chart.js';
+import AddSales from './addSales';
   
 
     Chart.register(
@@ -72,7 +73,9 @@ const Report = ({ salesData, expensesData }) => {
         
     //   </Card>
     // </div>
-    <div className='text-3xl'>REPORT PAGE</div>
+    <div className='text-3xl'>
+      <AddSales/>
+    </div>
   );
 };
 
