@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-import Logo01 from "../../public/icons/login_page/loginicon01";
 import Link from "next/link";
 import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout";
 import LoadingSpinner from "../../components/loadingSpinner";
@@ -71,22 +70,11 @@ export default function LoginPage() {
 
   return (
     <UnauthenticatedLayout>
-      <div className="bg-[#C4D7F8] h-screen">
-        <header className="p-5">
-         <Logo/>
-        </header>
-
-        <div className="flex flex-row justify-center pt-16">
-          <Logo01 />
-        </div>
-
-        <div className="flex flex-row justify-center text-center pt-5 text-sm">
-          <div className="flex flex-col">
-            <div>Login with Company Email</div>
+      <div className="flex flex-col h-screen w-full justify-center items-center bg-[#C4D9F8]">
+        <div className="flex flex-col justify-center items-center bg-[#E4EFFF] rounded-xl p-10">
+          <div className="flex flex-row justify-center items-center">
+            <Logo />
           </div>
-        </div>
-
-        <div className="flex flex-row justify-center">
           <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
             <div className="mb-4">
               <label htmlFor="email" className="text-xs font-medium mb-2">
@@ -109,7 +97,7 @@ export default function LoginPage() {
               <div>
                 <label htmlFor="password"></label>
                 <input
-                  className="px-3"
+                  className="px-3 py-1"
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
@@ -122,7 +110,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <div className="flex flex-row justify-center text-red-600">
+            <div className="flex flex-row justify-center font-semibold text-xs text-red-600">
               {error && <div>{error}</div>}
             </div>
 
@@ -130,12 +118,12 @@ export default function LoginPage() {
               {loading ? (
                 <LoadingSpinner />
               ) : (
-                <button type="submit" className="px-4 py-2 bg-indigo-500 text-white rounded hover:bg-blue-600">
+                <button type="submit" className="px-5 py-1 bg-indigo-500 text-white text-sm rounded hover:bg-blue-600">
                   Login
                 </button>
               )}
             </div>
-            <div className="flex flex-row justify-center pt-5">
+            <div className="flex flex-row justify-center pt-5 text-sm">
               Don't have an account? &nbsp;{" "}
               <Link className="text-[#6C63FF] underline" href="signup">
                 Sign Up!
