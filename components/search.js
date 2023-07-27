@@ -19,8 +19,8 @@ const SearchButton = ({ onSearch }) => {
       <input
         type="text"
         onClick={onSearch}
-        placeholder="  Search"
-        className="input input-bordered input-primary w-full max-w-xs mr-3"
+        placeholder="Search"
+        className="input placeholder:text-sm placeholder:font-medium input-bordered input-primary w-fit h-fit mr-3"
       />
       <button type="submit">
         <FontAwesomeIcon icon={faSearch} />

@@ -3,7 +3,7 @@ import SearchButton from "../../../components/search";
 
 const AddSales = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
-  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
 
   async function getInventoryItems() {
@@ -36,163 +36,189 @@ const AddSales = () => {
   }, []);
 
   const handleAddToCart = (item) => {
-    // Check if the product is already in the cart
-    const existingCartItem = cartItems.find((cartItem) => cartItem.id === item.id);
+    const existingItem = selectedItems.find((selectedItem) => selectedItem._id === item._id);
 
-    if (existingCartItem) {
-      // Product already exists in the cart, increase the quantity
-      setCartItems((prevCartItems) =>
-        prevCartItems.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem
-        )
+    if (existingItem) {
+      // If the item is already in the cart, increase its quantity by one
+      const updatedItems = selectedItems.map((selectedItem) =>
+        selectedItem._id === item._id
+          ? { ...selectedItem, quantity: selectedItem.quantity + 1, amount: (selectedItem.quantity + 1) * item.price }
+          : selectedItem
       );
+      setSelectedItems(updatedItems);
     } else {
-      // Product doesn't exist in the cart, add it with quantity 1
-      setCartItems((prevCartItems) => [...prevCartItems, { ...item, quantity: 1 }]);
+      // If the item is not in the cart, add it with a quantity of one
+      const newItem = {
+        ...item,
+        quantity: 1,
+        amount: item.price,
+      };
+      setSelectedItems((prevSelectedItems) => [...prevSelectedItems, newItem]);
     }
 
-    // Reduce the stock of the selected product in the inventory items
-    setInventoryItems((prevInventoryItems) =>
-      prevInventoryItems.map((inventoryItem) =>
-        inventoryItem.id === item.id
-          ? { ...inventoryItem, stock: inventoryItem.stock - 1 }
-          : inventoryItem
-      )
+    // Reduce the stock of the item
+    const updatedStock = inventoryItems.map((stockItem) =>
+      stockItem._id === item._id ? { ...stockItem, stock: stockItem.stock - 1 } : stockItem
     );
+
+    setInventoryItems(updatedStock);
+
   };
 
-  const handleRemoveFromCart = (itemId) => {
-    // Check if the product is in the cart
-    const existingCartItem = cartItems.find((cartItem) => cartItem.id === itemId);
+  const handleReduceQuantity = (itemId) => {
+    const updatedItems = selectedItems.map((selectedItem) =>
+      selectedItem._id === itemId
+        ? {
+          ...selectedItem,
+          quantity: selectedItem.quantity > 0 ? selectedItem.quantity - 1 : 0,
+          amount: (selectedItem.quantity > 0 ? selectedItem.quantity - 1 : 0) * selectedItem.price,
+        }
+        : selectedItem
+    );
 
-    if (existingCartItem && existingCartItem.quantity > 1) {
-      // Product exists in the cart and its quantity is greater than 1, reduce the quantity
-      setCartItems((prevCartItems) =>
-        prevCartItems.map((cartItem) =>
-          cartItem.id === itemId
-            ? { ...cartItem, quantity: cartItem.quantity - 1 }
-            : cartItem
-        )
-      );
+    // Remove the item from selectedItems if its quantity is zero
+    const filteredItems = updatedItems.filter((item) => item.quantity > 0);
 
-      // Increase the stock of the selected product in the inventory items
-      setInventoryItems((prevInventoryItems) =>
-        prevInventoryItems.map((inventoryItem) =>
-          inventoryItem.id === itemId
-            ? { ...inventoryItem, stock: inventoryItem.stock + 1 }
-            : inventoryItem
-        )
-      );
-    } else {
-      // Product doesn't exist in the cart or its quantity is 1, remove it from the cart
-      setCartItems((prevCartItems) =>
-        prevCartItems.filter((cartItem) => cartItem.id !== itemId)
+    setSelectedItems(filteredItems);
+
+    // Increase the stock of the item when it is removed from the cart
+    const itemToUpdateStock = selectedItems.find((selectedItem) => selectedItem._id === itemId);
+
+    if (itemToUpdateStock) {
+      const updatedStock = inventoryItems.map((stockItem) =>
+        stockItem._id === itemId ? { ...stockItem, stock: stockItem.stock + 1 } : stockItem
       );
 
-      // If the product is removed from the cart, reset its stock to the original value in the inventory items
-      setInventoryItems((prevInventoryItems) =>
-        prevInventoryItems.map((inventoryItem) =>
-          inventoryItem.id === itemId
-            ? { ...inventoryItem, stock: inventoryItem.originalStock }
-            : inventoryItem
-        )
-      );
+      setInventoryItems(updatedStock);
     }
+
+    setSelectedItems(updatedItems.filter((item) => item.quantity > 0));
   };
 
   return (
-    <div className="w-[85vw] h-full p-4 mt-6 mx-3 border-4 rounded-3xl relative">
-      <div className="items-start gap-4 justify-between sm:flex grid grid-cols-2">
-        {/* The select products column */}
-        <div className="col-span-1 w-full flex flex-col">
-          <div className="text-gray-800 text-base font-semibold">
-            Select Products
-          </div>
-          <div className="flex flex-row pt-10">
-            <SearchButton />
+    <div className="w-[160vh] h-[60vh] p-4 mt-5 border-4 rounded-3xl relative">
+      <div className="flex flex-row h-full">
+
+        {/* table of inventory items */}
+        <div className="flex flex-col basis-1/2 px-7">
+
+          <div className="flex flex-row mb-3 text-sm font-semibold">
+            <div className="flex basis-1/3">
+              Select Products
+            </div>
+            <div className="flex basis-2/3 place-content-end">
+              <SearchButton />
+            </div>
           </div>
 
-          <div className="overflow-y-auto max-h-[50vh] custom-scrollbar">
-            <table className="w-full border-collapse my-4 border">
-              <thead>
-                <tr className="bg-gray-200 rounded">
-                  <th className="border px-4 py-2 text-left">Name</th>
-                  <th className="border px-4 py-2 text-left">Stock</th>
-                  <th className="border px-4 py-2 text-left"></th>
+          <div className="flex flex-col h-full overflow-y-auto border-2 border-gray-300 rounded-md custom-scrollbar mr-3">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
+                <tr>
+                  <th scope="col" className="px-6 py-2 text-xs font-semibold text-left text-gray-500 uppercase">
+                    Product Name
+                  </th>
+                  <th scope="col" className="px-6 py-2 text-xs font-semibold text-left text-gray-500 uppercase">
+                    Price
+                  </th>
+                  <th scope="col" className="relative px-6 py-2">
+                    <span className="sr-only">Add to cart</span>
+                  </th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody className="bg-white divide-y divide-gray-200">
                 {inventoryItems.map((item) => (
                   <tr key={item.id}>
-                    <td className="border px-4 py-2">{item.name}</td>
-                    <td className="border px-4 py-2">{item.stock}</td>
-                    <td className="border px-4 py-2">
-                      <button
-                        className="border rounded p-1"
-                        onClick={() => handleRemoveFromCart(item.id)}
-                      >
-                        -
-                      </button>
-                      <input
-                        className="w-8 outline mx-2 text-center rounded"
-                        type="number"
-                        value={
-                          cartItems.find((cartItem) => cartItem.id === item.id)
-                            ?.quantity || 0
-                        }
-                        readOnly
+                    <td className="flex items-center px-6 py-1 whitespace-nowrap">
+                      <div className="text-sm font-medium">
+                        <div className="text-black">
+                          {item.name}
+                        </div>
+                        <div className="text-gray-500">
+                          {item.stock} in stock
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                      {item.price}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                      <button onClick={() => {
+                        handleAddToCart(item)
+                      }}
+                        className="inline-flex items-center justify-center px-2 py-1 text-xs font-medium text-white bg-green-600 hover:bg-green-500 active:bg-green-700 rounded-lg"
                       />
-                      <button
-                        className="border rounded p-1"
-                        onClick={() => handleAddToCart(item)}
-                      >
-                        +
-                      </button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </div>
-        <div className="divider lg:divider-horizontal"></div>
-        {/* The selected products column */}
-        <div className="col-span-1 w-full flex flex-col">
-          <h4 className="text-gray-800 text-lg font-semibold">
-            Selected Products
-          </h4>
-          <button
-            className="bg-primary w-fit content-end text-lg  text-white p-2 rounded"
-            onClick={() => console.log(selectedProducts)}
-          >
-            Checkout
-          </button>
 
-          <div className="overflow-y-auto max-h-[50vh]">
-            <table className="w-full border-collapse border my-4">
-              <thead>
+        </div>
+
+        {/* Selected Products List */}
+        <div className="flex flex-col basis-1/2 px-7">
+
+          <div className="flex flex-row mb-4">
+            <div className="flex basis-1/3 text-sm font-semibold">
+              Selected Products
+            </div>
+            <div className="flex basis-2/3 place-content-end">
+              <button className="bg-green-600 border hover:border-green-900 text-xs font-semibold rounded-lg px-2 transition-all hover:scale-105"
+                onClick={()=>{
+                  console.log(selectedItems)
+                }}>Checkout
+              </button>
+            </div>
+          </div>
+
+          <div className="flex flex-col h-full overflow-y-auto border-2 border-gray-300 rounded-md custom-scrollbar">
+            <table className="min-w-full divide-y divide-gray-200">
+              <thead className="bg-gray-50">
                 <tr>
-                  <th className="border px-4 py-2">Name</th>
-                  <th className="border px-4 py-2">Quantity</th>
-                  <th className="border px-4 py-2">Amount</th>
-                  <th className="border px-4 py-2"></th>
+                  <th scope="col" className="px-6 py-2 text-xs font-semibold text-left text-gray-500 uppercase">
+                    Product Name
+                  </th>
+                  <th scope="col" className="px-6 py-2 text-xs font-semibold text-left text-gray-500 uppercase">
+                    Amount(GHS)
+                  </th>
+                  <th scope="col" className="px-6 py-2 text-xs font-semibold text-left text-gray-500 uppercase">
+                    Quantity
+                  </th>
                 </tr>
               </thead>
-              <tbody>
-                {cartItems.map((item) => (
+              <tbody className="bg-white divide-y divide-gray-200">
+                {selectedItems.map((item) => (
                   <tr key={item.id}>
-                    <td className="border px-4 py-2">{item.name}</td>
-                    <td className="border px-4 py-2">{item.quantity}</td>
-                    <td className="border px-4 py-2">{item.price}</td>
-                    <td className="border px-4 py-2"></td>
+                    <td className="px-6 text-sm text-black">
+                      {item.name}
+                    </td>
+                    <td className="px-6 text-sm text-gray-500">
+                      {item.amount}
+                    </td>
+                    <td className="px-6 py-4 text-sm font-medium">
+                      <div className="flex flex-row items-center justify-center gap-2">
+                        <input
+                          type="number"
+                          disabled
+                          value={item.quantity}
+                          className="bg-transparent" />
+                        <button onClick={() => {
+                          handleReduceQuantity(item._id)
+                        }}
+                          className="inline-flex items-center justify-center px-2 py-1 text-xs font-medium text-white bg-red-600 hover:bg-red-500 active:bg-red-700 rounded-lg"
+                        />
+                      </div>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
         </div>
+
       </div>
     </div>
   );
