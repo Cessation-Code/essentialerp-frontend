@@ -10,7 +10,7 @@ export default function AuthenticatedLayout({ children, username, organisation }
       </div>
       <div className="flex flex-col flex-1">
         <Navbar username={username} organisation={organisation} />
-        <div>{children}</div>
+        <div className="flex flex-col h-full">{children}</div>
       </div>
     </div>
   );
