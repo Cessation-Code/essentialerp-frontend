@@ -30,10 +30,10 @@ const withAuth = (WrappedComponent) => {
                     }).then(response => response.json()).then(data => {
                         // if token is invalid, redirect to login page
                         if (data.message === 'Authentication Invalid') {
+                            router.replace('/login')
                             localStorage.removeItem('token')
                             localStorage.removeItem('username')
                             localStorage.removeItem('organisation')
-                            router.replace('/login')
                         }
                         setEmployee(data)
                     });

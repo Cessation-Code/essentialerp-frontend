@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchButton from "../../../components/search";
+import withAuth from "../../../components/withAuth";
 
 const AddSales = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
@@ -96,7 +97,7 @@ const AddSales = () => {
   };
 
   return (
-    <div className="w-[160vh] h-[60vh] p-4 mt-5 border-4 rounded-3xl relative">
+    <div className="w-[160vh] h-[60vh] p-4 mt-32 border-4 rounded-3xl relative m-10">
       <div className="flex flex-row h-full">
 
         {/* table of inventory items */}
@@ -224,4 +225,4 @@ const AddSales = () => {
   );
 };
 
-export default AddSales;
+export default withAuth(AddSales);

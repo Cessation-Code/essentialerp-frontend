@@ -12,7 +12,7 @@ import {
     Title,
     Tooltip
   } from 'chart.js';
-import AddSales from './addSales';
+import AddSales from '../add_sale';
   
 
     Chart.register(

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { DashboardIcon, FinancesIcon, InventoryIcon, LogoutIcon, ManagehrIcon, TPIPIcon} from "../../../public/icons/dashboard_page/dashboard_icons";
+import { DashboardIcon, FinancesIcon, InventoryIcon, LogoutIcon, ManagehrIcon, TPIPIcon } from "../../../public/icons/dashboard_page/dashboard_icons";
+import AppLogo from "../../logo";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBookOpen, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
+
 
 const menuItems = [
   { id: 1, label: "Dashboard", icon: DashboardIcon, link: "/dashboard" },
@@ -10,8 +14,6 @@ const menuItems = [
   { id: 4, label: "Inventory", icon: InventoryIcon, link: "/dashboard/inventory" },
   { id: 5, label: "TPIP", icon: TPIPIcon, link: "/dashboard/tpip" },
 ];
-
-const itemClasses = `flex justify-center items-center text-black whitespace-nowrap`;
 
 const Sidebar = () => {
 
@@ -37,18 +39,18 @@ const Sidebar = () => {
   }
 
   return (
-    <div
-      // onMouseEnter={openSidebar}
-      // onMouseLeave={closeSidebar}
-      className='h-screen px-2 py-4 bg-[#DACDF0] flex justify-items-center items-center flex-col w-48'
-    >
+    <div className='h-screen px-2 py-4 bg-[#C4D7F8] flex justify-items-center flex-col w-48'>
 
-      <div className="flex flex-col justify-center h-full">
-        {/* menu items */}
+      <div className="place-self-center">
+        <AppLogo />
+      </div>
+
+      {/* menu items */}
+      <div className="mt-[23vh] mb-3">
         {menuItems.map(({ icon: Icon, ...menu }) => {
           return (
-            <div className={itemClasses} key={menu.id}>
-              <Link href={menu.link} className="flex py-4 px-5 items-center w-full h-full">
+            <div className='flex flex-row text-black whitespace-nowrap' key={menu.id}>
+              <Link href={menu.link} className="flex py-4 px-5 w-full h-full">
                 <div className="px-3">
                   <Icon />
                 </div>
@@ -58,19 +60,50 @@ const Sidebar = () => {
             </div>
           );
         })}
-        {/* logout button */}
-        <div className='flex flex-col justify-center items-center pt-7'>
-          <button title="logout" className="w-full items-center px-8" onClick={logout}>
+      </div>
+
+      {/* Logout Button */}
+      <div className="flex flex-row mb-[16vh]">
+        <button title="logout" className="w-full items-center px-8" onClick={logout}>
+          <div className="flex flex-row items-center align-middle space-x-2">
+            <div className="flex">
+              <LogoutIcon />
+            </div>
+            {/* {isOpen && (<div className="flex font-semibold text-sm">LOGOUT</div>)} */}
+            <div className="flex font-semibold text-sm">LOGOUT</div>
+          </div>
+        </button>
+      </div>
+
+
+      {/* Add Sale Button */}
+      <div className="flex flex-row mb-5">
+        <Link href="/dashboard/add_sale">
+          <button className="w-full items-center px-8">
             <div className="flex flex-row items-center align-middle space-x-2">
-              <div className="flex">
-                <LogoutIcon />
+              <div className="flex text-xl">
+                <FontAwesomeIcon icon={faSquarePlus} />
               </div>
-              {/* {isOpen && (<div className="flex font-semibold text-sm">LOGOUT</div>)} */}
-              <div className="flex font-semibold text-sm">LOGOUT</div>
+              <div className="flex font-semibold text-base">Add Sale</div>
             </div>
           </button>
-        </div>
+        </Link>
       </div>
+
+      {/* Add Sale Button */}
+      <div className="flex flex-row">
+        <Link href="/dashboard/reports">
+          <button className="w-full items-center px-8">
+            <div className="flex flex-row items-center align-middle space-x-2">
+              <div className="flex text-xl">
+                <FontAwesomeIcon icon={faBookOpen} />
+              </div>
+              <div className="flex font-semibold text-base">Reports</div>
+            </div>
+          </button>
+        </Link>
+      </div>
+
     </div>
 
   );

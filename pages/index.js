@@ -9,6 +9,7 @@ import Logo4 from "../public/icons/landing_page/landingicon04";
 import Logo5 from "../public/icons/landing_page/landingicon05";
 import Logo6 from "../public/icons/landing_page/landingicon06";
 import UnauthenticatedLayout from "../components/layouts/unauthenticated_layout/unauthenticated_layout"
+import AppLogo from "../components/logo";
 
 
 export default function Home() {
@@ -21,14 +22,13 @@ export default function Home() {
 
         {/* here's the diagonal object giving at the top */}
         <div
-          className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#7622FF] opacity-40 transform -skew-y-[10deg]">
+          className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#C4D7F8] transform -skew-y-[10deg]">
         </div>
 
         <div className='flex flex-row px-5 pt-5 items-center'>
 
           <div className='basis-1/5 z-50 text-center'>
-            <a className='text-lg font-semibold text-white'>Essential</a>
-            <a className='text-xl font-semibold text-[#022568]'>ERP</a>
+            <AppLogo />
           </div>
 
           <div className='basis-3/5 z-50'>

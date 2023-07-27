@@ -152,7 +152,7 @@ const SalesTable = () => {
         <div className="flex flex-row items-baseline">
           <SearchButton />
           <button className="btn" onClick={() => { 
-            router.push("inventory")
+            router.push("add_sale")
            }}>
             Add Sale
           </button>
