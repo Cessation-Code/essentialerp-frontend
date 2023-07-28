@@ -30,14 +30,14 @@ const TermsAndConditions = () => {
 
   return (
     <UnauthenticatedLayout>
-      <div className="bg-pink-300 bg-gradient-to-br from-pink-300 to-purple-500 min-h-screen">
+      <div className="bg-blue-100 bg-gradient-to-br from-blue-400 to-[#C4D7F8] sm:w-screen w-screen h-screen">
       <header className="p-5">
          <Logo/>
         </header>
 
         {/* Main */}
-        <div className="flex flex-col items-center justify-center my-10 md:my-48">
-          <div className="bg-white shadow-lg rounded-lg px-10 py-8 w-full md:w-3/4 lg:w-1/2">
+        <div className="flex flex-col justify-center mx-auto my-auto md:my-auto  md:w-3/4 lg:w-1/2">
+          <div className="bg-white shadow-lg rounded-lg px-10 py-8 ">
             <div className="text-center mb-10">
               <h1 className="text-3xl text-[#B48DF3]">TERMS AND CONDITIONS</h1>
               <div className="tabs mt-4 tabs-boxed bg-transparent justify-center">
@@ -88,7 +88,7 @@ const TermsAndConditions = () => {
                   transition={{ duration: 0.5 }}
                   key={0}
                 >
-                  <h2 className="text-lg font-semibold  text-[#B48DF3]">
+                  <h2 className="text-lg font-semibold  text-black">
                     Terms of Use
                   </h2>
                   <p className="text-left mt-4">
@@ -128,7 +128,7 @@ const TermsAndConditions = () => {
                   transition={{ duration: 0.5 }}
                   key={1}
                 >
-                  <h2 className="text-lg font-semibold text-[#B48DF3]">
+                  <h2 className="text-lg font-semibold text-black">
                     Governing Laws
                   </h2>
                   <p className="text-left mt-4">
@@ -154,7 +154,7 @@ const TermsAndConditions = () => {
                   transition={{ duration: 0.5 }}
                   key={2}
                 >
-                  <h2 className="text-lg font-semibold text-[#B48DF3]">
+                  <h2 className="text-lg font-semibold text-black">
                     Prohibited Activities
                   </h2>
                   <p className="text-left mt-4">

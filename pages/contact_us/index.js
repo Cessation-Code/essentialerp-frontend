@@ -15,14 +15,13 @@ export default function ContactUs() {
   };
 
   return (
-    <div className="flex flex-col h-screen">
-      <header className="bg-[#DACDF0] p-4">
+    <body className="flex flex-col w-screen h-screen">
+      <div className="bg-[#C4D7F8] p-5">
         <Logo />
-      </header>
+      </div>
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto  bg-[#DACDF0]">
-        <div className="max-w-3xl mx-auto bg-slate-200  my-40 rounded-lg shadow-lg p-8">
-          {" "}
+      <main className="mt-auto h-full bg-[#C4D7F8]">
+        <div className="max-w-3xl mx-auto bg-slate-200   rounded-lg shadow-lg p-8">
           <div className=" flex flex-col  items-center pt-4">
             <p className=" text-3xl mb-10 text-[#B48DF3]">CONTACT US</p>
             <p className=" text-2xl mb-10 text-black">
@@ -61,6 +60,6 @@ export default function ContactUs() {
           </div>
         </div>
       </main>
-    </div>
+    </body>
   );
 }
