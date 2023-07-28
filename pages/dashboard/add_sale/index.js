@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import SearchButton from "../../../components/search";
 import withAuth from "../../../components/withAuth";
+import ConfirmAddSale from "./confirmAddSaleModal";
 
 const AddSales = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
   const [cartItems, setCartItems] = useState([]);
+  const [showConfirmAddSaleModal, setShowConfirmAddSaleModal] = useState(false);
+
 
   async function getInventoryItems() {
     try {
@@ -66,6 +69,7 @@ const AddSales = () => {
 
   };
 
+ 
   const handleReduceQuantity = (itemId) => {
     const updatedItems = selectedItems.map((selectedItem) =>
       selectedItem._id === itemId
@@ -96,8 +100,17 @@ const AddSales = () => {
     setSelectedItems(updatedItems.filter((item) => item.quantity > 0));
   };
 
+  const openConfirmSalesModal = () => {
+    setShowConfirmAddSaleModal(true);
+  };
+
+  const closeConfirmSalesModal = () => {
+    setShowConfirmAddSaleModal(false);
+  }
+
+
   return (
-    <div className="w-[160vh] h-[60vh] p-4 mt-32 border-4 rounded-3xl relative m-10">
+    <div className="w-[90%] h-[90%] p-4 mt-32 border-4 rounded-3xl relative m-10">
       <div className="flex flex-row h-full">
 
         {/* table of inventory items */}
@@ -167,12 +180,13 @@ const AddSales = () => {
             </div>
             <div className="flex basis-2/3 place-content-end">
               <button className="bg-green-600 border hover:border-green-900 text-xs font-semibold rounded-lg px-2 transition-all hover:scale-105"
-                onClick={()=>{
-                  console.log(selectedItems)
-                }}>Checkout
+                onClick={openConfirmSalesModal}>Checkout
               </button>
             </div>
           </div>
+
+          {showConfirmAddSaleModal && <ConfirmAddSale isOpen={openConfirmSalesModal} onClose={closeConfirmSalesModal} />
+          }
 
           <div className="flex flex-col h-full overflow-y-auto border-2 border-gray-300 rounded-md custom-scrollbar">
             <table className="min-w-full divide-y divide-gray-200">
@@ -196,6 +210,7 @@ const AddSales = () => {
                       {item.name}
                     </td>
                     <td className="px-6 text-sm text-gray-500">
+          
                       {item.amount}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium">

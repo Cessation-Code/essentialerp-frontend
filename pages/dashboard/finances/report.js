@@ -74,7 +74,7 @@ const Report = ({ salesData, expensesData }) => {
     //   </Card>
     // </div>
     <div className='text-3xl'>
-      <AddSales/>
+      {/* <AddSales/> */}
     </div>
   );
 };
