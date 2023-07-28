@@ -55,7 +55,7 @@ const Manage_HR = () => {
 
 
   return (
-    <div className="max-w-screen max-h-screen p-4 mt-16 mx-10 border-4 rounded-3xl relative">
+    <div className="max-w-screen max-h-screen p-4 mt-10 mx-10 border-4 rounded-3xl relative">
       <div className="items-start justify-between sm:flex">
         <div className="">
           <h4 className="text-gray-800 text-xl font-semibold">Employees</h4>
@@ -83,7 +83,7 @@ const Manage_HR = () => {
           selectedRowData={selectedRowData}
         />
       )}
-      <div className="max-h-[55vh] overflow-y-auto custom-scrollbar mt-4">
+      <div className="max-h-[60vh] overflow-y-auto custom-scrollbar mt-4">
         <ul className="mt-5 divide-y">
           {employeeRecords.map((employee) => (
             <li id={employee._id} key={employee.email} className="py-5 flex items-start justify-between">
