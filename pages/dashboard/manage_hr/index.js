@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import AddEmployeeModal from "./addEmployeeModal";
 import ManageEmployeeModal from "./manageEmployeeModal";
+import {  useRouter } from "next/router";
 
 
 const Manage_HR = () => {
@@ -11,6 +12,8 @@ const Manage_HR = () => {
   const [isManageModalOpen, setIsManageModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState(null);
   const [employeeRecords, setEmployeeRecords] = useState([""]);
+  const router = useRouter()
+
 
   const viewAddEmployeeModal = () => {
     setAddEmployeeModalOpen(true);
@@ -106,7 +109,14 @@ const Manage_HR = () => {
               </div>
               <button
                 // onClick={() => openManageModal(employee)}
-                onClick={() => console.log("manage clicked")}
+                onClick={() => 
+                // router.push("")
+                router.push({
+                  pathname: "manage_hr/manageEmployeeModal",
+                 
+                })
+                  
+                }
                 className="text-gray-700 text-sm border rounded-lg px-3 py-2 duration-150 bg-white hover:bg-gray-100"
               >
                 Manage
