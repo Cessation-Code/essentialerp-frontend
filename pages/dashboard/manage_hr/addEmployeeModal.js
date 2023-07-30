@@ -333,7 +333,7 @@ const AddEmployeeModal = ({ isOpen, onClose }) => {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4"
+                className="bg-[#C4D7F8] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4"
               >
                 Confirm
               </button>

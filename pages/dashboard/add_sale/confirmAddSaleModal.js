@@ -153,11 +153,11 @@ const ConfirmAddSale = ({ isOpen, onClose }) => {
           </div>
 
           <div className="flex flex-row">
-            <div className="flex basis-1/5 justify-start text-xs text-red-500 mt-5">
+            <div className="flex basis-2/5 justify-start text-xs text-red-500 mt-5">
               {error && <p>{error}</p>} 
             </div>
 
-            <div className="flex basis-2/5 mt-5 ml-10">Total:</div>
+            <div className="flex basis-2/5 ">Total:</div>
             <div className="flex basis-2/5 justify-end">
               {isLoading ? null : (
                 <div className="flex flex-row">
