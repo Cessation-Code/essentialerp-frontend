@@ -10,7 +10,7 @@ export const CheckBox = ({ name, checked, onChange }) => {
         name={name}
         checked={checked}
         onChange={onChange}
-        className="form-checkbox h-5 w-5 text-indigo-600"
+        className="form-checkbox h-5 w-5 text-gray-600 bg-transparent"
       />
       <span>{name}</span>
     </label>

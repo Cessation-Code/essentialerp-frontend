@@ -127,227 +127,226 @@ const ManageEmployee = ({ selectedRowData }) => {
   };
 
   return (
-    <div className="h-full bg-gray-100 text-gray-900 flex justify-center ">
-      <div className="max-w-screen-2xl m-0 sm:m-10 bg-white shadow sm:rounded-lg flex justify-center flex-1">
+    <div className="max-h-[90vh] bg-transparent text-gray-900 flex justify-center ">
+      <div className="max-w-screen-2xl max-h-full m-0 sm:m-10 bg-gray-100 border shadow sm:rounded-lg flex justify-center flex-1">
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 ">
-          <div className="flex flex-col item-center h-[40%] mt-6 justify-center">
-            <FontAwesomeIcon icon={faUserAlt} fontSize={"250px"} />
+          <div className="flex flex-col item-center h-[30%] mt-6 justify-center">
+            <FontAwesomeIcon icon={faUserAlt} fontSize={"170px"} />
             <div className="mt-4">
               <h2 className="text-center  text-bold">Edem Koranteng</h2>
               <h2 className="text-center text-gray-500">Accountant</h2>
             </div>
             <div className="divider"></div>
           </div>
-          <div className="flex flex-col justify-evenly h-[60%]">
-            <div className=" flex flex-row mt-6 ">
-              <label className="">Contract Type</label>
-              <select
-                id="contract_type"
-                name="contract_type"
-                className="w-full h-8 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                required
-                value={contractType}
-                onChange={(event) => {
-                  setContractType(event.target.value);
-                  setError("");
-                }}
-              >
-                <option value="" disabled></option>
-                <option value="cash">Part Time</option>
-                <option value="momo">FUll TIme</option>
-                {/* Add more payment methods as needed */}
-              </select>
-            </div>
-            <div className=" flex mt-6 ">
-              <label className="">Salary</label>
-              <input
-                type="number"
-                id="salary"
-                name="salary"
-                className="w-[90%] h-8 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                required
-                value={salary}
-                onChange={(event) => {
-                  setSalary(event.target.value);
-                  setError("");
-                }}
-              />
-            </div>
-            <div className=" flex mt-6 ">
-              <label className="text-sm text-gray-600">Start Date</label>
-              <input
-                type="date"
-                className=" w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                value={startDate}
-                onChange={handleStartDateChange}
-              />
-            </div>
-            <div className=" flex mt-6 ">
-              <label className="text-sm text-gray-600">End Date</label>
-              <input
-                type="date"
-                className=" w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                value={endDate}
-                onChange={handleEndDateChange}
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-sm text-gray-600 mt-6">
-                Portal Access
-              </label>
-              <div className="flex flex-row justify-between">
-                <CheckBox
-                  name="HR"
-                  checked={hrChecked}
-                  onChange={(event) => {
-                    setHrChecked(event.target.checked);
-                  }}
-                />
-                <CheckBox
-                  name="Inventory"
-                  checked={inventoryChecked}
-                  onChange={(event) => {
-                    setInventoryChecked(event.target.checked);
-                  }}
-                />
-                <CheckBox
-                  name="Finance"
-                  checked={financeChecked}
-                  onChange={(event) => {
-                    setFinanceChecked(event.target.checked);
-                  }}
-                />
-                <CheckBox
-                  name="TPIP"
-                  checked={tpipChecked}
-                  onChange={(event) => {
-                    setTpipChecked(event.target.checked);
-                  }}
-                />
-              </div>
+          <div className="flex flex-col justify-evenly h-[70%]">
+            <div className="group relative block bg-slate-200 p-8 rounded">
+              <form onSubmit={handleSubmit}>
+                <div className="flex flex-col gap-2">
+                  <div className="flex flex-row  mb-2">
+                    <label className="text-xs mb-1 text-gray-400">
+                      First Name
+                    </label>{" "}
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={firstName}
+                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handleFirstNameChange}
+                      disabled={!isEditMode}
+                    />
+                  </div>
+                  <div className="flex flex-row mb-4">
+                    <label className="text-xs mb-1 text-gray-400">
+                      Last Name
+                    </label>
+                    <input
+                      type="text"
+                      id="name"
+                      value={lastName}
+                      name="name"
+                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handleLastNameChange}
+                      disabled={!isEditMode}
+                    />
+                  </div>
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-xs mb-1 text-gray-400">
+                      Phone Number
+                    </label>
+                    <input
+                      type="text"
+                      id="number"
+                      placeholder="+233"
+                      name="Phone"
+                      value={phone}
+                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handlePhoneChange}
+                      disabled={!isEditMode}
+                    />
+                  </div>
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-xs mb-1 text-gray-400">E-mail</label>
+                    <input
+                      type="email"
+                      id="email"
+                      value={email}
+                      name="email"
+                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handleEmailChange}
+                      disabled={!isEditMode}
+                    />
+                  </div>
+                  <div className="flex flex-row mb-4">
+                    <label className="text-xs mb-1 text-gray-400">
+                      Password
+                    </label>
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      value={password}
+                      className="w-auto h-6 bg-transparent rounded border  focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm border-gray-700 outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handlePasswordChange}
+                      disabled={!isEditMode}
+                    />
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-600 mt-4">
+                      Portal Access
+                    </label>
+                    <div className="flex flex-row mt-2 gap-14">
+                      <div className="flex flex-col">
+                        <CheckBox
+                          name="HR"
+                          checked={hrChecked}
+                          onChange={handleHrChange}
+                          disabled={!isEditMode}
+                        />
+                        <CheckBox
+                          name="Inventory"
+                          checked={inventoryChecked}
+                          onChange={handleInventoryChange}
+                          disabled={!isEditMode}
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <CheckBox
+                          name="Finance"
+                          checked={financeChecked}
+                          onChange={handleFinanceChange}
+                          disabled={!isEditMode}
+                        />
+                        <CheckBox
+                          name="TPIP"
+                          checked={tpipChecked}
+                          onChange={handleTpipChange}
+                          disabled={!isEditMode}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-6 flex items-center justify-end gap-x-6">
+                      <button
+                        type="submit"
+                        className="rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
 
         <div className="divider lg:divider-horizontal"></div>
 
-        <div className="flex-1  text-center hidden lg:flex">
+        <div className="flex-1 h-[70%] text-center overflow-auto custom-scrollbar hidden lg:flex">
           <div className="m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat">
-            <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="first-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  First name
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="first-name"
-                    id="first-name"
-                    autoComplete="given-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
-              </div>
+            <div className="flex flex-row justify-end rounded mb-4 w-">
+              <button className="bg-indigo-400 text-sm text-white px-3 py-3 rounded-lg" onClick={null}>Create New Contract
 
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="last-name"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Last name
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    name="last-name"
-                    id="last-name"
-                    autoComplete="family-name"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+              </button>
               </div>
-
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Email address
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    autoComplete="email"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
+            <div className="group relative block h-fit bg-slate-200 p-8 rounded">
+              <div className="flex flex-row justify-between">
+                <div className="flex flex-col">
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-xs mb-1 text-gray-400">
+                      Contract Type
+                    </label>
+                    <select
+                      type="email"
+                      id="email"
+                      value={email}
+                      name="email"
+                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handleEmailChange}
+                      disabled={!isEditMode}
+                    >
+                      <option value="full_time">Full Time</option>
+                      <option value="part_time">Part Time</option>
+                    </select>
+                  </div>
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-sm text-gray-600">
+                      Salary(GHS):
+                    </label>
+                    <input
+                      type="number"
+                      className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-transparent focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      value={startDate}
+                      onChange={handleSalaryChange}
+                    />
+                  </div>
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-sm text-gray-600">Status:</label>
+                    <select
+                      type="status"
+                      id="status"
+                      value={status}
+                      name="status"
+                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                      required
+                      onChange={handleStatusChange}
+                      disabled={!isEditMode}
+                    >
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                    </select>
+                  </div>
                 </div>
+              
+              <div className="flex flex-col">
+              <div className="flex flex-row  mb-4">
+                <label className="text-sm text-gray-600">Start Date</label>
+                <input
+                  type="date"
+                  className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 bg-transparent focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  value={startDate}
+                  onChange={handleStartDateChange}
+                />
               </div>
-              <div className="sm:col-span-3">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Phone Number
-                </label>
-                <div className="mt-2">
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="phone"
-                    autoComplete="phone"
-                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  />
-                </div>
+              <div className="flex flex-row  mb-4">
+                <label className="text-sm text-gray-600">End Date</label>
+                <input
+                  type="date"
+                  className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-transparent focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                  value={endDate}
+                  onChange={handleEndDateChange}
+                />
               </div>
             </div>
-
-            <div className="sm:col-span-4 mt-4">
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Set Username
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <span className="flex select-none items-center pl-3 text-gray-500 sm:text-sm">
-                    @essentialerp.company_a/
-                  </span>
-                  <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    autoComplete="username"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="employee_a"
-                  />
-                </div>
-              </div>
+            
             </div>
-            <div className="sm:col-span-4 mt-4">
-              <label
-                htmlFor="username"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Set Password
-              </label>
-              <div className="mt-2">
-                <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                  <input
-                    type="text"
-                    name="password"
-                    id="password"
-                    autoComplete="password"
-                    className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                    placeholder="some_secure_combo"
-                  />
-                </div>
-              </div>
+            
             </div>
           </div>
         </div>
@@ -640,6 +639,95 @@ export default withAuth(ManageEmployee);
           </div>
 </form> */
 }
+
+// <div className=" flex flex-row mt-6 ">
+//               <label className="">Contract Type</label>
+//               <select
+//                 id="contract_type"
+//                 name="contract_type"
+//                 className="w-full h-8 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+//                 required
+//                 value={contractType}
+//                 onChange={(event) => {
+//                   setContractType(event.target.value);
+//                   setError("");
+//                 }}
+//               >
+//                 <option value="" disabled></option>
+//                 <option value="cash">Part Time</option>
+//                 <option value="momo">FUll TIme</option>
+//                 {/* Add more payment methods as needed */}
+//               </select>
+//             </div>
+//             <div className=" flex mt-6 ">
+//               <label className="">Salary</label>
+//               <input
+//                 type="number"
+//                 id="salary"
+//                 name="salary"
+//                 className="w-[90%] h-8 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+//                 required
+//                 value={salary}
+//                 onChange={(event) => {
+//                   setSalary(event.target.value);
+//                   setError("");
+//                 }}
+//               />
+//             </div>
+//             <div className=" flex mt-6 ">
+//               <label className="text-sm text-gray-600">Start Date</label>
+//               <input
+//                 type="date"
+//                 className=" w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+//                 value={startDate}
+//                 onChange={handleStartDateChange}
+//               />
+//             </div>
+//             <div className=" flex mt-6 ">
+//               <label className="text-sm text-gray-600">End Date</label>
+//               <input
+//                 type="date"
+//                 className=" w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+//                 value={endDate}
+//                 onChange={handleEndDateChange}
+//               />
+//             </div>
+//             <div className="flex flex-col">
+//               <label className="text-sm text-gray-600 mt-6">
+//                 Portal Access
+//               </label>
+//               <div className="flex flex-row justify-between">
+//                 <CheckBox
+//                   name="HR"
+//                   checked={hrChecked}
+//                   onChange={(event) => {
+//                     setHrChecked(event.target.checked);
+//                   }}
+//                 />
+//                 <CheckBox
+//                   name="Inventory"
+//                   checked={inventoryChecked}
+//                   onChange={(event) => {
+//                     setInventoryChecked(event.target.checked);
+//                   }}
+//                 />
+//                 <CheckBox
+//                   name="Finance"
+//                   checked={financeChecked}
+//                   onChange={(event) => {
+//                     setFinanceChecked(event.target.checked);
+//                   }}
+//                 />
+//                 <CheckBox
+//                   name="TPIP"
+//                   checked={tpipChecked}
+//                   onChange={(event) => {
+//                     setTpipChecked(event.target.checked);
+//                   }}
+//                 />
+//               </div>
+//             </div>
+//           </div>
 
 // <form onSubmit={handleSubmit}>
 //           {/* First Row */}
