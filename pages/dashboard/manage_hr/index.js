@@ -51,7 +51,7 @@ const ManageHR = () => {
   const openManagePage = (employeeData) => {
     setSelectedRowData(employeeData); // Store the selected row data in state
     router.push({
-      pathname: "/manage_hr/manageEmployeeModal", // Add the slash at the beginning
+      pathname: "manage_hr/manageEmployeeModal", // Add the slash at the beginning
       query: { selectedRowData: JSON.stringify(employeeData) },
     });
     

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import AddContractModal from "./AddContract";
 
 const ManageEmployee = () => {
   const router = useRouter();
@@ -26,13 +27,13 @@ const ManageEmployee = () => {
   const [status, setStatus] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
+  const [error, setError] = useState("");
+  const [isAddContractModalOpen, setIsAddContractModalOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Form submitted!");
-    
   };
-
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -41,6 +42,13 @@ const ManageEmployee = () => {
   const handleLastNameChange = (event) => {
     setLastName(event.target.value);
   };
+
+  const handleSave = () => {
+    // Perform any actions needed to save the form data
+    // ...
+    setIsEditMode(false); // Set isEditMode back to false after saving
+  };
+
 
   const handlePhoneChange = (event) => {
     setPhone(event.target.value);
@@ -115,14 +123,18 @@ const ManageEmployee = () => {
       }
     }
   }, [router.query]);
-  
 
-   const handleCancel = () => {
+  const handleCancel = () => {
     router.back();
   };
 
-  
+  const openAddContractModal = () => {
+    setIsAddContractModalOpen(true);
+  };
 
+  const closeAddContractModal = () => {
+    setIsAddContractModalOpen(false);
+  };
   const handleEdit = () => {
     setIsEditMode(true);
   };
@@ -134,13 +146,15 @@ const ManageEmployee = () => {
           <div className="flex flex-col item-center h-[30%] mt-6 justify-center">
             <FontAwesomeIcon icon={faUserAlt} fontSize={"170px"} />
             <div className="mt-4">
-              <h2 className="text-center  text-bold">{firstName}&nbsp;{lastName}</h2>
+              <h2 className="text-center  text-bold">
+                {firstName}&nbsp;{lastName}
+              </h2>
               {/* <h2 className="text-center text-gray-500">Accountant</h2> */}
             </div>
             <div className="divider"></div>
           </div>
           <div className="flex flex-col justify-evenly h-[70%]">
-            <div className="group relative block bg-slate-200 p-8 rounded">
+            <div className="group relative block bg-white p-8 rounded">
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-2">
                   <div className="flex flex-row  mb-2">
@@ -252,13 +266,25 @@ const ManageEmployee = () => {
                       </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-x-6">
-                      <button
-                        type="submit"
-                        className="rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                        onClick={handleEdit}
-                      >
-                        Edit
-                      </button>
+                      {isEditMode ? (
+                        // Render the "Save" button when in edit mode
+                        <button
+                          type="button"
+                          className="rounded-md w-16  bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5F5BFF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                          onClick={handleSave}
+                        >
+                          Save
+                        </button>
+                      ) : (
+                        // Render the "Edit" button when in view mode
+                        <button
+                          type="button"
+                          className="rounded-md w-16 bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                          onClick={handleEdit}
+                        >
+                          Edit
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -266,16 +292,24 @@ const ManageEmployee = () => {
             </div>
           </div>
         </div>
-
+        {isAddContractModalOpen && (
+          <AddContractModal
+            isOpen={openAddContractModal}
+            onClose={closeAddContractModal}
+          />
+        )}
         <div className="divider lg:divider-horizontal"></div>
 
-        <div className="flex-1 h-[70%] text-center overflow-auto custom-scrollbar hidden lg:flex">
-          <div className="m-6 xl:m-10 w-full bg-contain bg-center bg-no-repeat">
+        <div className="flex-1 h-[70%]  text-center overflow-auto custom-scrollbar hidden lg:flex">
+          <div className="m-6 xl:m-10 w-full rounded-lg bg-contain bg-center bg-no-repeat">
             <div className="flex flex-row justify-end rounded mb-4 ">
-              <button className="bg-indigo-400 text-sm text-white px-3 py-3 rounded-lg" onClick={null}>Create New Contract
-
+              <button
+                className="bg-indigo-400 text-sm text-white px-3 py-3 rounded-lg"
+                onClick={openAddContractModal}
+              >
+                Create New Contract
               </button>
-              </div>
+            </div>
             <div className="group relative block h-fit bg-slate-200 p-8 rounded">
               <div className="flex flex-row justify-between">
                 <div className="flex flex-col">
@@ -325,30 +359,28 @@ const ManageEmployee = () => {
                     </select>
                   </div>
                 </div>
-              
-              <div className="flex flex-col">
-              <div className="flex flex-row  mb-4">
-                <label className="text-sm text-gray-600">Start Date</label>
-                <input
-                  type="date"
-                  className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 bg-transparent focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  value={startDate}
-                  onChange={handleStartDateChange}
-                />
+
+                <div className="flex flex-col">
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-sm text-gray-600">Start Date</label>
+                    <input
+                      type="date"
+                      className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 bg-transparent focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      value={startDate}
+                      onChange={handleStartDateChange}
+                    />
+                  </div>
+                  <div className="flex flex-row  mb-4">
+                    <label className="text-sm text-gray-600">End Date</label>
+                    <input
+                      type="date"
+                      className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-transparent focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
+                      value={endDate}
+                      onChange={handleEndDateChange}
+                    />
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-row  mb-4">
-                <label className="text-sm text-gray-600">End Date</label>
-                <input
-                  type="date"
-                  className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-transparent focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                  value={endDate}
-                  onChange={handleEndDateChange}
-                />
-              </div>
-            </div>
-            
-            </div>
-            
             </div>
           </div>
         </div>
