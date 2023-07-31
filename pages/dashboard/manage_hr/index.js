@@ -3,17 +3,15 @@ import withAuth from "../../../components/withAuth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import AddEmployeeModal from "./addEmployeeModal";
-import ManageEmployeeModal from "./manageEmployeeModal";
-import {  useRouter } from "next/router";
+import ManageEmployee from "./manageEmployeeModal";
+import { useRouter } from "next/router";
 
-
-const Manage_HR = () => {
+const ManageHR = () => {
   const [isAddEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
-  const [isManageModalOpen, setIsManageModalOpen] = useState(false);
-  const [selectedRowData, setSelectedRowData] = useState(null);
-  const [employeeRecords, setEmployeeRecords] = useState([""]);
-  const router = useRouter()
 
+  const [employeeRecords, setEmployeeRecords] = useState([]);
+  const router = useRouter();
+  const [selectedRowData, setSelectedRowData] = useState("");
 
   const viewAddEmployeeModal = () => {
     setAddEmployeeModalOpen(true);
@@ -21,31 +19,25 @@ const Manage_HR = () => {
 
   const closeAddEmployeeModal = () => {
     setAddEmployeeModalOpen(false);
-
-
-  };
-  const openManageModal = (rowData) => {
-    setSelectedRowData(rowData);
-    setIsManageModalOpen(true);
-  };
-
-  const closeManageModal = () => {
-    setSelectedRowData(null);
-    setIsManageModalOpen(false);
   };
 
   async function getEmployees() {
     try {
-      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/", {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-      }).then(response => response.json()).then(data => {
-        setEmployeeRecords(data.employees)
-      })
+      await fetch(
+        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setEmployeeRecords(data.employees);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -53,9 +45,17 @@ const Manage_HR = () => {
 
   // get employees on page load
   useEffect(() => {
-    getEmployees()
-  }, [])
+    getEmployees();
+  }, []);
 
+  const openManagePage = (employeeData) => {
+    setSelectedRowData(employeeData); // Store the selected row data in state
+    router.push({
+      pathname: "manage_hr/manageEmployeeModal", // Add the slash at the beginning
+      query: { selectedRowData: JSON.stringify(employeeData) },
+    });
+    
+  };
 
   return (
     <div className="max-w-screen max-h-screen p-4 mt-10 mx-10 border-4 rounded-3xl relative">
@@ -79,17 +79,14 @@ const Manage_HR = () => {
           onClose={closeAddEmployeeModal}
         />
       )}
-      {isManageModalOpen && (
-        <ManageEmployeeModal
-          isOpen={isManageModalOpen}
-          onClose={closeManageModal}
-          selectedRowData={selectedRowData}
-        />
-      )}
-      <div className="max-h-[60vh] overflow-y-auto custom-scrollbar mt-4">
+           <div className="max-h-[60vh] overflow-y-auto custom-scrollbar mt-4">
         <ul className="mt-5 divide-y">
           {employeeRecords.map((employee) => (
-            <li id={employee._id} key={employee.email} className="py-5 flex items-start justify-between">
+            <li
+              id={employee._id}
+              key={employee.email}
+              className="py-5 flex items-start justify-between"
+            >
               <div className="flex gap-3">
                 <div>
                   <FontAwesomeIcon
@@ -99,7 +96,7 @@ const Manage_HR = () => {
                 </div>
                 <div>
                   <span className="block text-sm text-gray-700 font-semibold">
-                    {employee.first_name}   &nbsp;
+                    {employee.first_name} &nbsp;
                     {employee.last_name}
                   </span>
                   <span className="block text-sm text-gray-600">
@@ -109,13 +106,8 @@ const Manage_HR = () => {
               </div>
               <button
                 // onClick={() => openManageModal(employee)}
-                onClick={() => 
-                // router.push("")
-                router.push({
-                  pathname: "manage_hr/manageEmployeeModal",
-                 
-                })
-                  
+                onClick={() =>
+                  openManagePage(employee)
                 }
                 className="text-gray-700 text-sm border rounded-lg px-3 py-2 duration-150 bg-white hover:bg-gray-100"
               >
@@ -129,4 +121,4 @@ const Manage_HR = () => {
   );
 };
 
-export default withAuth(Manage_HR);
+export default withAuth(ManageHR);
