@@ -16,7 +16,7 @@ import Link from "next/link";
 const ReportCard = ({ icon, title, description }) => {
   return (
     <div className="bg-white rounded-[20px] shadow-lg overflow-hidden h-70 w-80">
-      <div className="flex justify-center mt-4">{icon}</div>
+      <div className="flex justify-center mt-3">{icon}</div>
       <div className="p-6">
         <h2 className="text-2xl font-bold text-center text-gray-800 pb-2">
           {title}
