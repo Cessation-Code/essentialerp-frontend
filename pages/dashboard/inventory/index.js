@@ -7,10 +7,21 @@ import withAuth from '../../../components/withAuth';
 const index = () => {
   const [activeTab, setActiveTab] = useState("inventory");
 
+  
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
+  useState(() => {
+
+    console.log(window.location.hash)
+    if (window.location.hash === '#inventory') {
+      setActiveTab("inventory");
+        }else if (window.location.hash === '#report') {
+      setActiveTab("report"); 
+    }
+
+  }, []);
 
   return (
     <div>
