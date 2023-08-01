@@ -15,52 +15,52 @@ function AddContractModal({ isOpen, onClose }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const NewContractDetails = {
-      contractType: contractType,
-      salary: Salary,
-      status: status,
-      startDate: startDate,
-      endDate: endDate
-    };
-    if (!contractType ||!Salary || !status || !startDate || !endDate) {
-      setError("Please fill all fields!");
-    } else {
-      setIsLoading(true);
-      // create product
-      try {
-        const response = await fetch(
-          "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/createProduct",  //edit this fetch link accordingly and other parts of this function. i was playing with the edits to not have errors at my side
-          {
-            method: "POST",
-            headers: {
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify(NewContractDetails),
-          }
-        );
-        if (response.ok) {
-          console.log("Expense created successfully!");
-          setContractType("");
-          setSalary("");
-          setStatus("");
-          setStartDate("");
-          setEndDate("");
-          onClose();
-          setIsLoading(false);
-          setError("");
-          router.reload();
-        } else {
-          setIsLoading(false);
-          setError("An Error Occured whiles creating expense!");
-        }
-      } catch (error) {
-        setIsLoading(false);
-        console.log(error);
-        setError(error);
-      }
-    }
+    // const NewContractDetails = {
+    //   contractType: contractType,
+    //   salary: Salary,
+    //   status: status,
+    //   startDate: startDate,
+    //   endDate: endDate
+    // };
+    // if (!contractType ||!Salary || !status || !startDate || !endDate) {
+    //   setError("Please fill all fields!");
+    // } else {
+    //   setIsLoading(true);
+    //   // create product
+    //   try {
+    //     const response = await fetch(
+    //       "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/createProduct",  //edit this fetch link accordingly and other parts of this function. i was playing with the edits to not have errors at my side
+    //       {
+    //         method: "POST",
+    //         headers: {
+    //           "Access-Control-Allow-Origin": "*",
+    //           "Content-Type": "application/json",
+    //           Authorization: `Bearer ${localStorage.getItem("token")}`,
+    //         },
+    //         body: JSON.stringify(NewContractDetails),
+    //       }
+    //     );
+    //     if (response.ok) {
+    //       console.log("Expense created successfully!");
+    //       setContractType("");
+    //       setSalary("");
+    //       setStatus("");
+    //       setStartDate("");
+    //       setEndDate("");
+    //       onClose();
+    //       setIsLoading(false);
+    //       setError("");
+    //       router.reload();
+    //     } else {
+    //       setIsLoading(false);
+    //       setError("An Error Occured whiles creating expense!");
+    //     }
+    //   } catch (error) {
+    //     setIsLoading(false);
+    //     console.log(error);
+    //     setError(error);
+    //   }
+    // }
   };
 
   const closeModal = async (event) => {

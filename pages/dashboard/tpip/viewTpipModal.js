@@ -25,7 +25,7 @@ const ViewTPIPModal = ({ isOpen, onClose, selectedRowData }) => {
     isLoading(true)
     // delete tpip
     try {
-      const response = await fetch('http://localhost:8000/api/v1/auth_tpip/deleteTPIP', {
+      const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth_tpip/deleteTPIP', {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",

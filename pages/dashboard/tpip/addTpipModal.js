@@ -31,8 +31,7 @@ function AddTPIPModal({ isOpen, onClose }) {
       setIsLoading(true);
       // create tpip
       try {
-        // const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/creatTPIP", {
-        const response = await fetch("http://localhost:8000/api/v1/auth_tpip/createTPIP", {
+        const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth_tpip/createTPIP", {
           method: "POST",
           headers: {
             "Access-Control-Allow-Origin": "*",

@@ -20,7 +20,7 @@ const SalesTable = () => {
   async function getSalesEntries() {
     try {
       // get expense items
-      await fetch("http://localhost:8000/api/v1/sale/", {
+      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sale/", {
         method: "GET",
         headers: {
           "Access-Control-Allow-Origin": "*",
