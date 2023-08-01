@@ -28,7 +28,7 @@ const TPIP = () => {
         }
       });
       const data = await response.json();
-      setTpipData(data);
+      setTpipData(data.tpip);
     } catch (error) {
       console.log(error);
     }

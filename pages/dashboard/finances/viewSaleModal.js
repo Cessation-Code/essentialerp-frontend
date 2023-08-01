@@ -9,44 +9,34 @@ const ViewSalesModal = ({ onClose, selectedRowData }) => {
   return (
     <Modal header="Sale Detail View" closeModal={closeModal}>
       <form onSubmit={(event) => event.preventDefault()}>
+
         <div className="flex flex-row gap-1 mb-4">
-          <div className="flex flex-col basis-1/2 mb-4">
+          <div className="flex flex-col basis-3/5 mb-4">
             <label className="text-xs mb-1 text-gray-400">Name</label>
             <input
               type="text"
               id="name"
               name="name"
-              className="w-64 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+              className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
               value={selectedRowData.name}
               disabled
             />
           </div>
 
-          <div className="flex flex-col basis-1/4 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Amount</label>
+          <div className="flex flex-col basis-2/5 mb-4">
+            <label className="text-xs mb-1 text-gray-400">Amount(GHS)</label>
             <input
               type="number"
               id="amount"
               name="number"
-              className="w-28 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
+              className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
               required
               value={selectedRowData.amount}
               disabled
             />
           </div>
-          <div className="flex flex-col basis-1/4 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Date</label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              className="w-28 h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
-              required
-              value={selectedRowData.date}
-              disabled
-            />
-          </div>
+          
         </div>
 
         <div className="flex flex-col mb-4">
@@ -62,13 +52,13 @@ const ViewSalesModal = ({ onClose, selectedRowData }) => {
         </div>
 
         <div className="flex flex-row justify-end gap-3">
-          <button
+          {/* <button
             type="button"
             className="bg-gray-500 rounded text-black py-1 px-4 mt-4"
             onClick={closeModal}
           >
             Close
-          </button>
+          </button> */}
         </div>
       </form>
     </Modal>

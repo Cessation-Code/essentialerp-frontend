@@ -6,7 +6,6 @@ import ConfirmAddSale from "./confirmAddSaleModal";
 const AddSales = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
   const [showConfirmAddSaleModal, setShowConfirmAddSaleModal] = useState(false);
 
 
@@ -185,8 +184,7 @@ const AddSales = () => {
             </div>
           </div>
 
-          {showConfirmAddSaleModal && <ConfirmAddSale isOpen={openConfirmSalesModal} onClose={closeConfirmSalesModal} />
-          }
+          {showConfirmAddSaleModal && <ConfirmAddSale selectedProducts={selectedItems} isOpen={openConfirmSalesModal} onClose={closeConfirmSalesModal} />}
 
           <div className="flex flex-col h-full overflow-y-auto border-2 border-gray-300 rounded-md custom-scrollbar">
             <table className="min-w-full divide-y divide-gray-200">

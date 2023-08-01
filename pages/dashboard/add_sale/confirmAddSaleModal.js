@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import finances from "../finances";
 
-const ConfirmAddSale = ({ isOpen, onClose }) => {
+const ConfirmAddSale = ({ selectedProducts, isOpen, onClose }) => {
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [description, setDescription] = useState("");
@@ -12,62 +12,51 @@ const ConfirmAddSale = ({ isOpen, onClose }) => {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [momoNumber, setMomoNumber] = useState("");
   const [stage, setStage] = useState(1);
+  const total = selectedProducts.reduce((accumulator, currentObject) => {
+    return accumulator + currentObject.amount;
+  }, 0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    if (!description) {
-      setError("Please fill in the Notes field!");
-    } else if (paymentMethod === "momo" && !momoNumber) {
-      setError("Please enter the Momo number!");
+    if (((paymentMethod === 'momo') && !momoNumber) || !paymentMethod) {
+      setError("Please fill all necessary fields!");
     } else {
-      setError("");
       setIsLoading(true);
-
-      //   // Create expense
-      //   try {
-      //     const SalesData = {
-      //       paymentMethod: paymentMethod,
-      //       description: description,
-      //     };
-
-      //     if (paymentMethod === "momo") {
-      //       SalesData.momoNumber = momoNumber;
-      //     }
-
-      //     const response = await fetch(
-      //       "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sales/addSales",
-      //       {
-      //         method: "POST",
-      //         headers: {
-      //           "Access-Control-Allow-Origin": "*",
-      //           "Content-Type": "application/json",
-      //           Authorization: `Bearer ${localStorage.getItem("token")}`,
-      //         },
-      //         body: JSON.stringify(SalesData),
-      //       }
-      //     );
-
-      //     if (response.ok) {
-      //       console.log("Sale created successfully!");
-      //       setDescription("");
-      //       setMomoNumber("");
-      //       setPaymentMethod("");
-      //       onClose();
-      //       setIsLoading(false);
-      //       window.location.hash = "#sales";
-      //       router.reload();
-      //     } else {
-      //       setIsLoading(false);
-      //       setError("An Error Occurred while creating the sale!");
-      //     }
-      //   } catch (error) {
-      //     setIsLoading(false);
-      //     setError("An Error Occurred while creating the sale!");
-      //     console.log(error);
-      //   }
-      onClose();
+      try {
+        const response = await fetch("http://localhost:8000/api/v1/sale/createSale", {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify({
+            products: selectedProducts,
+            amount: total,
+            payment_method: paymentMethod,
+            number: momoNumber,
+            description: description,
+          })
+        });
+        if (response.ok) {
+          console.log("Sale created successfully!");
+          setDescription("");
+          setMomoNumber("");
+          onClose();
+          setIsLoading(false);
+          setError("");
+          router.reload();
+        } else {
+          setIsLoading(false);
+          setError("An Error Occured whiles creating sale!");
+        }
+      } catch (error) {
+        setIsLoading(false);
+        console.log(error);
+        setError("An Error Occured whiles creating sale!");
+      }
     }
+
   };
 
   const closeModal = () => {
@@ -82,9 +71,9 @@ const ConfirmAddSale = ({ isOpen, onClose }) => {
     return null;
   }
 
-  const handleNextStage = () => {
-    setStage(stage + 1);
-  };
+  // const handleNextStage = () => {
+  //   setStage(stage + 1);
+  // };
 
   const handlePreviousStage = () => {
     setStage(stage - 1);
@@ -105,6 +94,7 @@ const ConfirmAddSale = ({ isOpen, onClose }) => {
                 value={paymentMethod}
                 onChange={(event) => {
                   setPaymentMethod(event.target.value);
+                  setMomoNumber("");
                   setError("");
                 }}
               >
@@ -152,12 +142,15 @@ const ConfirmAddSale = ({ isOpen, onClose }) => {
             ></textarea>
           </div>
 
+
+          <div className="flex flex-row ">{`Total: ${total}`}</div>
+
           <div className="flex flex-row">
-            <div className="flex basis-2/5 justify-start text-xs text-red-500 mt-5">
-              {error && <p>{error}</p>} 
+
+            <div className="flex basis-3/5 justify-start text-xs text-red-500 mt-5">
+              {error && <p>{error}</p>}
             </div>
 
-            <div className="flex basis-2/5 ">Total:</div>
             <div className="flex basis-2/5 justify-end">
               {isLoading ? null : (
                 <div className="flex flex-row">

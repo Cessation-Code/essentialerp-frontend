@@ -21,13 +21,40 @@ const ViewTPIPModal = ({ isOpen, onClose, selectedRowData }) => {
     console.log("submitting");
   }
 
-  const handleDelete = () => { 
-    setIsConfirmingDelete(false)
+  async function handleDelete() {
+    isLoading(true)
+    // delete tpip
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/auth_tpip/deleteTPIP', {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ _id: selectedRowData._id })
+      });
+      if (response.ok) {
+        closeModal();
+        setIsLoading(false);
+        setIsConfirmingDelete(false)
+        setError("");
+        router.reload();
+      } else {
+        setIsLoading(false);
+        setIsConfirmingDelete(false)
+        setError("Something went wrong, please try again!");
+      }
+    } catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setError(error);
+    }
   }
 
-  const handleEdit = () => { 
-    setIsEditMode(false)
-  }
+  // const handleEdit = () => {
+  //   setIsEditMode(false)
+  // }
 
   const closeModal = () => {
     onClose();
@@ -142,17 +169,17 @@ const ViewTPIPModal = ({ isOpen, onClose, selectedRowData }) => {
             <FontAwesomeIcon icon={faTrash} className="ml-2" />
           </button>)}
 
-          {(!isEditMode && !isConfirmingDelete) && (
+          {/* {(!isEditMode && !isConfirmingDelete) && (
             <button className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4" onClick={() => setIsEditMode(true)}>
               Edit Expense
             </button>
-          )}
+          )} */}
 
-          {(isEditMode && !isConfirmingDelete) && (
+          {/* {(isEditMode && !isConfirmingDelete) && (
             <button type="submit" className="bg-[#C3A2FA] hover:bg-blue-600 text-white text-sm py-1 px-4 rounded mt-4" onClick={handleEdit}>
               Confirm
             </button>
-          )}
+          )} */}
         </div>)}
 
       </form>
