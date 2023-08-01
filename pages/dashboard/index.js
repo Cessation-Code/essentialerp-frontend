@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCoins, faBook, faFunnelDollar, } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import withAuth from "../../components/withAuth";
-import { LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
 import ResponsiveGraphContainer from "../../components/responsiveGraphContainer";
 
 const data = [
@@ -84,7 +84,7 @@ const anotherArray = [
 
 const Card = ({ title, children }) => {
   return (
-    <div className="card py-3 px-5 w-full h-fit bg-[#C4D9F8] bg-opacity-10 shadow-md text-black">
+    <div className="card py-3 px-5 w-full h-fit bg-slate-100 bg-opacity-70 border text-black">
       <div className="text-base font-medium text-slate-600">{title}</div>
       {children}
     </div>
@@ -106,11 +106,11 @@ export function DashboardPage(props) {
 
         <div className="flex flex-col w-full basis-1/3">
           <Card title="Sales">
-            <div className="flex flex-col w-full text-lg font-semibold">
+            <div className="flex flex-col w-full text-lg">
               <div>
-                {'100 Items Sold Today'}
+                {'Sales Made This Week:'}
               </div>
-              <div>
+              <div className="font-semibold">
                 {'GHS 5000'}
               </div>
             </div>
@@ -123,8 +123,36 @@ export function DashboardPage(props) {
           </Card>
         </div>
 
+
+        <div className="flex flex-col w-full basis-1/3">
+          <Card title="Inventory Count" >
+            <div>
+              {'Average Iventory Count:'}
+            </div>
+            <div className="flex flex-row text-lg font-semibold">
+              &nbsp;
+            </div>
+            {/* <ResponsiveContainer width="100%" height={80}>
+              <BarChart data={data} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
+                <Bar dataKey="amount" data={data} fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer> */}
+            <div className="flex flex-row w-full h-[80px] items-center text-gray-500">
+              <div className=" text-[10vh] font-semibold">
+                10
+              </div>
+              <div className="font-semibold text-sm">
+                &nbsp; items in stick averagely per product
+              </div>
+            </div>
+          </Card>
+        </div>
+
         <div className="flex flex-col w-full basis-1/3">
           <Card title="Expenses">
+            <div>
+              {'Expenses over the Week:'}
+            </div>
             <div className="flex flex-row text-lg font-semibold">
               {'GHS 5000'}
             </div>
@@ -136,33 +164,21 @@ export function DashboardPage(props) {
             </ResponsiveContainer>
           </Card>
         </div>
-
-        <div className="flex flex-col w-full basis-1/3">
-          <Card title="Quick Actions" >
-            {/* <div className="flex flex-row text-lg font-semibold">
-              {'GHS 5000'}
-            </div>
-              <ResponsiveContainer width="100%" height={80}>
-                <LineChart data={data} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
-                  <Line type="monotone" dataKey="amount" stroke="#8884d8" />
-                  <Tooltip />
-                </LineChart>
-              </ResponsiveContainer> */}
-          </Card>
-        </div>
-
       </div>
 
+      {/* Second Row */}
       <div className="flex flex-row w-full gap-5 h-full items-center">
         <Card title="">
           <ResponsiveContainer width="100%" height={250}>
-            <LineChart data={data} margin={{ top: 5, right: 30, bottom: 0, left: 30 }}>
-              <Line type="monotone" dataKey="amount" data={data} stroke="#8884d8" />
-              <Line type="monotone" dataKey="amount" data={anotherArray} stroke="#FD8D14" />
-              <YAxis />
+            <BarChart data={data} margin={{ top: 5, right: 30, bottom: 0, left: 30 }}>
+              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey='date_created' className="text-xs" />
+              <YAxis />
               <Tooltip />
-            </LineChart>
+              <Legend />
+              <Bar dataKey="amount" data={data} fill="#8884d8" />
+              <Bar dataKey="amount" data={anotherArray} fill="#82ca9d" />
+            </BarChart>
           </ResponsiveContainer>
         </Card>
       </div>
@@ -199,9 +215,11 @@ export function DashboardPage(props) {
                       {item.created_by}
                     </td>
                     <td className="flex flex-row-reverse">
-                      <button className="btn btn-xs btn-info">
-                        View
-                      </button>
+                      <Link href="/dashboard/finances#sales">
+                        <button className="btn btn-xs btn-info">
+                          View
+                        </button>
+                      </Link>
                     </td>
                   </tr>
                 ))}
