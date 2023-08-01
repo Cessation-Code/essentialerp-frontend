@@ -3,43 +3,43 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 
 const data = [
   {
-    name: 'Page A',
+    name: 'Organization A',
     uv: 4000,
     pv: 2400,
     amt: 2400,
   },
   {
-    name: 'Page B',
+    name: 'Organization B',   
     uv: 3000,
     pv: 1398,
     amt: 2210,
   },
   {
-    name: 'Page C',
+    name: 'Organization C',
     uv: 2000,
     pv: 9800,
     amt: 2290,
   },
   {
-    name: 'Page D',
+    name: 'Organization D',
     uv: 2780,
     pv: 3908,
     amt: 2000,
   },
   {
-    name: 'Page E',
+    name: 'Organization E',
     uv: 1890,
     pv: 4800,
     amt: 2181,
   },
   {
-    name: 'Page F',
+    name: 'Organization F',
     uv: 2390,
     pv: 3800,
     amt: 2500,
   },
   {
-    name: 'Page G',
+    name: 'Organization G',
     uv: 3490,
     pv: 4300,
     amt: 2100,
@@ -74,7 +74,7 @@ const Report = () => {
   return (
     <div className="bg-slate-100 w-[90%] m-4 rounded-[20px] shadow-lg overflow-hidden h-full p-4">
       <h2 className="text-2xl font-bold text-center text-gray-800 pb-4">
-        Report Card
+        TPIP REPORT
       </h2>
       <div className="flex justify-center">{renderBarChart}</div>
     </div>

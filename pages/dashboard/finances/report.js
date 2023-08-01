@@ -37,13 +37,13 @@ const data = [
     amt: 2000,
   },
   {
-    name: "May",    
+    name: "May",
     sales: 1890,
     expenses: 4800,
     amt: 2181,
   },
   {
-    name: "June",    
+    name: "June",
     sales: 2390,
     expenses: 3800,
     amt: 2500,
@@ -84,7 +84,7 @@ const Report = () => {
   return (
     <div className="bg-slate-100 w-[90%] m-4 rounded-[20px] shadow-lg overflow-hidden h-full p-4">
       <h2 className="text-2xl font-bold text-center text-gray-800 pb-4">
-        Report Card
+        Finances REPORT{" "}
       </h2>
       <div className="flex justify-center">{renderBarChart}</div>
     </div>
