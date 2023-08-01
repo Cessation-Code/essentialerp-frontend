@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import withAuth from "../../../components/withAuth";
-import { CheckBox } from "./addEmployeeModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
@@ -34,6 +33,70 @@ const ManageEmployee = () => {
     event.preventDefault();
     console.log("Form submitted!");
   };
+
+  const CheckBox = ({ name, checked, onChange, disabled }) => {
+    return (
+      <label className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          name={name}
+          checked={checked}
+          onChange={onChange}
+          className="form-checkbox h-5 w-5 text-gray-600 bg-transparent"
+          disabled={disabled}
+        />
+        <span>{name}</span>
+      </label>
+    );
+  };
+
+  const contracts = [
+    {
+      start_date: "2023-08-01",
+      end_date: "2023-12-31",
+      type: "Full-time",
+      salary: 50000,
+      status: "Active",
+    },
+    {
+      start_date: "2023-09-15",
+      end_date: "2024-09-14",
+      type: "Part-time",
+      salary: 30000,
+      status: "Active",
+    },
+    {
+      start_date: "2023-07-01",
+      end_date: "2024-06-30",
+      type: "Contract",
+      salary: 60000,
+      status: "Inactive",
+    },
+    {
+      start_date: "2023-08-01",
+      end_date: "2023-12-31",
+      type: "Full-time",
+      salary: 50000,
+      status: "Active",
+    },
+    {
+      start_date: "2023-09-15",
+      end_date: "2024-09-14",
+      type: "Part-time",
+      salary: 30000,
+      status: "Active",
+    },
+    {
+      start_date: "2023-07-01",
+      end_date: "2024-06-30",
+      type: "Contract",
+      salary: 60000,
+      status: "Inactive",
+    },
+    // Add more contract objects as needed
+  ];
+
+
 
   const handleFirstNameChange = (event) => {
     setFirstName(event.target.value);
@@ -140,252 +203,255 @@ const ManageEmployee = () => {
   };
 
   return (
-    <div className="max-h-[90vh] bg-transparent text-gray-900 flex justify-center ">
-      <div className="max-w-screen-2xl max-h-full m-0 sm:m-10 bg-gray-100 border shadow sm:rounded-lg flex justify-center flex-1">
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 ">
-          <div className="flex flex-col item-center h-[30%] mt-6 justify-center">
-            <FontAwesomeIcon icon={faUserAlt} fontSize={"170px"} />
-            <div className="mt-4">
-              <h2 className="text-center  text-bold">
-                {firstName}&nbsp;{lastName}
-              </h2>
-              {/* <h2 className="text-center text-gray-500">Accountant</h2> */}
-            </div>
-            <div className="divider"></div>
-          </div>
-          <div className="flex flex-col justify-evenly h-[70%]">
-            <div className="group relative block bg-white p-8 rounded">
-              <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-row  mb-2">
-                    <label className="text-xs mb-1 text-gray-400">
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="name"
-                      value={firstName}
-                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handleFirstNameChange}
-                      disabled={!isEditMode}
-                    />
-                  </div>
-                  <div className="flex flex-row mb-4">
-                    <label className="text-xs mb-1 text-gray-400">
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      value={lastName}
-                      name="name"
-                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handleLastNameChange}
-                      disabled={!isEditMode}
-                    />
-                  </div>
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-xs mb-1 text-gray-400">
-                      Phone Number
-                    </label>
-                    <input
-                      type="text"
-                      id="number"
-                      placeholder="+233"
-                      name="Phone"
-                      value={phone}
-                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handlePhoneChange}
-                      disabled={!isEditMode}
-                    />
-                  </div>
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-xs mb-1 text-gray-400">E-mail</label>
-                    <input
-                      type="email"
-                      id="email"
-                      value={email}
-                      name="email"
-                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handleEmailChange}
-                      disabled={!isEditMode}
-                    />
-                  </div>
-                  <div className="flex flex-row mb-4">
-                    <label className="text-xs mb-1 text-gray-400">
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      value={password}
-                      className="w-auto h-6 bg-transparent rounded border  focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm border-gray-700 outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handlePasswordChange}
-                      disabled={!isEditMode}
-                    />
-                  </div>
-                  <div>
-                    <label className="text-sm text-gray-600 mt-4">
-                      Portal Access
-                    </label>
-                    <div className="flex flex-row mt-2 gap-14">
-                      <div className="flex flex-col">
-                        <CheckBox
-                          name="HR"
-                          checked={hrChecked}
-                          onChange={handleHrChange}
-                          disabled={!isEditMode}
-                        />
-                        <CheckBox
-                          name="Inventory"
-                          checked={inventoryChecked}
-                          onChange={handleInventoryChange}
-                          disabled={!isEditMode}
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <CheckBox
-                          name="Finance"
-                          checked={financeChecked}
-                          onChange={handleFinanceChange}
-                          disabled={!isEditMode}
-                        />
-                        <CheckBox
-                          name="TPIP"
-                          checked={tpipChecked}
-                          onChange={handleTpipChange}
-                          disabled={!isEditMode}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-6 flex items-center justify-end gap-x-6">
-                      {isEditMode ? (
-                        // Render the "Save" button when in edit mode
-                        <button
-                          type="button"
-                          className="rounded-md w-16  bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5F5BFF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                          onClick={handleSave}
-                        >
-                          Save
-                        </button>
-                      ) : (
-                        // Render the "Edit" button when in view mode
-                        <button
-                          type="button"
-                          className="rounded-md w-16 bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                          onClick={handleEdit}
-                        >
-                          Edit
-                        </button>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-        {isAddContractModalOpen && (
-          <AddContractModal
-            isOpen={openAddContractModal}
-            onClose={closeAddContractModal}
-          />
-        )}
-        <div className="divider lg:divider-horizontal"></div>
+    <div className="flex flex-row h-full bg-transparent content-around">
 
-        <div className="flex-1 h-[70%]  text-center overflow-auto custom-scrollbar hidden lg:flex">
-          <div className="m-6 xl:m-10 w-full rounded-lg bg-contain bg-center bg-no-repeat">
-            <div className="flex flex-row justify-end rounded mb-4 ">
-              <button
-                className="bg-indigo-400 text-sm text-white px-3 py-3 rounded-lg"
-                onClick={openAddContractModal}
-              >
-                Create New Contract
-              </button>
+      <div className="flex flex-col basis-1/2 p-10 lg:p-20">
+
+        <div className="flex flex-col item-center h-[30%] mt-6 justify-center">
+          <FontAwesomeIcon icon={faUserAlt} className="text-[8vh]" />
+          <div className="text-center text-bold">
+            {firstName}&nbsp;{lastName}
+          </div>
+          <div className="divider"></div>
+        </div>
+
+        <div className="flex flex-col justify-evenly">
+          <form onSubmit={handleSubmit}>
+
+            {/* First Row */}
+            <div className="flex flex-row gap-3 justify-between">
+              <div className="flex flex-col basis-1/2">
+                <label className="text-xs text-gray-400">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  id="firstName"
+                  name="name"
+                  value={firstName}
+                  className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                  required
+                  onChange={handleFirstNameChange}
+                  disabled={!isEditMode}
+                />
+              </div>
+
+              <div className="flex flex-col basis-1/2 ">
+                <label className="text-xs text-gray-400">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  id="lastName"
+                  value={lastName}
+                  name="name"
+                  className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                  required
+                  onChange={handleLastNameChange}
+                  disabled={!isEditMode}
+                />
+              </div>
             </div>
-            <div className="group relative block h-fit bg-slate-200 p-8 rounded">
-              <div className="flex flex-row justify-between">
-                <div className="flex flex-col">
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-xs mb-1 text-gray-400">
+
+            {/* Second Row */}
+            <div className="flex flex-row gap-3 justify-between mt-3">
+              <div className="flex flex-col basis-1/2">
+                <label className="text-xs text-gray-400">
+                  Phone Number
+                </label>
+                <input
+                  type="text"
+                  id="number"
+                  placeholder="+233"
+                  name="Phone"
+                  value={phone}
+                  className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
+                  required
+                  onChange={handlePhoneChange}
+                  disabled={!isEditMode}
+                />
+              </div>
+
+              <div className="flex flex-col basis-1/2">
+                <label className="text-xs text-gray-400">E-mail</label>
+                <input
+                  type="email"
+                  id="email"
+                  value={email}
+                  name="email"
+                  className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                  required
+                  onChange={handleEmailChange}
+                  disabled={!isEditMode}
+                />
+              </div>
+            </div>
+
+            {/* Third Row */}
+            <div className="flex flex-row mt-3">
+              <div className="flex flex-col w-full">
+                <label className="text-xs text-gray-400">
+                  Password
+                </label>
+                <input
+                  type="text"
+                  id="password"
+                  value={password}
+                  className="w-full h-6 bg-white rounded border  focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm border-gray-700 outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+                  required
+                  onChange={handlePasswordChange}
+                  disabled={!isEditMode}
+                />
+              </div>
+            </div>
+
+            {/* Checkboxes */}
+            <div className="mt-6">
+              <div className="text-sm text-gray-600">
+                Portal Access
+              </div>
+
+              <div className="flex flex-row">
+                <div className="flex flex-col basis-1/2">
+                  <CheckBox
+                    name="HR"
+                    checked={hrChecked}
+                    onChange={handleHrChange}
+                    disabled={!isEditMode}
+                  />
+                  <CheckBox
+                    name="Inventory"
+                    checked={inventoryChecked}
+                    onChange={handleInventoryChange}
+                    disabled={!isEditMode}
+                  />
+                </div>
+
+                <div className="flex flex-col basis-1/2">
+                  <CheckBox
+                    name="Finance"
+                    checked={financeChecked}
+                    onChange={handleFinanceChange}
+                    disabled={!isEditMode}
+                  />
+                  <CheckBox
+                    name="TPIP"
+                    checked={tpipChecked}
+                    onChange={handleTpipChange}
+                    disabled={!isEditMode}
+                  />
+                </div>
+              </div>
+
+              <div className="mt-6 flex items-center justify-end gap-x-6">
+                {isEditMode ? (
+                  // Render the "Save" button when in edit mode
+                  <button
+                    type="button"
+                    className="rounded-md w-16  bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5F5BFF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                    onClick={handleSave}
+                  >
+                    Save
+                  </button>
+                ) : (
+                  // Render the "Edit" button when in view mode
+                  <button
+                    type="button"
+                    className="rounded-md w-16 bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
+                    onClick={handleEdit}
+                  >
+                    Edit
+                  </button>
+                )}
+              </div>
+            </div>
+          </form>
+
+        </div>
+      </div>
+
+      {/* Add New contract modal */}
+      {isAddContractModalOpen && (<AddContractModal isOpen={openAddContractModal} onClose={closeAddContractModal} />)}
+
+      <div className="divider divider-horizontal"></div>
+
+      {/* Contracts */}
+      <div className="flex flex-col basis-1/2 p-10 w-full content-center">
+
+        <div className="flex flex-row-reverse mb-4 w-full">
+          <button className="btn-primary text-sm text-white px-2 py-2 rounded-lg" onClick={openAddContractModal}>
+            New Contract
+          </button>
+        </div>
+
+        <div className="container custom-scrollbar overflow-y-scroll h-[70vh] text-sm">
+          {contracts.map((contract, index) => (
+            <div key={index} className="mb-8">
+              <div className=" rounded-xl border p-4 mx-2 bg-slate-100">
+                <div className="flex flex-row justify-between gap-3">
+                  <div className="flex flex-col basis-1/2">
+                    <label className="text-xs text-gray-700">
                       Contract Type
                     </label>
-                    <select
-                      type="contractType"
-                      id="contractType"
-                      value={contractType}
-                      name="contractType"
-                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handleContractTypeChange}
-                      disabled={!isEditMode}
-                    >
-                      <option value="full_time">Full Time</option>
-                      <option value="part_time">Part Time</option>
-                    </select>
-                  </div>
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-sm text-gray-600">
-                      Salary(GHS):
-                    </label>
                     <input
-                      type="number"
-                      className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-transparent focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      value={salary}
-                      onChange={handleSalaryChange}
+                      type="text"
+                      value={contract.type}
+                      className="w-full px-2 bg-white rounded border"
+                      disabled
                     />
                   </div>
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-sm text-gray-600">Status:</label>
-                    <select
-                      type="status"
-                      id="status"
-                      value={status}
-                      name="status"
-                      className="w-auto h-6 bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                      required
-                      onChange={handleStatusChange}
-                      disabled={!isEditMode}
-                    >
-                      <option value="active">Active</option>
-                      <option value="inactive">Inactive</option>
-                    </select>
+                  <div className="flex flex-col basis-1/2">
+                    <label className="text-xs text-gray-700">Salary(GHS):</label>
+                    <input
+                      type="number"
+                      className="w-full px-2 bg-white rounded border"
+                      value={contract.salary}
+                      disabled
+                    />
                   </div>
                 </div>
 
-                <div className="flex flex-col">
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-sm text-gray-600">Start Date</label>
+                <div className="flex flex-row justify-between gap-3">
+                  <div className="flex flex-col basis-1/2">
+                    <label className="text-xs text-gray-700">Start Date</label>
                     <input
                       type="date"
-                      className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 bg-transparent focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      value={startDate}
-                      onChange={handleStartDateChange}
+                      className="w-full px-2 bg-white rounded border"
+                      value={contract.start_date}
+                      disabled
                     />
                   </div>
-                  <div className="flex flex-row  mb-4">
-                    <label className="text-sm text-gray-600">End Date</label>
+                  <div className="flex flex-col basis-1/2">
+                    <label className="text-xs text-gray-700">End Date</label>
                     <input
                       type="date"
-                      className=" w-auto h-6 rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 bg-transparent focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6"
-                      value={endDate}
-                      onChange={handleEndDateChange}
+                      className="w-full px-2 bg-white rounded border"
+                      value={contract.end_date}
+                      disabled
+                    />
+                  </div>
+                </div>
+
+
+                <div className="flex flex-row">
+                  <div className="flex flex-col basis-1/2">
+                    <label className="text-sm text-gray-700">Status:</label>
+                    <input
+                      type="text"
+                      value={contract.status}
+                      className="w-full px-2 bg-white rounded border"
+                      disabled
                     />
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
+
       </div>
-    </div>
+
+    </div >
   );
 };
 
