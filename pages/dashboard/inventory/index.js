@@ -7,17 +7,28 @@ import withAuth from '../../../components/withAuth';
 const index = () => {
   const [activeTab, setActiveTab] = useState("inventory");
 
+  
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
+  useState(() => {
+
+    console.log(window.location.hash)
+    if (window.location.hash === '#inventory') {
+      setActiveTab("inventory");
+        }else if (window.location.hash === '#report') {
+      setActiveTab("report"); 
+    }
+
+  }, []);
 
   return (
     <div>
       <div className="flex flex-col items-center justify-center">
-        <h3 className="text-3xl font-bold my-4">Inventory</h3>
+        <h3 className="text-3xl font-bold my-2">Inventory</h3>
 
-        <div className="text-sm mb-4 breadcrumbs">
+        <div className="text-sm mb-2 breadcrumbs">
           <ul className="flex">
             {activeTab === "inventory" && (
               <>
@@ -34,7 +45,7 @@ const index = () => {
           </ul>
         </div>
 
-        <div className="tabs tabs-boxed w-fit mb-4">
+        <div className="tabs tabs-boxed w-fit mb-2">
           <a
             className={`tab ${activeTab === "inventory" ? "tab-active" : ""}`}
             onClick={() => handleTabClick("inventory")}

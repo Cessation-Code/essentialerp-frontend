@@ -11,6 +11,17 @@ const index = () => {
     setActiveTab(tab);
   };
 
+  useState(() => {
+
+    console.log(window.location.hash)
+    if (window.location.hash === '#tpip') {
+      setActiveTab("tpip");
+    }else if (window.location.hash === '#report') {
+      setActiveTab("report"); 
+    }
+
+  }, []);
+
   return (
     <div>
       <div>

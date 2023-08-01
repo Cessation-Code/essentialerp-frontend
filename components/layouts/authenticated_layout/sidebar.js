@@ -39,14 +39,14 @@ const Sidebar = () => {
   }
 
   return (
-    <div className='min-h-screen h-fit py-4 bg-[#C4D7F8] flex justify-items-center flex-col w-48 justify-between'>
+    <div className='min-h-full h-fit py-4 bg-[#C4D7F8] flex justify-items-center flex-col w-48 justify-between'>
 
       <div className="flex flex-row col-span-5 place-self-center">
         <AppLogo />
       </div>
 
       {/* menu items */}
-      <div className="justify-self-center mb-3">
+      <div className=" flex flex-col justify-self-center mb-[1%]">
         {menuItems.map(({ icon: Icon, ...menu }) => {
           return (
             <div className='flex flex-row text-black whitespace-nowrap' key={menu.id}>
