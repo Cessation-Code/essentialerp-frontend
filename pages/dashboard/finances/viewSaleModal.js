@@ -12,14 +12,14 @@ const ViewSalesModal = ({ onClose, selectedRowData }) => {
 
         <div className="flex flex-row gap-1 mb-4">
           <div className="flex flex-col basis-3/5 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Name</label>
+            <label className="text-xs mb-1 text-gray-400">UUID</label>
             <input
               type="text"
               id="name"
               name="name"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-              value={selectedRowData.name}
+              value={selectedRowData._id}
               disabled
             />
           </div>
@@ -46,7 +46,7 @@ const ViewSalesModal = ({ onClose, selectedRowData }) => {
             name="message"
             className="w-full bg-transparent rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 h-32 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
             required
-            value={selectedRowData.category}
+            value={selectedRowData.description}
             disabled
           ></textarea>
         </div>
