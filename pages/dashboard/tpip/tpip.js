@@ -1,60 +1,38 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SearchButton from "../../../components/search";
 import ViewTPIPModal from "./viewTpipModal";
 import AddTPIPModal from "./addTpipModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
-const tpipData = [
-  {
-    _id: 1,
-    name: "John Doe",
-    email: "john.doe@example.com",
-    password: "pass123",
-    secret_key: "abc123xyz"
-  },
-  {
-    _id: 2,
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    password: "hello@321",
-    secret_key: "def456uvw"
-  },
-  {
-    _id: 3,
-    name: "Michael Johnson",
-    email: "michael.johnson@example.com",
-    password: "qwerty987",
-    secret_key: "ghi789rst"
-  },
-  {
-    _id: 4,
-    name: "Emily Brown",
-    email: "emily.brown@example.com",
-    password: "myp@ssword",
-    secret_key: "jkl012pqr"
-  },
-  {
-    _id: 5,
-    name: "Robert Lee",
-    email: "robert.lee@example.com",
-    password: "secretpass",
-    secret_key: "mno345stu"
-  },
-  {
-    _id: 6,
-    name: "Sophia Wang",
-    email: "sophia.wang@example.com",
-    password: "p@ssw0rd!",
-    secret_key: "vwx678yz0"
-  },
-]
 
 const TPIP = () => {
   const [selectedRowData, setSelectedRowData] = useState("");
   const [viewTPIPModal, setViewTPIPModal] = useState(false);
   const [addTPIPModal, setAddTPIPModal] = useState(false);
+  const [tpipData, setTpipData] = useState([]);
+
+  useEffect(() => {
+    getTpips();
+  }, []);
+
+  async function getTpips() {
+    try {
+      const response = await fetch("http://localhost:8000/api/v1/auth_tpip/getTPIP", {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await response.json();
+      setTpipData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const openViewTPIPModal = () => {
     setViewTPIPModal(true);

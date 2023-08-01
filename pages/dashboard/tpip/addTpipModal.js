@@ -16,50 +16,50 @@ function AddTPIPModal({ isOpen, onClose }) {
 
   const handleSubmit = async (event) => {
 
-//     const expenseData = {
-//       name: name,
-//       amount: amount,
-//       description: description
-//     }
+    const tpipData = {
+      name: name,
+      email: email,
+      password: password
+    }
 
-//     event.preventDefault();
+    event.preventDefault();
 
-//     if (!name || !amount || !description) {
-//       setError("Please fill all fields!");
-//     }
-//     else {
-//       setIsLoading(true);
-//       // create expense
-//       try {
-//         const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/createExpense", {
-//           method: "POST",
-//           headers: {
-//             "Access-Control-Allow-Origin": "*",
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${localStorage.getItem('token')}`
-//           },
-//           body: JSON.stringify(expenseData),
-//         });
-//         if (response.ok) {
-//           console.log("Expense created successfully!");
-//           setName("");
-//           setAmount("");
-//           setDescription("");
-//           onClose();
-//           setIsLoading(false);
-//           setError("");
-//           window.location.hash = '#expenses'
-//           router.reload();
-//         } else {
-//           setIsLoading(false);
-//           setError("An Error Occured whiles creating expense!");
-//         }
-//       } catch (error) {
-//         setIsLoading(false);
-//         console.log(error);
-//         setError(error);
-//       }
-//     }
+    if (!name || !email || !password) {
+      setError("Please fill all fields!");
+      setIsLoading(false);
+    } else {
+      setIsLoading(true);
+      // create tpip
+      try {
+        // const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/creatTPIP", {
+        const response = await fetch("http://localhost:8000/api/v1/auth/createTPIP", {
+          method: "POST",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          },
+          body: JSON.stringify(tpipData),
+        });
+        if (response.ok) {
+          setName("");
+          setEmail("");
+          setPassword("");
+          setSecret_key("")
+          onClose();
+          setIsLoading(false);
+          setError("");
+          router.reload();
+        } else {
+          setIsLoading(false);
+          setError("An Error Occured whiles creating TPIP!");
+        }
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+        setError(error);
+      }
+    }
   }
 
   const closeModal = async (event) => {
@@ -121,7 +121,7 @@ function AddTPIPModal({ isOpen, onClose }) {
         <div className='flex flex-row'>
           <div className="flex basis-full flex-col">
             <label className="text-xs mb-1 text-gray-400">Password</label>
-            <input 
+            <input
               type="text"
               id="password"
               placeholder="password"
