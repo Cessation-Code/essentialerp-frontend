@@ -1,80 +1,92 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import React from "react";
 import {
-    ArcElement,
-    BarElement,
-    CategoryScale,
-    Chart,
-    Legend,
-    LinearScale,
-    LineElement,
-    PointElement,
-    Title,
-    Tooltip
-  } from 'chart.js';
-import AddSales from '../add_sale';
-  
+  BarChart,
+  Bar,
+  Cell,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from "recharts";
 
-    Chart.register(
-      ArcElement,
-      BarElement,
-      CategoryScale,
-      Legend,
-      LineElement,
-      LinearScale,
-      PointElement,
-      Title,
-      Tooltip
-    );
+const data = [
+  {
+    name: "January",
+    sales: 4000,
+    expenses: 2400,
+    amt: 2400,
+  },
+  {
+    name: "February",
+    sales: 3000,
+    expenses: 1398,
+    amt: 2210,
+  },
+  {
+    name: "March",
+    sales: 2000,
+    expenses: 9800,
+    amt: 2290,
+  },
+  {
+    name: "April",
+    sales: 2780,
+    expenses: 3908,
+    amt: 2000,
+  },
+  {
+    name: "May",    
+    sales: 1890,
+    expenses: 4800,
+    amt: 2181,
+  },
+  {
+    name: "June",    
+    sales: 2390,
+    expenses: 3800,
+    amt: 2500,
+  },
+  {
+    name: "July",
+    slaes: 3490,
+    expenses: 4300,
+    amt: 2100,
+  },
+];
 
+const renderBarChart = (
+  <ResponsiveContainer width="100%" height={550}>
+    <BarChart
+      width={1200}
+      height={550}
+      data={data}
+      margin={{
+        top: 5,
+        right: 30,
+        left: 20,
+        bottom: 5,
+      }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="expenses" fill="#8884d8" />
+      <Bar dataKey="sales" fill="#82ca9d" />
+    </BarChart>
+  </ResponsiveContainer>
+);
 
-const Card = ({ title, children }) => {
+const Report = () => {
   return (
-    <div className="card w-[1650px] mt-2 bg-gray-300 text-primary-content">
-      <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        {children}
-      </div>
-    </div>
-  );
-};
-
-const Report = ({ salesData, expensesData }) => {
-  // Combine data from sales and expenses tables
-  const chartData = {
-    labels: ['January', 'February', 'March', 'April', 'May'],
-    datasets: [
-      {
-        label: 'Sales',
-        data: salesData,
-        backgroundColor: 'rgba(75, 192, 192, 0.6)',
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 1,
-      },
-      {
-        label: 'Expenses',
-        data: expensesData,
-        backgroundColor: 'rgba(255, 139, 149, 0.6)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 1,
-      },
-    ],
-    scales: {
-      x: {
-        type: 'category',
-      },
-    },
-  };
-
-  return (
-    // <div>
-    //   <Card title="Report">
-    //     <Bar data={chartData} />
-        
-    //   </Card>
-    // </div>
-    <div className='text-3xl'>
-      {/* <AddSales/> */}
+    <div className="bg-slate-100 w-[90%] m-4 rounded-[20px] shadow-lg overflow-hidden h-full p-4">
+      <h2 className="text-2xl font-bold text-center text-gray-800 pb-4">
+        Report Card
+      </h2>
+      <div className="flex justify-center">{renderBarChart}</div>
     </div>
   );
 };
