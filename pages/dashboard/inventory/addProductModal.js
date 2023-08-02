@@ -47,7 +47,11 @@ function addProductModal({ isOpen, onClose }) {
                     setIsLoading(false);
                     setError("");
                     router.reload();
-                } else {
+                } else if (response.status == 400){
+                    setIsLoading(false);
+                    setError("Make sure all fields are filled! or check if product name already exists");
+                }
+                else {
                     setIsLoading(false);
                     setError("An Error Occured whiles creating expense!");
                 }
