@@ -51,14 +51,14 @@ export function DashboardPage(props) {
     if (!Array.isArray(array) || array.length === 0) {
       return 0;
     }
-
-    return array.reduce((accumulator, currentItem) => {
+  
+    const sum = array.reduce((accumulator, currentItem) => {
       return accumulator + Number(currentItem[property] || 0);
     }, 0);
-  }
-
-  console.log(calculateSumOfProperty(expenses, 'amount'))
-
+  
+    // Format the result to 2 decimal places
+    return parseFloat(sum.toFixed(2));
+  }  
 
   return (
 
