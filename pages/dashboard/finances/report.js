@@ -12,22 +12,6 @@ import {
 
 const Report = ({ salesEntries, expenseEntries }) => {
 
-  //  another way to approach it.
-
-  // // Merge salesEntries and expenseEntries into a single array of objects
-  // const mergedData = salesEntries.map((salesEntry) => {
-  //   const matchingExpenseEntry = expenseEntries.find(
-  //     (expenseEntry) => expenseEntry.name === salesEntry.name
-  //   );
-
-  //   // Combine salesEntry and matchingExpenseEntry data into a single object
-  //   return {
-  //     name: salesEntry.name,
-  //     sales: salesEntry.sales,
-  //     expenses: matchingExpenseEntry ? matchingExpenseEntry.expenses : 0,
-  //   };
-  // });
-
   return (
     <div className="bg-slate-100 w-[90%] m-4 rounded-[20px] shadow-lg overflow-hidden h-full p-4">
       <h2 className="text-2xl font-bold text-center text-gray-800 pb-4">
@@ -51,8 +35,8 @@ const Report = ({ salesEntries, expenseEntries }) => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="expenses" fill="#8884d8" />
-            <Bar dataKey="sales" fill="#82ca9d" />
+            <Bar data={expenseEntries} dataKey="amount" fill="#8884d8" />
+            <Bar data={salesEntries} dataKey="amount" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
       </div>

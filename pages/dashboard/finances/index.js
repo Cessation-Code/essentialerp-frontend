@@ -11,7 +11,18 @@ const Finance = () => {
   const [salesEntries, setSalesEntries] = useState([]);
 
   useEffect(() => {
+
+    console.log(window.location.hash)
+    if (window.location.hash === '#expenses') {
+      setActiveTab("expenses");
+    } else if (window.location.hash === '#sales') {
+      setActiveTab("sales");
+    } else if (window.location.hash === '#report') {
+      setActiveTab("report");
+    }
+
     getSalesEntries()
+    getExpenseItems()
   }, [])
 
   async function getSalesEntries() {
@@ -35,50 +46,34 @@ const Finance = () => {
   }
 
   // get expense items
-  useEffect(() => {
-    async function getExpenseItems() {
-      try {
-        // get expense items
-        await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/", {
-          method: "GET",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          },
-        }
-        ).then(response => response.json()).then(data => {
-          // save it to state
-          setExpenseItems(data.expenses)
-          console.log(data.expenses)
-        });
-      } catch (error) {
-        console.log(error);
+  async function getExpenseItems() {
+    try {
+      // get expense items
+      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/", {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
       }
+      ).then(response => response.json()).then(data => {
+        // save it to state
+        setExpenseItems(data.expenses)
+        console.log(data.expenses)
+      });
+    } catch (error) {
+      console.log(error);
     }
-    getExpenseItems()
-  }, [])
-
-  useState(() => {
-
-    console.log(window.location.hash)
-    if (window.location.hash === '#expenses') {
-      setActiveTab("expenses");
-    }else if (window.location.hash === '#sales') {
-      setActiveTab("sales");
-    }else if (window.location.hash === '#report') {
-      setActiveTab("report"); 
-    }
-
-  }, []);
+  }
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === 'expenses'){
+    if (tab === 'expenses') {
       window.location.hash = '#expenses'
-    }else if (tab === 'sales'){
+    } else if (tab === 'sales') {
       window.location.hash = '#sales'
-    }else if (tab === 'report'){
+    } else if (tab === 'report') {
       window.location.hash = '#report'
     }
   };
@@ -132,9 +127,9 @@ const Finance = () => {
         </a>
       </div>
 
-      {activeTab === "sales" && <SalesTable salesEntries={salesEntries}/>}
-      {activeTab === "expenses" && <ExpenseTable id='expenses' expenseItems={expenseItems}/>}
-      {activeTab === "report" && <Report salesEntries={salesEntries} expenseEntries={expenseItems}/>}
+      {activeTab === "sales" && <SalesTable salesEntries={salesEntries} />}
+      {activeTab === "expenses" && <ExpenseTable id='expenses' expenseItems={expenseItems} />}
+      {activeTab === "report" && <Report salesEntries={salesEntries} expenseEntries={expenseItems} />}
     </div>
   );
 };
