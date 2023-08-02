@@ -3,11 +3,28 @@ import Report from './report';
 import Inventory from './inventory';
 import { useState } from 'react';
 import withAuth from '../../../components/withAuth';
+import {getInventoryItems} from "./inventory"
+import { useEffect } from 'react';
 
 const index = () => {
   const [activeTab, setActiveTab] = useState("inventory");
 
-  
+  const [inventoryItems, setInventoryItems] = useState([]);
+
+  // Fetch inventory items on page load
+  useEffect(() => {
+    const fetchInventoryItems = async () => {
+      try {
+        const items = await getInventoryItems();
+        setInventoryItems(items);
+      } catch (error) {
+        // Handle error if needed
+        console.log(error);
+      }
+    };
+    fetchInventoryItems();
+  }, []);
+
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
@@ -61,7 +78,7 @@ const index = () => {
         </div>
 
         {activeTab === "inventory" && <Inventory />}
-        {activeTab === "report" && <Report />}
+        {activeTab === "report" && <Report  inventoryItems={inventoryItems}/>}
       </div>
 
 

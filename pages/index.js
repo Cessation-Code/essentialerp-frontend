@@ -59,8 +59,8 @@ export default function Home() {
         </div>
 
         <div className='flex flex-row justify-center gap-4 pt-6 font-medium'>
-          <Link href="signup">  <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-1'>GET STARTED</button> </Link>
-          <button className='rounded-xl bg-[#C4D7F8] text-[#6C63FF] px-7 py-1'>LEARN MORE</button>
+          <Link href="login">  <button className='rounded-xl bg-[#6C63FF] text-white px-7 py-1'>GET STARTED</button> </Link>
+          <button className='rounded-xl bg-[#C4D7F8] text-[#6C63FF] px-7 py-1'>LOGIN</button>
         </div>
 
         <div className='flex flex-row justify-center'>

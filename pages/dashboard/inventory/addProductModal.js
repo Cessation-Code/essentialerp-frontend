@@ -38,7 +38,7 @@ function addProductModal({ isOpen, onClose }) {
                     body: JSON.stringify(productData),
                 });
                 if (response.ok) {
-                    console.log("Expense created successfully!");
+                    console.log("Product added successfully!");
                     setName("");
                     setPrice("");
                     setStock("");
@@ -49,7 +49,7 @@ function addProductModal({ isOpen, onClose }) {
                     router.reload();
                 } else {
                     setIsLoading(false);
-                    setError("An Error Occured whiles creating expense!");
+                    setError("An Error Occured whiles adding product!");
                 }
             } catch (error) {
                 setIsLoading(false);
