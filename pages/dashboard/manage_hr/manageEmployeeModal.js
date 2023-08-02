@@ -5,6 +5,7 @@ import { faUserAlt } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import AddContractModal from "./AddContract";
+import ChangePasswordModal from "./changePasswordModal";
 
 const ManageEmployee = () => {
   const router = useRouter();
@@ -28,6 +29,7 @@ const ManageEmployee = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const [error, setError] = useState("");
   const [isAddContractModalOpen, setIsAddContractModalOpen] = useState(false);
+  const [IsChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -198,6 +200,15 @@ const ManageEmployee = () => {
   const closeAddContractModal = () => {
     setIsAddContractModalOpen(false);
   };
+
+  const openChangePasswordModal = () => {
+    setIsChangePasswordModalOpen(true);
+  }
+
+  const closeChangePasswordModal = () => {
+    setIsChangePasswordModalOpen(false);
+  }
+
   const handleEdit = () => {
     setIsEditMode(true);
   };
@@ -287,23 +298,6 @@ const ManageEmployee = () => {
               </div>
             </div>
 
-            {/* Third Row */}
-            <div className="flex flex-row mt-3">
-              <div className="flex flex-col w-full">
-                <label className="text-xs text-gray-400">
-                  Password
-                </label>
-                <input
-                  type="text"
-                  id="password"
-                  value={password}
-                  className="w-full h-6 bg-white rounded border  focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm border-gray-700 outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-                  required
-                  onChange={handlePasswordChange}
-                  disabled={!isEditMode}
-                />
-              </div>
-            </div>
 
             {/* Checkboxes */}
             <div className="mt-6">
@@ -344,6 +338,11 @@ const ManageEmployee = () => {
               </div>
 
               <div className="mt-6 flex items-center justify-end gap-x-6">
+                <button type='button' className="btn-sm rounded bg-slate-200 hover:scale-110 transition-all" onClick={()=>{
+                  openChangePasswordModal()
+                }}>
+                  Change Password
+                </button>
                 {isEditMode ? (
                   // Render the "Save" button when in edit mode
                   <button
@@ -372,6 +371,7 @@ const ManageEmployee = () => {
 
       {/* Add New contract modal */}
       {isAddContractModalOpen && (<AddContractModal isOpen={openAddContractModal} onClose={closeAddContractModal} />)}
+      {IsChangePasswordModalOpen && (<ChangePasswordModal onClose={closeChangePasswordModal} employee={selectedRowData._id} />)}
 
       <div className="divider divider-horizontal"></div>
 
