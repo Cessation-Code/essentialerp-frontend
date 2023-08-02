@@ -3,9 +3,33 @@ import withAuth from '../../../components/withAuth'
 import TPIP from './tpip';
 import Report from './report';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 const index = () => {
   const [activeTab, setActiveTab] = useState("tpip");
+  const [tpipData, setTpipData] = useState([]);
+
+  useEffect(() => {
+    getTpips();
+  }, []);
+
+  async function getTpips() {
+    try {
+      const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth_tpip/getTPIP", {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+      const data = await response.json();
+      setTpipData(data.tpip);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -60,8 +84,8 @@ const index = () => {
             </a>
           </div>
 
-          {activeTab === "tpip" && <TPIP />}
-          {activeTab === "report" && <Report />}
+          {activeTab === "tpip" && <TPIP tpipData={tpipData}/>}
+          {activeTab === "report" && <Report tpipData={tpipData}/>}
         </div>
 
 
