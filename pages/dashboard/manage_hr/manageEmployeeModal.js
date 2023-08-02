@@ -55,7 +55,7 @@ const ManageEmployee = () => {
     event.preventDefault();
     setIsLoading(true);
     try{
-      const resopnse = await fetch(`http://localhost:8000/api/v1/employee/updateEmployee`, {
+      const resopnse = await fetch(`https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/updateEmployee`, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -77,14 +77,19 @@ const ManageEmployee = () => {
       if (resopnse.ok) {
         setIsLoading(false);
         setSuccess("Employee Updated Successfully");
+        setIsEditMode(false)
+        console.log(isLoading)
       }else{
         setIsLoading(false);
         setError("An Error Occured");
+        setIsEditMode(false)
       }
     }catch (error) {
       console.log(error);
       setIsLoading(false);
       setError("An Error Occured");
+      setIsEditMode(false)
+
     }
 
 
@@ -373,7 +378,7 @@ const ManageEmployee = () => {
                 }}>
                   Change Password
                 </button>)}
-                {isEditMode ? (
+                {(isEditMode && !isLoading) ? (
                   // Render the "Save" button when in edit mode
                   <button
                     type="button"
