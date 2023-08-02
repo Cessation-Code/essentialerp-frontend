@@ -41,8 +41,7 @@ const ExpenseTable = () => {
     getExpenseItems();
   }, []);
 
-  const handleSearch = (event) => {
-    const query = event.target.value;
+  const handleSearch = (query) => {
     setSearchQuery(query); // Update the search query state
     if (query.trim() === "") {
       // If the search query is empty, reset the search results
@@ -55,7 +54,6 @@ const ExpenseTable = () => {
       setSearchResults(filteredData);
     }
   };
-  
 
   const openAddExpenseModal = () => {
     setIsAddExpenseModalOpen(true);
