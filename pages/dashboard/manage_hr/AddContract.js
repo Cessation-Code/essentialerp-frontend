@@ -8,8 +8,6 @@ function AddContractModal({ isOpen, onClose }) {
 
   const [contractType, setContractType] = useState("");
   const [Salary, setSalary] = useState("");
-  const [status, setStatus] = useState("");
-  const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const router = useRouter();
 
@@ -66,11 +64,9 @@ function AddContractModal({ isOpen, onClose }) {
   const closeModal = async (event) => {
     event.preventDefault();
     console.log("Modal Cancelled");
-   setContractType("")
-   setSalary("")
-   setStatus("")
-   setStartDate("")
-   setEndDate("")
+    setContractType("")
+    setSalary("")
+    setEndDate("")
     setError("");
     onClose();
   };
@@ -86,26 +82,32 @@ function AddContractModal({ isOpen, onClose }) {
         <div className="flex flex-row gap-2">
           <div className="flex flex-col basis-2/3 mb-4">
             <label className="text-xs mb-1 text-gray-400">Contract Type</label>
-            <input
+            <select
               type="text"
               id="contractType"
-              name="contractType"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
               value={contractType}
               onChange={(event) => {
                 setContractType(event.target.value);
                 setError("");
+                setEndDate("");
+                console.log(contractType)
               }}
-            />
+            >
+              <option value="" disabled>
+                Select Contract Type
+              </option>
+              <option value="full-time">full-time</option>
+              <option value="part-time">part-time</option>
+            </select>
           </div>
           <div className="flex flex-col basis-1/3 mb-4">
-            <label className="text-xs mb-1 text-gray-400">Salary</label>
+            <label className="text-xs mb-1 text-gray-400">Salary (GHS)</label>
             <input
               type="number"
               id="salary"
-              name="salary"
-                className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+              className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
               value={Salary}
               onChange={(event) => {
@@ -116,52 +118,23 @@ function AddContractModal({ isOpen, onClose }) {
           </div>
         </div>
 
-        <div className="flex flex-col mb-4">
-            <label className="text-xs mb-1 text-gray-400">Status</label>
-            <input
-              type="text"
-              id="status"
-              name="status"
-                className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-              required
-              value={status}
-              onChange={(event) => {
-                setStatus(event.target.value);
-                setError("");
-              }}
-            />
-        </div>
-
-        <div className="flex flex-col mb-4">
-            <label className="text-xs mb-1 text-gray-400">Start Date</label>
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-                className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
-              required
-              value={startDate}
-              onChange={(event) => {
-                setStartDate(event.target.value);
-                setError("");
-              }}
-            />
-        </div>
-        <div className="flex flex-col mb-4">
+        {(contractType === 'part-time') && (<div className="flex flex-row">
+          <div className="flex flex-col basis-1/2 mb-4">
             <label className="text-xs mb-1 text-gray-400">End Date</label>
             <input
               type="date"
               id="endDate"
               name="endDate"
-                className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
+              className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 px-3 transition-colors duration-200 ease-in-out"
               required
-              value={startDate}
+              value={endDate}
               onChange={(event) => {
-                setStartDate(event.target.value);
+                setEndDate(event.target.value);
                 setError("");
               }}
             />
-        </div>
+          </div>
+        </div>)}
       </form>
 
       <div className="flex flex-row">

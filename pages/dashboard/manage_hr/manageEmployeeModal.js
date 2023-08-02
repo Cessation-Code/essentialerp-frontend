@@ -30,11 +30,9 @@ const ManageEmployee = () => {
   const [error, setError] = useState("");
   const [isAddContractModalOpen, setIsAddContractModalOpen] = useState(false);
   const [IsChangePasswordModalOpen, setIsChangePasswordModalOpen] = useState(false);
+  const [selectedRowData, setSelectedRowData] = useState({});
+  const [success, setSuccess] = useState("");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    console.log("Form submitted!");
-  };
 
   const CheckBox = ({ name, checked, onChange, disabled }) => {
     return (
@@ -51,6 +49,48 @@ const ManageEmployee = () => {
       </label>
     );
   };
+
+
+  async function handleSubmit(event){
+    event.preventDefault();
+    setIsLoading(true);
+    try{
+      const resopnse = await fetch(`http://localhost:8000/api/v1/employee/updateEmployee`, {
+        method: "POST",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          _id: selectedRowData._id,
+          first_name: firstName,
+          last_name: lastName,
+          phone_number_1: phone,
+          email: email,
+          hr_management: hrChecked,
+          inventory: inventoryChecked,
+          finance: financeChecked,
+          tpip: tpipChecked,
+        }),
+      });
+      if (resopnse.ok) {
+        setIsLoading(false);
+        setSuccess("Employee Updated Successfully");
+      }else{
+        setIsLoading(false);
+        setError("An Error Occured");
+      }
+    }catch (error) {
+      console.log(error);
+      setIsLoading(false);
+      setError("An Error Occured");
+    }
+
+
+  };
+
+
 
   const contracts = [
     {
@@ -108,13 +148,6 @@ const ManageEmployee = () => {
     setLastName(event.target.value);
   };
 
-  const handleSave = () => {
-    // Perform any actions needed to save the form data
-    // ...
-    setIsEditMode(false); // Set isEditMode back to false after saving
-  };
-
-
   const handlePhoneChange = (event) => {
     setPhone(event.target.value);
   };
@@ -125,22 +158,6 @@ const ManageEmployee = () => {
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-  };
-
-  const handleHrChange = (event) => {
-    setHrChecked(event.target.checked);
-  };
-
-  const handleInventoryChange = (event) => {
-    setInventoryChecked(event.target.checked);
-  };
-
-  const handleFinanceChange = (event) => {
-    setFinanceChecked(event.target.checked);
-  };
-
-  const handleTpipChange = (event) => {
-    setTpipChecked(event.target.checked);
   };
 
   const handleContractTypeChange = (event) => {
@@ -168,15 +185,17 @@ const ManageEmployee = () => {
     if (queryParams && queryParams.selectedRowData) {
       try {
         const selectedRowData = JSON.parse(queryParams.selectedRowData);
+        console.log("selectedRowData:", selectedRowData);
+        setSelectedRowData(selectedRowData);
         setFirstName(selectedRowData.first_name);
         setLastName(selectedRowData.last_name);
-        setPhone(selectedRowData.phone);
+        setPhone(selectedRowData.phone_number_1);
         setEmail(selectedRowData.email);
         setPassword(selectedRowData.password);
-        setHrChecked(selectedRowData.hrChecked === "true");
-        setInventoryChecked(selectedRowData.inventoryChecked === "true");
-        setFinanceChecked(selectedRowData.financeChecked === "true");
-        setTpipChecked(selectedRowData.tpipChecked === "true");
+        setHrChecked(selectedRowData.hr_management);
+        setInventoryChecked(selectedRowData.inventory);
+        setFinanceChecked(selectedRowData.finance);
+        setTpipChecked(selectedRowData.tpip);
         setContractType(selectedRowData.contractType);
         setStartDate(selectedRowData.startDate);
         setEndDate(selectedRowData.endDate);
@@ -310,13 +329,17 @@ const ManageEmployee = () => {
                   <CheckBox
                     name="HR"
                     checked={hrChecked}
-                    onChange={handleHrChange}
+                    onChange={(event)=>{
+                      setHrChecked(event.target.checked)
+                    }}
                     disabled={!isEditMode}
                   />
                   <CheckBox
                     name="Inventory"
                     checked={inventoryChecked}
-                    onChange={handleInventoryChange}
+                    onChange={(event)=>{
+                      setInventoryChecked(event.target.checked)
+                    }}
                     disabled={!isEditMode}
                   />
                 </div>
@@ -325,30 +348,41 @@ const ManageEmployee = () => {
                   <CheckBox
                     name="Finance"
                     checked={financeChecked}
-                    onChange={handleFinanceChange}
+                    onChange={(event)=>{
+                      setFinanceChecked(event.target.checked)
+                    }}
                     disabled={!isEditMode}
                   />
                   <CheckBox
                     name="TPIP"
                     checked={tpipChecked}
-                    onChange={handleTpipChange}
+                    onChange={(event)=>{
+                      setTpipChecked(event.target.checked)
+                    }}
                     disabled={!isEditMode}
                   />
                 </div>
               </div>
 
-              <div className="mt-6 flex items-center justify-end gap-x-6">
-                <button type='button' className="btn-sm rounded bg-slate-200 hover:scale-110 transition-all" onClick={()=>{
+              {success && (<div className="flex flex-row-reverse text-green-500 text-xs mt-4 font-semibold">{success}</div>)}
+              {error && (<div className="flex flex-row-reverse  text-red-500 text-xs mt-4">{error}</div>)}
+
+              {(!isLoading) && (<div className="mt-6 flex items-center justify-end gap-x-6">
+                {(!isEditMode) &&  (<button type='button' className="btn-sm rounded bg-slate-200 hover:scale-110 transition-all" onClick={()=>{
                   openChangePasswordModal()
                 }}>
                   Change Password
-                </button>
+                </button>)}
                 {isEditMode ? (
                   // Render the "Save" button when in edit mode
                   <button
                     type="button"
                     className="rounded-md w-16  bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-[#5F5BFF] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                    onClick={handleSave}
+                    onClick={(event)=>{
+                      handleSubmit(event)
+                      setError('')
+                      setSuccess('')
+                    }}
                   >
                     Save
                   </button>
@@ -357,12 +391,12 @@ const ManageEmployee = () => {
                   <button
                     type="button"
                     className="rounded-md w-16 bg-[#5F5BFF] px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-400"
-                    onClick={handleEdit}
+                    onClick={()=>{setIsEditMode(true)}}
                   >
                     Edit
                   </button>
                 )}
-              </div>
+              </div>)}
             </div>
           </form>
 
