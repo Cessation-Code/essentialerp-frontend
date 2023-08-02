@@ -5,13 +5,13 @@ import SearchButton from "../../../components/search";
 import AddProductModal from "./addProductModal";
 import ViewProductModal from "./viewProductModal";
 
-const Inventory = () => {
+const Inventory = ({inventoryItems}) => {
 
   // constansts
   const [isAddProductModalOpen, setIsAddProductModalOpen] = useState(false);
   const [isViewProductModalOpen, setIsViewProductModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("");
-  const [inventoryItems, setInventoryItems] = useState([]);
+  // const [inventoryItems, setInventoryItems] = useState([]);
 
 
   // functions

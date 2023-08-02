@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Report from './report';
 import Inventory from './inventory';
 import { useState } from 'react';
@@ -6,13 +6,13 @@ import withAuth from '../../../components/withAuth';
 
 const index = () => {
   const [activeTab, setActiveTab] = useState("inventory");
-
+  const [inventoryItems, setInventoryItems] = useState([]);
   
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
 
-  useState(() => {
+  useEffect(() => {
 
     console.log(window.location.hash)
     if (window.location.hash === '#inventory') {
@@ -21,7 +21,30 @@ const index = () => {
       setActiveTab("report"); 
     }
 
+    getInventoryItems();
   }, []);
+
+
+  async function getInventoryItems() {
+    try {
+      // get expense items
+      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/product/", {
+        method: "GET",
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        },
+      }
+      ).then(response => response.json()).then(data => {
+        // save it to state
+        setInventoryItems(data.products)
+        console.log(data)
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -60,8 +83,8 @@ const index = () => {
           </a>
         </div>
 
-        {activeTab === "inventory" && <Inventory />}
-        {activeTab === "report" && <Report />}
+        {activeTab === "inventory" && <Inventory inventoryItems={inventoryItems} />}
+        {activeTab === "report" && <Report inventoryItems={inventoryItems} />}
       </div>
 
 
