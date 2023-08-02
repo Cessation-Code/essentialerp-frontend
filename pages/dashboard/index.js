@@ -44,6 +44,7 @@ export function DashboardPage(props) {
         setSales(data.sales)
       });
     } catch (error) {
+      console.log(error)
     }
   }
 
