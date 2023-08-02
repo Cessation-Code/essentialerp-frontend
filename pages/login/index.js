@@ -4,6 +4,9 @@ import Link from "next/link";
 import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout";
 import LoadingSpinner from "../../components/loadingSpinner";
 import Logo from "../../components/logo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -94,18 +97,21 @@ export default function LoginPage() {
               <label htmlFor="password" className="text-xs font-medium mb-2">
                 Password:
               </label>
-              <div>
+              <div className="flex justify-between gap-2">
                 <label htmlFor="password"></label>
                 <input
-                  className="px-3 py-1"
+                  className="px-3 py-1 w-full"
                   type={showPassword ? "text" : "password"}
                   id="password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   required
+                  
                 />
                 <button type="button" className="text-xs font-medium mb-2" onClick={togglePasswordVisibility}>
-                  &nbsp;&nbsp;&nbsp;{showPassword ? "Hide " : "Show "} Password
+                  &nbsp;&nbsp;&nbsp;{showPassword ? <FontAwesomeIcon icon={faEyeSlash}/> : <FontAwesomeIcon icon={faEye}/> } 
+                  
+                  
                 </button>
               </div>
             </div>
