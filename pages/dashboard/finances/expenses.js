@@ -6,37 +6,12 @@ import AddExpenseModal from "./addExpenseModal";
 import ViewExpenseModal from "./viewExpenseModal";
 import LoadingSpinner from "../../../components/loadingSpinner";
 
-const ExpenseTable = () => {
+const ExpenseTable = ({expenseItems}) => {
 
   const [isAddExpenseModalOpen, setIsAddExpenseModalOpen] = useState(false);
   const [isViewExpenseModalOpen, setIsViewExpenseModalOpen] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("");
-  const [expenseItems, setExpenseItems] = useState("");
 
-  // get expense items
-  useEffect(() => {
-    async function getExpenseItems() {
-      try {
-        // get expense items
-        await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/", {
-          method: "GET",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem('token')}`
-          },
-        }
-        ).then(response => response.json()).then(data => {
-          // save it to state
-          setExpenseItems(data.expenses)
-          console.log(data.expenses)
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getExpenseItems()
-  }, [])
 
 
   const openAddExpenseModal = () => {

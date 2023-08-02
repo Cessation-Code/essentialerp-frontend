@@ -6,36 +6,12 @@ import ViewSaleModal from "./viewSaleModal";
 import { useRouter } from "next/router";
 
 
-const SalesTable = () => {
+const SalesTable = ({salesEntries}) => {
 
   const [viewSaleModal, setViewSaleModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState("")
   const router = useRouter();
-  const [salesEntries, setSalesEntries] = useState([]);
-
-  useEffect(() => {
-    getSalesEntries()
-  }, [])
-
-  async function getSalesEntries() {
-    try {
-      // get expense items
-      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sale/", {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-      }
-      ).then(response => response.json()).then(data => {
-        // save it to state
-        setSalesEntries(data.sales)
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
+ 
 
   const openViewSaleModal = () => {
     setViewSaleModal(true);

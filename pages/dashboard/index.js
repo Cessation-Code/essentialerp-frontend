@@ -59,7 +59,6 @@ export function DashboardPage(props) {
 
   console.log(calculateSumOfProperty(expenses, 'amount'))
 
-
   return (
 
     <div className="flex flex-col h-full items-center mx-5 justify-evenly"> {/* Parent Div */}
