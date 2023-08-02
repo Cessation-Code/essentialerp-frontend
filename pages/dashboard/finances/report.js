@@ -47,7 +47,7 @@ const Report = ({ salesEntries, expenseEntries }) => {
             }}
           >
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="name" /> //error may exist here because the salesEntries does not have a name property
             <YAxis />
             <Tooltip />
             <Legend />
