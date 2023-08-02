@@ -84,7 +84,7 @@ const Report = () => {
   return (
     <div className="bg-slate-100 w-[90%] m-4 rounded-[20px] shadow-lg overflow-hidden h-full p-4">
       <h2 className="text-2xl font-bold text-center text-gray-800 pb-4">
-        Finances REPORT{" "}
+        Finances REPORT
       </h2>
       <div className="flex justify-center">{renderBarChart}</div>
     </div>

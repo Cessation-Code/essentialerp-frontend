@@ -155,7 +155,7 @@ export default function SignUpPage() {
                       Password:
                     </label>
                     <input
-                      type="password"
+                      type="text"
                       id="password"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={password}
@@ -172,7 +172,7 @@ export default function SignUpPage() {
                       Confirm Password:
                     </label>
                     <input
-                      type="password"
+                      type="text"
                       id="confirm_password"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={confirm_password}
