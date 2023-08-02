@@ -22,7 +22,7 @@ const ViewTPIPModal = ({ isOpen, onClose, selectedRowData }) => {
   }
 
   async function handleDelete() {
-    isLoading(true)
+    setIsLoading(true)
     // delete tpip
     try {
       const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth_tpip/deleteTPIP', {
