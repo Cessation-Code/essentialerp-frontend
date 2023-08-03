@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 const index = () => {
   const [activeTab, setActiveTab] = useState("tpip");
   const [tpipData, setTpipData] = useState([]);
+  
 
   useEffect(() => {
     getTpips();

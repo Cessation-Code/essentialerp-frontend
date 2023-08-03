@@ -4,12 +4,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBook,
   faPeopleGroup,
-  faPeopleRobbery,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   ExpenseIcon,
-  IncomeIcon,
-  SalesIcon,
   InventoryIcon,
 } from "../../../public/icons/report_page/reporticons";
 import Link from "next/link";

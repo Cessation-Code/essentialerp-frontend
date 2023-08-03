@@ -5,41 +5,43 @@ import ExpenseTable from "./expenses";
 import Report from "./report";
 
 const Finance = () => {
-
   const [activeTab, setActiveTab] = useState("sales");
   const [expenseItems, setExpenseItems] = useState("");
   const [salesEntries, setSalesEntries] = useState([]);
 
   useEffect(() => {
-
-    console.log(window.location.hash)
-    if (window.location.hash === '#expenses') {
+    console.log(window.location.hash);
+    if (window.location.hash === "#expenses") {
       setActiveTab("expenses");
-    } else if (window.location.hash === '#sales') {
+    } else if (window.location.hash === "#sales") {
       setActiveTab("sales");
-    } else if (window.location.hash === '#report') {
+    } else if (window.location.hash === "#report") {
       setActiveTab("report");
     }
 
-    getSalesEntries()
-    getExpenseItems()
-  }, [])
+    getSalesEntries();
+    getExpenseItems();
+  }, []);
 
   async function getSalesEntries() {
     try {
       // get expense items
-      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sale/", {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-      }
-      ).then(response => response.json()).then(data => {
-        // save it to state
-        setSalesEntries(data.sales)
-      });
+      await fetch(
+        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sale/",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // save it to state
+          setSalesEntries(data.sales);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -49,19 +51,23 @@ const Finance = () => {
   async function getExpenseItems() {
     try {
       // get expense items
-      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/", {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        },
-      }
-      ).then(response => response.json()).then(data => {
-        // save it to state
-        setExpenseItems(data.expenses)
-        console.log(data.expenses)
-      });
+      await fetch(
+        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // save it to state
+          setExpenseItems(data.expenses);
+          console.log(data.expenses);
+        });
     } catch (error) {
       console.log(error);
     }
@@ -69,12 +75,13 @@ const Finance = () => {
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === 'expenses') {
-      window.location.hash = '#expenses'
-    } else if (tab === 'sales') {
-      window.location.hash = '#sales'
-    } else if (tab === 'report') {
-      window.location.hash = '#report'
+    console.log(salesEntries)
+    if (tab === "expenses") {
+      window.location.hash = "#expenses";
+    } else if (tab === "sales") {
+      window.location.hash = "#sales";
+    } else if (tab === "report") {
+      window.location.hash = "#report";
     }
   };
 
@@ -89,6 +96,7 @@ const Finance = () => {
             <>
               <li>Finances</li>
               <li>Expenses</li>
+              
             </>
           )}
           {activeTab === "sales" && (
@@ -128,8 +136,12 @@ const Finance = () => {
       </div>
 
       {activeTab === "sales" && <SalesTable salesEntries={salesEntries} />}
-      {activeTab === "expenses" && <ExpenseTable id='expenses' expenseItems={expenseItems} />}
-      {activeTab === "report" && <Report salesEntries={salesEntries} expenseEntries={expenseItems} />}
+      {activeTab === "expenses" && (
+        <ExpenseTable id="expenses" expenseItems={expenseItems} />
+      )}
+      {activeTab === "report" && (
+        <Report salesEntries={salesEntries} expenseEntries={expenseItems} />
+      )}
     </div>
   );
 };
