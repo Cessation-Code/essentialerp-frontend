@@ -23,7 +23,7 @@ const Card = ({ title, children }) => {
 const CustomTooltip01 = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1">
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <div>{`Name:${payload[0].payload.name}`}</div>
         <div>{`Price(GHS): ${payload[0].payload.price}`}</div>
         <div>{`Stock: ${(payload[1].payload.stock)} items left`}</div>
@@ -38,6 +38,21 @@ const CustomTooltip02 = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
+        <div>{`Sale(GHS): ${payload[0].payload.amount}`}</div>
+        {/* <div>{`Expense(GHS): ${payload[1].payload.amount}`}</div> */}
+      </div>
+    );
+  }
+
+  return null;
+};
+
+
+const CustomTooltip03 = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
+        <div>{`Sale(GHS): ${formatDate(payload[0].payload.created_at)}`}</div>
         <div>{`Sale(GHS): ${payload[0].payload.amount}`}</div>
         {/* <div>{`Expense(GHS): ${payload[1].payload.amount}`}</div> */}
       </div>
@@ -155,7 +170,7 @@ export function DashboardPage(props) {
               <LineChart data={sales} margin={{ top: 5, right: 5, bottom: 5, left: 5 }}>
                 <Line type="monotone" dataKey="amount" stroke="#8884d8" />
                 <XAxis dataKey="date_created" hide />
-                <Tooltip />
+                <Tooltip content={CustomTooltip03} />
               </LineChart>
             </ResponsiveContainer>
           </Card>
