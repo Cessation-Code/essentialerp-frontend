@@ -1,34 +1,87 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import withAuth from "../../../components/withAuth";
 import SalesTable from "./sales";
 import ExpenseTable from "./expenses";
 import Report from "./report";
 
 const Finance = () => {
-
   const [activeTab, setActiveTab] = useState("sales");
+  const [expenseItems, setExpenseItems] = useState("");
+  const [salesEntries, setSalesEntries] = useState([]);
 
-  useState(() => {
-
-    console.log(window.location.hash)
-    if (window.location.hash === '#expenses') {
+  useEffect(() => {
+    console.log(window.location.hash);
+    if (window.location.hash === "#expenses") {
       setActiveTab("expenses");
-    }else if (window.location.hash === '#sales') {
+    } else if (window.location.hash === "#sales") {
       setActiveTab("sales");
-    }else if (window.location.hash === '#report') {
-      setActiveTab("report"); 
+    } else if (window.location.hash === "#report") {
+      setActiveTab("report");
     }
 
+    getSalesEntries();
+    getExpenseItems();
   }, []);
+
+  async function getSalesEntries() {
+    try {
+      // get expense items
+      await fetch(
+        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sale/",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // save it to state
+          setSalesEntries(data.sales);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  // get expense items
+  async function getExpenseItems() {
+    try {
+      // get expense items
+      await fetch(
+        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/",
+        {
+          method: "GET",
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          // save it to state
+          setExpenseItems(data.expenses);
+          console.log(data.expenses);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleTabClick = (tab) => {
     setActiveTab(tab);
-    if (tab === 'expenses'){
-      window.location.hash = '#expenses'
-    }else if (tab === 'sales'){
-      window.location.hash = '#sales'
-    }else if (tab === 'report'){
-      window.location.hash = '#report'
+    console.log(salesEntries)
+    if (tab === "expenses") {
+      window.location.hash = "#expenses";
+    } else if (tab === "sales") {
+      window.location.hash = "#sales";
+    } else if (tab === "report") {
+      window.location.hash = "#report";
     }
   };
 
@@ -43,6 +96,7 @@ const Finance = () => {
             <>
               <li>Finances</li>
               <li>Expenses</li>
+              
             </>
           )}
           {activeTab === "sales" && (
@@ -81,9 +135,13 @@ const Finance = () => {
         </a>
       </div>
 
-      {activeTab === "sales" && <SalesTable />}
-      {activeTab === "expenses" && <ExpenseTable id='expenses' />}
-      {activeTab === "report" && <Report />}
+      {activeTab === "sales" && <SalesTable salesEntries={salesEntries} />}
+      {activeTab === "expenses" && (
+        <ExpenseTable id="expenses" expenseItems={expenseItems} />
+      )}
+      {activeTab === "report" && (
+        <Report salesEntries={salesEntries} expenseEntries={expenseItems} />
+      )}
     </div>
   );
 };

@@ -33,7 +33,7 @@ const Report = ({ inventoryItems }) => {
           >
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
-            <YAxis />
+            <YAxis dataKey="stock"/>
             <Tooltip />
             <Legend />
             <Bar dataKey="stock" fill="#8884d8" />

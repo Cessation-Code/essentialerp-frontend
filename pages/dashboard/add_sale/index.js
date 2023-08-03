@@ -120,7 +120,7 @@ const AddSales = () => {
               Select Products
             </div>
             <div className="flex basis-2/3 place-content-end">
-              <SearchButton />
+              {/* <SearchButton /> */}
             </div>
           </div>
 

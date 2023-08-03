@@ -8,6 +8,7 @@ const index = () => {
   const [activeTab, setActiveTab] = useState("inventory");
   const [inventoryItems, setInventoryItems] = useState([]);
   
+  
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };

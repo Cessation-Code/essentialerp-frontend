@@ -3,27 +3,28 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 
 const SearchButton = ({ onSearch }) => {
- // const [value, setValue] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  // const handleChange = (e) => {
-  //   setValue(e.target.value);
-  // };
+  const handleSearchInputChange = (event) => {
+    const query = event.target.value;
+    setSearchQuery(query);
+  };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onSearch(value);
-  // };
+  const handleSearch = () => {
+    onSearch(searchQuery);
+  };
 
   return (
-    <form onSubmit={null} className="mr-3 flex flex-row">
+    <form onSubmit={handleSearch} onEmptied={handleSearch} onMouseLeave={handleSearch} onDrag={handleSearch} className="mr-3 flex flex-row">
       <input
         type="text"
-        onClick={onSearch}
+        onChange={handleSearchInputChange}
         placeholder="Search"
+        value={searchQuery}
         className="input placeholder:text-sm placeholder:font-medium input-bordered input-primary w-fit h-fit mr-3"
       />
-      <button type="submit">
-        <FontAwesomeIcon icon={faSearch} />
+      <button type="button" onClick={handleSearch}>
+        <FontAwesomeIcon icon={faSearch} fontSize={"15"} />
       </button>
     </form>
   );

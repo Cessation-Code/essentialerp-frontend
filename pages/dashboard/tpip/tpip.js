@@ -6,33 +6,26 @@ import AddTPIPModal from "./addTpipModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
-
-const TPIP = () => {
+const TPIP = ({ tpipData }) => {
   const [selectedRowData, setSelectedRowData] = useState("");
   const [viewTPIPModal, setViewTPIPModal] = useState(false);
   const [addTPIPModal, setAddTPIPModal] = useState(false);
-  const [tpipData, setTpipData] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
 
-  useEffect(() => {
-    getTpips();
-  }, []);
-
-  async function getTpips() {
-    try {
-      const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth_tpip/getTPIP", {
-        method: "GET",
-        headers: {
-          "Access-Control-Allow-Origin": "*",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`
-        }
-      });
-      const data = await response.json();
-      setTpipData(data.tpip);
-    } catch (error) {
-      console.log(error);
+  const handleSearch = (query) => {
+    setSearchQuery(query); // Update the search query state
+    if (query.trim() === "") {
+      // If the search query is empty, reset the search results
+      setSearchResults([]);
+    } else {
+      // Include all elements which include the search query
+      const filteredData = expenseItems.filter((item) =>
+        item.name.toLowerCase().includes(query.toLowerCase())
+      );
+      setSearchResults(filteredData);
     }
-  }
+  };
 
   const openViewTPIPModal = () => {
     setViewTPIPModal(true);
@@ -44,23 +37,22 @@ const TPIP = () => {
 
   const openAddTPIPModal = () => {
     setAddTPIPModal(true);
-  }
+  };
 
   const closeAddTPIPModal = () => {
     setAddTPIPModal(false);
-  }
+  };
 
   return (
-
     <div className="w-full px-6">
       <div className="flex flex-row justify-between mb-4">
         <h3 className="text-3xl">TPIP Table</h3>
         <div className="flex flex-row items-baseline">
-          <SearchButton />
+          {/* <SearchButton onSearch={handleSearch} /> */}
           <button
             className="btn"
             onClick={() => {
-              setAddTPIPModal(true)
+              setAddTPIPModal(true);
             }}
           >
             Add TPIP
@@ -68,10 +60,25 @@ const TPIP = () => {
         </div>
       </div>
 
-      {viewTPIPModal && (<ViewTPIPModal isOpen={setViewTPIPModal} onClose={closeViewTPIPModal} selectedRowData={selectedRowData} />)}
-      {addTPIPModal && <AddTPIPModal isOpen={openAddTPIPModal} onClose={closeAddTPIPModal} />}
+      {viewTPIPModal && (
+        <ViewTPIPModal
+          isOpen={setViewTPIPModal}
+          onClose={closeViewTPIPModal}
+          selectedRowData={selectedRowData}
+        />
+      )}
+      {addTPIPModal && (
+        <AddTPIPModal isOpen={openAddTPIPModal} onClose={closeAddTPIPModal} />
+      )}
 
       <div className="max-h-[55vh] overflow-y-auto custom-scrollbar">
+        {searchQuery.trim() !== "" && searchResults.length === 0 && (
+          <tr>
+            <td colSpan="4" className="text-center py-4">
+              No results found.
+            </td>
+          </tr>
+        )}
         <table className="w-[98%] border border-gray-300 mr-4">
           <thead>
             <tr className="bg-gray-100">
@@ -88,7 +95,10 @@ const TPIP = () => {
             </tr>
           </thead>
           <tbody>
-            {tpipData.map((entry) => (
+            {(searchQuery.trim() === "" || searchResults.length === 0
+              ? tpipData
+              : searchResults
+            ).map((entry) => (
               <tr key={entry.name}>
                 <td className="border-b border-gray-300 px-4 py-2">
                   {entry.name}
