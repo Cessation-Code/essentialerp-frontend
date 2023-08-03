@@ -169,7 +169,7 @@ export function DashboardPage(props) {
               </thead>
               <tbody className="gap-4 text-xs">
                 {sales.map((item) => (
-                  <tr className="bg-slate-100 text-black">
+                  <tr key={item._id} className="bg-slate-100 text-black">
                     <td>
                       {item._id}
                     </td>
