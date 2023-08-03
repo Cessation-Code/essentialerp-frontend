@@ -121,7 +121,7 @@ function AddTPIPModal({ isOpen, onClose }) {
           <div className="flex basis-full flex-col">
             <label className="text-xs mb-1 text-gray-400">Password</label>
             <input
-              type="text"
+              type="password"
               id="password"
               placeholder="password"
               className="w-full h-6 bg-white rounded border border-gray-700 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-900 text-sm outline-none text-gray-700 pl-3 transition-colors duration-200 ease-in-out"
