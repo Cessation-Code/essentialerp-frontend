@@ -6,6 +6,10 @@ import Link from "next/link";
 import withAuth from "../../components/withAuth";
 import { AreaChart, Area, BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
+function formatDate(saleDate) {
+  const date = new Date(saleDate);
+  return date.toLocaleDateString("en-US");
+}
 
 const Card = ({ title, children }) => {
   return (
@@ -14,6 +18,33 @@ const Card = ({ title, children }) => {
       {children}
     </div>
   );
+};
+
+const CustomTooltip01 = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1">
+        <div>{`Name:${payload[0].payload.name}`}</div>
+        <div>{`Price(GHS): ${payload[0].payload.price}`}</div>
+        <div>{`Stock: ${(payload[1].payload.stock)} items left`}</div>
+      </div>
+    );
+  }
+
+  return null;
+};
+
+const CustomTooltip02 = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1">
+        <div>{`Sale(GHS): ${payload[0].payload.amount}`}</div>
+        {/* <div>{`Expense(GHS): ${payload[1].payload.amount}`}</div> */}
+      </div>
+    );
+  }
+
+  return null;
 };
 
 export function DashboardPage(props) {
@@ -74,7 +105,7 @@ export function DashboardPage(props) {
       <div className="flex flex-row w-full gap-5 h-full items-center justify-between">
 
         <div className="flex flex-col w-full basis-1/3">
-          <Card title="Inventory Summary">
+          <Card title="Inventory Summary (Last 20 items added)">
             <div className="flex flex-col w-full text-lg">
               <div className="font-semibold">
                 {inventory.length || `0`} items in inventory
@@ -86,7 +117,7 @@ export function DashboardPage(props) {
                 <Line type="monotone" dataKey="price" stroke="#F11A7B" />
                 {/* <XAxis dataKey="name" /> */}
                 {/* <YAxis /> */}
-                <Tooltip />
+                <Tooltip content={CustomTooltip01} />
               </LineChart>
             </ResponsiveContainer>
           </Card>
@@ -139,10 +170,11 @@ export function DashboardPage(props) {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey='date_created' className="text-xs" />
               <YAxis />
-              <Tooltip />
+              <Tooltip content={CustomTooltip02} />
               <Legend />
               <Bar dataKey="amount" name="sales" data={sales} fill="#8884d8" />
-              <Bar dataKey="amount" name="expenses" data={expenses} fill="#82ca9d" />
+              {/* <Bar dataKey="amount" name="expenses" data={expenses} fill="#82ca9d" /> */}
+              {/* <Line dataKey="amount" name="expenses" data={expenses} fill="#82ca9d" /> */}
             </BarChart>
           </ResponsiveContainer>
         </Card>
