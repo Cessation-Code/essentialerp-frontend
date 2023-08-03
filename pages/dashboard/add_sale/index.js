@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SearchButton from "../../../components/search";
 import withAuth from "../../../components/withAuth";
 import ConfirmAddSale from "./confirmAddSaleModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const AddSales = () => {
   const [inventoryItems, setInventoryItems] = useState([]);
@@ -68,7 +70,7 @@ const AddSales = () => {
 
   };
 
- 
+
   const handleReduceQuantity = (itemId) => {
     const updatedItems = selectedItems.map((selectedItem) =>
       selectedItem._id === itemId
@@ -160,7 +162,9 @@ const AddSales = () => {
                         handleAddToCart(item)
                       }}
                         className="inline-flex items-center justify-center px-2 py-1 text-xs font-medium text-white bg-green-600 hover:bg-green-500 active:bg-green-700 rounded-lg"
-                      />
+                      >
+                        <FontAwesomeIcon icon={faPlus} />
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -178,7 +182,7 @@ const AddSales = () => {
               Selected Products
             </div>
             <div className="flex basis-2/3 place-content-end">
-              <button className="bg-green-600 border hover:border-green-900 text-xs font-semibold rounded-lg px-2 transition-all hover:scale-105"
+              <button className="btn bg-green-600 border hover:border-green-900 text-xs font-semibold rounded-lg p-2 transition-all hover:scale-105"
                 onClick={openConfirmSalesModal}>Checkout
               </button>
             </div>
@@ -208,7 +212,7 @@ const AddSales = () => {
                       {item.name}
                     </td>
                     <td className="px-6 text-sm text-gray-500">
-          
+
                       {item.amount}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium">
@@ -222,7 +226,9 @@ const AddSales = () => {
                           handleReduceQuantity(item._id)
                         }}
                           className="inline-flex items-center justify-center px-2 py-1 text-xs font-medium text-white bg-red-600 hover:bg-red-500 active:bg-red-700 rounded-lg"
-                        />
+                        >
+                          <FontAwesomeIcon icon={faMinus} />
+                        </button>
                       </div>
                     </td>
                   </tr>
