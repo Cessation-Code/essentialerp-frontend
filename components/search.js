@@ -15,7 +15,7 @@ const SearchButton = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSearch} className="mr-3 flex flex-row">
+    <form onSubmit={handleSearch} onEmptied={handleSearch} onMouseLeave={handleSearch} onDrag={handleSearch} className="mr-3 flex flex-row">
       <input
         type="text"
         onChange={handleSearchInputChange}
@@ -23,7 +23,7 @@ const SearchButton = ({ onSearch }) => {
         value={searchQuery}
         className="input placeholder:text-sm placeholder:font-medium input-bordered input-primary w-fit h-fit mr-3"
       />
-      <button type="submit" onClick={handleSearch}>
+      <button type="button" onClick={handleSearch}>
         <FontAwesomeIcon icon={faSearch} fontSize={"15"} />
       </button>
     </form>

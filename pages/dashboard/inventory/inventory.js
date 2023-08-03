@@ -87,6 +87,7 @@ const Inventory = ({ inventoryItems }) => {
         <div className="flex flex-row items-baseline">
           <SearchButton onSearch={handleSearch} />
           <button
+            type="button"
             className="btn"
             onClick={() => {
               setIsAddProductModalOpen(true);
