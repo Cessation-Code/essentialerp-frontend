@@ -18,7 +18,7 @@ function formatDate(saleDate) {
 const CustomTooltip01 = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip bg-slate-400 p-5 bg-opacity-20">
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <p className="label">{`Date:(${formatDate(label)})`}</p>
         <p className="label">{`Sale Made: ${payload[0].payload.amount}`}</p>
         {/* <p className="label">{`Expense Incurred: ${(payload[1].value)}`}</p> */}
@@ -33,7 +33,7 @@ const CustomTooltip01 = ({ active, payload, label }) => {
 const CustomTooltip02 = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="custom-tooltip bg-slate-400 p-5 bg-opacity-20">
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <p className="label">{`Date:(${formatDate(label)})`}</p>
         {/* <p className="label">{`Sale Made: ${payload[0].value}`}</p> */}
         <p className="label">{`Expense Incurred: ${(payload[0].payload.amount)}`}</p>

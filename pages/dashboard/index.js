@@ -37,7 +37,7 @@ const CustomTooltip01 = ({ active, payload, label }) => {
 const CustomTooltip02 = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
-      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1">
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <div>{`Sale(GHS): ${payload[0].payload.amount}`}</div>
         {/* <div>{`Expense(GHS): ${payload[1].payload.amount}`}</div> */}
       </div>
