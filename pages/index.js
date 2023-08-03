@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <UnauthenticatedLayout>
       {/* heres the background colour thats white */}
-      <div className="flex flex-col relative bg-[white] h-screen overflow-auto custom-scrollbar">
+      <div className="flex flex-col relative bg-slate-200 h-screen overflow-auto custom-scrollbar">
         {/* here's the diagonal object giving at the top */}
         <div className="z-0 absolute -top-56 bottom-96 h-[500px] inset-0 bg-[#C4D7F8] transform -skew-y-[10deg]"></div>
 
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
 
           <div className=" font-semibold text-center z-50">
-            <Link href="signup">
+            <Link href="contact_us">
               <button className="rounded-xl bg-[#6C63FF] text-white px-7 py-3">
                 Contact Us
               </button>
@@ -72,9 +72,9 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="flex flex-row justify-center">
+        {/* <div className="flex flex-row justify-center">
           <Logo />
-        </div>
+        </div> */}
 
         <div className="flex flex-row justify-center gap-4 pt-6 font-medium text-center">
           <div>
@@ -95,7 +95,7 @@ export default function Home() {
 
         {/* here's the buttons that look like tiles at the bottom */}
         <div className="flex flex-row pt-12 pb-10 justify-center gap-28">
-          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border  bg-gray-300 bg-opacity-25 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
@@ -111,7 +111,7 @@ export default function Home() {
             </div>
           </button>
 
-          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border  bg-gray-300 bg-opacity-25 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
@@ -127,7 +127,7 @@ export default function Home() {
             </div>
           </button>
 
-          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border  bg-gray-300 bg-opacity-25 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
@@ -145,7 +145,7 @@ export default function Home() {
         </div>
 
         <div className="flex flex-row pt-3 pb-14 justify-center gap-28">
-          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border  bg-gray-300 bg-opacity-25 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
@@ -162,7 +162,7 @@ export default function Home() {
             </div>
           </button>
 
-          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border  bg-gray-300 bg-opacity-25 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
@@ -179,7 +179,7 @@ export default function Home() {
             </div>
           </button>
 
-          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border bg-gray-300 bg-opacity-25 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
