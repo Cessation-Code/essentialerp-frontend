@@ -86,7 +86,15 @@ export default function SignUpPage() {
   }
 
   const handleNextStage = () => {
-    setStage(stage + 1);
+    if(!com_name || !email || !password || !confirm_password){
+      setError("Please fill in all the fields.");
+      return;
+    }else if (password !== confirm_password) {
+      setError("Passwords do not match.");
+      return;
+    } else {
+      setStage(stage + 1);
+    }
   };
 
   const handlePreviousStage = () => {
@@ -100,7 +108,7 @@ export default function SignUpPage() {
         <div className="flex flex-col justify-center items-center bg-[#E4EFFF] rounded-xl p-10">
 
           <div className="flex flex-row justify-center">
-            <Logo/>
+            <Logo />
           </div>
 
           <div className="flex flex-row justify-center text-center pt-5 text-sm">
@@ -130,7 +138,7 @@ export default function SignUpPage() {
                       id="com_name"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={com_name}
-                      onChange={(event) => setCompanyName(event.target.value)}
+                      onChange={(event) => {setCompanyName(event.target.value); setError("")}}
                       required
                     />
                   </div>
@@ -143,7 +151,7 @@ export default function SignUpPage() {
                       id="email"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={email}
-                      onChange={(event) => setEmail(event.target.value)}
+                      onChange={(event) =>{ setEmail(event.target.value); setError("")}}
                       required
                     />
                   </div>
@@ -155,11 +163,11 @@ export default function SignUpPage() {
                       Password:
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="password"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={password}
-                      onChange={(event) => setPassword(event.target.value)}
+                      onChange={(event) => {setPassword(event.target.value); setError("")}}
                       minLength={5}
                       required
                     />
@@ -172,11 +180,14 @@ export default function SignUpPage() {
                       Confirm Password:
                     </label>
                     <input
-                      type="text"
+                      type="password"
                       id="confirm_password"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={confirm_password}
-                      onChange={(event) => setConfirmPassword(event.target.value)}
+                      onChange={(event) => {
+                        setConfirmPassword(event.target.value)
+                        setError("")
+                      }}
                       minLength={5}
                       required
                     />
@@ -230,30 +241,29 @@ export default function SignUpPage() {
                       />
                     </div>
                   </div>
+                  <div className="flex flex-row justify-center text-sm">
+                    <input
+                      checked={isChecked}
+                      onChange={handleCheckboxChange}
+                      type="checkbox"
+                      value=""
+                      className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                    />
+                    <label
+                      id="checkbox-1"
+                      className="ml-2 text-xs font-medium text-gray-900"
+                    >
+                      I agree with the{" "}
+                      <Link
+                        href="terms_and_conditions"
+                        className="text-[#7622FF] underline"
+                      >
+                        Terms and Conditions
+                      </Link>
+                    </label>
+                  </div>
                 </div>
               )}
-
-              <div className="flex flex-row justify-center text-sm">
-                <input
-                  checked={isChecked}
-                  onChange={handleCheckboxChange}
-                  type="checkbox"
-                  value=""
-                  className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-                />
-                <label
-                  id="checkbox-1"
-                  className="ml-2 text-xs font-medium text-gray-900"
-                >
-                  I agree with the{" "}
-                  <Link
-                    href="terms_and_conditions"
-                    className="text-[#7622FF] underline"
-                  >
-                    Terms and Conditions
-                  </Link>
-                </label>
-              </div>
 
               {/* error code block */}
               <div className="flex flex-row text-center justify-center text-xs font-semibold text-red-500 mb-4">
@@ -263,9 +273,11 @@ export default function SignUpPage() {
               <div className="flex flex-row justify-center">
                 {/* show continue button on stage 1 */}
                 {stage === 1 && (
-                  <button
+                  <button type="button"
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                    onClick={handleNextStage}
+                    onClick={() => {
+                      handleNextStage()
+                    }}
                   >
                     Continue
                   </button>

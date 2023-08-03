@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCoins, faBook, faFunnelDollar, } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import withAuth from "../../components/withAuth";
-import { BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
 
 const Card = ({ title, children }) => {
