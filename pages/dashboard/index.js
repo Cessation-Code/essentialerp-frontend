@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers, faCoins, faBook, faFunnelDollar, } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import withAuth from "../../components/withAuth";
-import { BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
+import { AreaChart, Area, BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
 
 const Card = ({ title, children }) => {
@@ -44,6 +44,7 @@ export function DashboardPage(props) {
         setSales(data.sales)
       });
     } catch (error) {
+      console.log(error)
     }
   }
 
@@ -51,13 +52,14 @@ export function DashboardPage(props) {
     if (!Array.isArray(array) || array.length === 0) {
       return 0;
     }
-
-    return array.reduce((accumulator, currentItem) => {
+  
+    const sum = array.reduce((accumulator, currentItem) => {
       return accumulator + Number(currentItem[property] || 0);
     }, 0);
-  }
-
-  console.log(calculateSumOfProperty(expenses, 'amount'))
+  
+    // Format the result to 2 decimal places
+    return parseFloat(sum.toFixed(2));
+  }  
 
   return (
 
@@ -167,7 +169,7 @@ export function DashboardPage(props) {
               </thead>
               <tbody className="gap-4 text-xs">
                 {sales.map((item) => (
-                  <tr className="bg-slate-100 text-black">
+                  <tr key={item._id} className="bg-slate-100 text-black">
                     <td>
                       {item._id}
                     </td>
