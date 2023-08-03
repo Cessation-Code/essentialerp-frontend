@@ -12,6 +12,14 @@ import UnauthenticatedLayout from "../components/layouts/unauthenticated_layout/
 import AppLogo from "../components/logo";
 
 export default function Home() {
+
+  const sentences = [
+    "Welcome to our website!",
+    "Discover the best products in the market.",
+    "Join us and be a part of our community.",
+    "Start your journey with us today!",
+  ];
+
   return (
     <UnauthenticatedLayout>
       {/* heres the background colour thats white */}
@@ -23,15 +31,6 @@ export default function Home() {
           <div className="z-50 text-center">
             <AppLogo />
           </div>
-
-          {/* <div className="basis-3/5 z-50">
-            <div className="flex flex-row px-28 font-bold text-black text-center">
-              <div className="basis-1/4">Home</div>
-              <div className="basis-1/4">About Us</div>
-              <div className="basis-1/4">Services</div>
-              <div className="basis-1/4">Pricing</div>
-            </div>
-          </div> */}
 
           <div className=" font-semibold text-center z-50">
             <Link href="signup">
@@ -163,7 +162,7 @@ export default function Home() {
             </div>
           </button>
 
-          <button  className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
+          <button className="rounded-xl border border-black bg-gray-300 px-4 pb-9 w-64 h-72 text-left shadow-gray-400 shadow-lg hover:shadow-2xl">
             <div className="flex flex-col">
               <div>
                 {" "}
