@@ -11,6 +11,23 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+function formatDate(saleDate) {
+  const date = new Date(saleDate);
+  return date.toLocaleDateString("en-US");
+}
+
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
+        <p className="label">{`Date Added:(${formatDate(payload[0].payload.created_at)})`}</p>
+        <p className="label">{`Name: ${(payload[0].payload.name)}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
 
 const Report = ({ inventoryItems }) => {
   return (
@@ -34,7 +51,7 @@ const Report = ({ inventoryItems }) => {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="name" />
             <YAxis dataKey="stock"/>
-            <Tooltip />
+            <Tooltip content={CustomTooltip} />
             <Legend />
             <Bar dataKey="stock" fill="#8884d8" />
             <Bar dataKey="price" fill="#749BC2" />
