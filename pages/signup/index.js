@@ -6,14 +6,14 @@ import Logo from "../../components/logo";
 import LoadingSpinner from "../../components/loadingSpinner";
 
 export default function SignUpPage() {
-  const [com_name, setCompanyName] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [first_name, setFirstName] = useState("");
-  const [last_name, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
   const [stage, setStage] = useState(1);
-  const [confirm_password, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -31,18 +31,18 @@ export default function SignUpPage() {
       return;
     }
 
-    if (password !== confirm_password) {
+    if (password !== confirmPassword) {
       setError("Passwords do not match.");
     } else {
       setLoading(true);
 
       const registerData = {
-        organisation_name: com_name,
+        organisation_name: companyName,
         email: email,
         password: password,
         phone_number: phone_number,
-        first_name: first_name,
-        last_name: last_name,
+        firstName: firstName,
+        lastName: lastName,
       };
 
       try {
@@ -63,14 +63,14 @@ export default function SignUpPage() {
           localStorage.setItem("token", responseData.token);
           localStorage.setItem(
             "username",
-            responseData.employee.first_name + " " + responseData.employee.last_name
+            responseData.employee.firstName + " " + responseData.employee.lastName
           );
           localStorage.setItem("organisation", responseData.employee.organisation_name);
           router.push({
             pathname: "dashboard",
             query: {
-              prop1: responseData.employee.first_name,
-              prop2: responseData.employee.last_name,
+              prop1: responseData.employee.firstName,
+              prop2: responseData.employee.lastName,
               prop3: responseData.employee.organisation_name,
             },
           });
@@ -86,10 +86,10 @@ export default function SignUpPage() {
   }
 
   const handleNextStage = () => {
-    if(!com_name || !email || !password || !confirm_password){
+    if(!companyName || !email || !password || !confirmPassword){
       setError("Please fill in all the fields.");
       return;
-    }else if (password !== confirm_password) {
+    }else if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     } else {
@@ -135,9 +135,9 @@ export default function SignUpPage() {
                     </label>
                     <input
                       type="text"
-                      id="com_name"
+                      id="companyName"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-                      value={com_name}
+                      value={companyName}
                       onChange={(event) => {setCompanyName(event.target.value); setError("")}}
                       required
                     />
@@ -181,9 +181,9 @@ export default function SignUpPage() {
                     </label>
                     <input
                       type="password"
-                      id="confirm_password"
+                      id="confirmPassword"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-                      value={confirm_password}
+                      value={confirmPassword}
                       onChange={(event) => {
                         setConfirmPassword(event.target.value)
                         setError("")
@@ -205,9 +205,9 @@ export default function SignUpPage() {
                       </label>
                       <input
                         type="text"
-                        id="first_name"
+                        id="firstName"
                         className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-                        value={first_name}
+                        value={firstName}
                         onChange={(event) => setFirstName(event.target.value)}
                         required
                       />
@@ -218,9 +218,9 @@ export default function SignUpPage() {
                       </label>
                       <input
                         type="text"
-                        id="last_name"
+                        id="lastName"
                         className="w-full px-3 py-1 border border-gray-400 rounded h-7"
-                        value={last_name}
+                        value={lastName}
                         onChange={(event) => setLastName(event.target.value)}
                         required
                       />
