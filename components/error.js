@@ -1,6 +1,6 @@
 import React from "react";
 
-const Error = (error) => {
+const ErrorComponent = (error) => {
   return (
     <div className="alert alert-error">
       <svg
@@ -21,4 +21,4 @@ const Error = (error) => {
   );
 };
 
-export default Error;
+export default ErrorComponent;
