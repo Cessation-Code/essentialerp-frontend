@@ -3,7 +3,6 @@ import { faHouse, faCoins, faUsers, faBook, faHandshake, faRightFromBracket } fr
 
 
 export const DashboardIcon = () => {
-  // const size = props;
   return (
     <FontAwesomeIcon icon={faHouse} />
   );
