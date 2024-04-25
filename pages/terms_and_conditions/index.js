@@ -5,6 +5,19 @@ import { motion, AnimatePresence } from "framer-motion";
 import UnauthenticatedLayout from "../../components/layouts/unauthenticated_layout/unauthenticated_layout"
 import Logo from "../../components/logo";
 
+
+const ContinueToNextPage = ({ nextTabIndex }) => {
+  return (
+    <button
+      className="w-38 py-2 px-4 rounded-xl shadow-lg text-black bg-[#DACDF0] item-center font-semibold hover:bg-[#B48DF3]"
+      onClick={() => handleTabClick(nextTabIndex)}
+    >
+      Continue to next page
+    </button>
+  );
+};
+
+
 const TermsAndConditions = () => {
   const [activeTab, setActiveTab] = useState(0);
   const router = useRouter();
@@ -15,17 +28,6 @@ const TermsAndConditions = () => {
 
   const handleAcceptClick = () => {
     router.push("/signup");
-  };
-
-  const ContinueToNextPage = ({ nextTabIndex }) => {
-    return (
-      <button
-        className="w-38 py-2 px-4 rounded-xl shadow-lg text-black bg-[#DACDF0] item-center font-semibold hover:bg-[#B48DF3]"
-        onClick={() => handleTabClick(nextTabIndex)}
-      >
-        Continue to next page
-      </button>
-    );
   };
 
   return (
