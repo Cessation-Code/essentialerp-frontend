@@ -15,7 +15,7 @@ const SearchButton = ({ onSearch }) => {
   };
 
   return (
-    <form onSubmit={handleSearch} onEmptied={handleSearch} onMouseLeave={handleSearch} onDrag={handleSearch} className="mr-3 flex flex-row">
+    <form onSubmit={handleSearch} onMouseLeave={handleSearch} onDrag={handleSearch} className="mr-3 flex flex-row">
       <input
         type="text"
         onChange={handleSearchInputChange}
