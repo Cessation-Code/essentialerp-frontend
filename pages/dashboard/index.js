@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faCoins, faBook, faFunnelDollar, } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import withAuth from "../../components/withAuth";
-import { AreaChart, Area, BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
+import { BarChart, Bar, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, ResponsiveContainer } from "recharts";
 
 function formatDate(saleDate) {
   const date = new Date(saleDate);
