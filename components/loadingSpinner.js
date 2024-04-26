@@ -7,25 +7,22 @@ const LoadingSpinner = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Simulate data loading by using a timeout
+
     const loadingTimeout = setTimeout(() => {
       setIsLoading(false);
       setError(true);
-    }, 10000); // 10 seconds (20000 milliseconds)
+    }, 10000);
 
     return () => {
-      // Clear the timeout when the component is unmounted
       clearTimeout(loadingTimeout);
     };
+
   }, []);
 
   const handleRefresh = () => {
-    // Reset the error state and trigger the loading again
     setError(false);
     setIsLoading(true);
-    // Call your data loading function here or any relevant logic to fetch data again
     router.reload();
-    
   };
 
   return (
