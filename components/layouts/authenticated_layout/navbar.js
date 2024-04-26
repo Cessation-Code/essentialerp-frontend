@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types';
 
-const Navbar = ({ username, organisation }) => {
+export default function Navbar({ username, organisation }){
+
   const [showDropdown, setShowDropdown] = useState(false);
 
   const toggleDropdown = () => {
@@ -26,4 +28,8 @@ const Navbar = ({ username, organisation }) => {
   );
 };
 
-export default Navbar;
+
+Navbar.protoTypes = {
+  username: PropTypes.string.isRequired,
+  organisation: PropTypes.string.isRequired
+}
