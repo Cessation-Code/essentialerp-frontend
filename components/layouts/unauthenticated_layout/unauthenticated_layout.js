@@ -3,9 +3,10 @@ import { useEffect } from "react";
 
 export default function UnauthenticatedLayout({ children }) {
     
-    // checks if the localStorage item indexed token is avaialable, if not; instantiates it
+    const token = localStorage.getItem('token');
     useEffect(()=>{
-        if(!localStorage.getItem('token'))localStorage.setItem('token', "")
+        if(!token)
+            localStorage.setItem('token', "")
     })
 
     return (
