@@ -2,10 +2,11 @@ import { useRouter } from 'next/router';
 import React, { useState, useEffect } from 'react';
 import AuthenticatedLayout from './layouts/authenticated_layout/authenticated_layout';
 import LoadingSpinner from './loadingSpinner';
+import PropTypes from 'prop-types';
 
-const withAuth = (WrappedComponent) => {
+export default function withAuth(WrappedComponent){
 
-    const Wrapper = (props) => {
+    const Wrapper = () => {
 
         const [token, setToken] = useState("")
         const [employee, setEmployee] = useState(null)
@@ -21,7 +22,6 @@ const withAuth = (WrappedComponent) => {
             async function fetchEmployee() {
                 try {
                     await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/getEmployee', {
-                        // const response = await fetch('https://localhost:8000/api/v1/employee', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json',
@@ -48,7 +48,6 @@ const withAuth = (WrappedComponent) => {
             fetchEmployee()
         }, [])
 
-        // console.log(employee)
         if (!token || !employee) {
             return (
                 <AuthenticatedLayout username={navUsername} organisation={navOrganisation}>
@@ -64,8 +63,9 @@ const withAuth = (WrappedComponent) => {
         }
     };
 
-
     return Wrapper;
 };
 
-export default withAuth;
+withAuth.PropTypes = {
+    withAuth: PropTypes.node.isRequired
+}
