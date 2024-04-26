@@ -1,8 +1,9 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
+import PropTypes from 'prop-types; '
 
-const SearchButton = ({ onSearch }) => {
+export default function SearchButton({ onSearch }){
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchInputChange = (event) => {
@@ -30,4 +31,6 @@ const SearchButton = ({ onSearch }) => {
   );
 };
 
-export default SearchButton;
+SearchButton.PropTypes = {
+  onSearch: PropTypes.func.isRequired
+}
