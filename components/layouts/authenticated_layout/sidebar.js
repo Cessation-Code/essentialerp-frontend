@@ -6,7 +6,6 @@ import AppLogo from "../../logo";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBookOpen, faSquarePlus } from '@fortawesome/free-solid-svg-icons'
 
-
 const menuItems = [
   { id: 1, label: "Dashboard", icon: DashboardIcon, link: "/dashboard" },
   { id: 2, label: "Finances", icon: FinancesIcon, link: "/dashboard/finances" },
@@ -19,17 +18,6 @@ const Sidebar = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-
-  // const openSidebar = () => {
-  //   setTimeout(() => {
-  //     setIsOpen(true);// Call the function here
-  //   }, 180); // Delay of 2000 milliseconds (2 seconds)
-
-  // };
-
-  // const closeSidebar = () => {
-  //   setIsOpen(false);
-  // };
 
   const logout = () => {
     localStorage.clear('token')
@@ -54,7 +42,6 @@ const Sidebar = () => {
                 <div className="px-3">
                   <Icon />
                 </div>
-                {/* {isOpen && (<span className="text-md font-medium text-text-light ">{menu.label}</span>)} */}
                 <span className="text-md font-medium">{menu.label}</span>
               </Link>
             </div>
@@ -67,15 +54,11 @@ const Sidebar = () => {
               <div className="flex">
                 <LogoutIcon />
               </div>
-              {/* {isOpen && (<div className="flex font-semibold text-sm">LOGOUT</div>)} */}
               <div className="flex font-semibold text-sm">LOGOUT</div>
             </div>
           </button>
         </div>
       </div>
-
-
-
 
       <div>
         {/* Add Sale Button */}
