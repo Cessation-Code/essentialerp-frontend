@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ResponsiveGraphContainer = ({ children }) => {
+export default function ResponsiveGraphContainer({ children }){
   return (
     <div className="w-full max-w-screen-md mx-auto">
       {children}
@@ -8,4 +9,6 @@ const ResponsiveGraphContainer = ({ children }) => {
   );
 };
 
-export default ResponsiveGraphContainer;
+ResponsiveGraphContainer.PropTypes = {
+  children: PropTypes.node.isRequired,
+}
