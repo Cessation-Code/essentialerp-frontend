@@ -1,5 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
 export default function Modal({ children, header, closeModal }) {
     return (
@@ -17,4 +18,10 @@ export default function Modal({ children, header, closeModal }) {
             </div>
         </div>
     );
+}
+
+Modal.PropTypes = {
+    children: PropTypes.node.isRequired,
+    header: PropTypes.string.isRequired,
+    closeModal: PropTypes.func.isRequired
 }
