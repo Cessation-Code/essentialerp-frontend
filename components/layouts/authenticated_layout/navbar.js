@@ -5,12 +5,6 @@ import PropTypes from 'prop-types';
 
 export default function Navbar({ username, organisation }){
 
-  const [showDropdown, setShowDropdown] = useState(false);
-
-  const toggleDropdown = () => {
-    setShowDropdown(!showDropdown);
-  };
-
   return (
     <div className="flex flex-row w-full justify-end gap-2 bg-[#C4D7F8] p-5">
 
