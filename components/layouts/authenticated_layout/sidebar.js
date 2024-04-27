@@ -16,7 +16,6 @@ const menuItems = [
 
 const Sidebar = () => {
 
-  const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
   const logout = () => {
