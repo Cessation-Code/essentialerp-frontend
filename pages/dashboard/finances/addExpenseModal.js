@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import ModalLayout from '../../../components/layouts/modal_layout';
 import { useRouter } from 'next/router';
+import PropTypes from "prop-types";
 
-function addExpenseModal({ isOpen, onClose }) {
+function AddExpenseModal({ isOpen, onClose }) {
 
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -27,7 +28,6 @@ function addExpenseModal({ isOpen, onClose }) {
     }
     else {
       setIsLoading(true);
-      // create expense
       try {
         const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/createExpense", {
           method: "POST",
@@ -159,4 +159,9 @@ function addExpenseModal({ isOpen, onClose }) {
   );
 }
 
-export default addExpenseModal;
+AddExpenseModal.PropTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default AddExpenseModal;
