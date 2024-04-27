@@ -3,8 +3,8 @@ import { useEffect } from "react";
 
 export default function UnauthenticatedLayout({ children }) {
     
-    const token = localStorage.getItem('token');
     useEffect(()=>{
+        const token = localStorage.getItem('token');
         if(!token)
             localStorage.setItem('token', "")
     })
