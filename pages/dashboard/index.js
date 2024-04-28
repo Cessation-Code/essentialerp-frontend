@@ -37,7 +37,6 @@ const CustomTooltip02 = ({ active, payload, label }) => {
     return (
       <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <div>{`Sale(GHS): ${payload[0].payload.amount}`}</div>
-        {/* <div>{`Expense(GHS): ${payload[1].payload.amount}`}</div> */}
       </div>
     );
   }
@@ -52,7 +51,6 @@ const CustomTooltip03 = ({ active, payload, label }) => {
       <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <div>{`Sale(GHS): ${formatDate(payload[0].payload.created_at)}`}</div>
         <div>{`Sale(GHS): ${payload[0].payload.amount}`}</div>
-        {/* <div>{`Expense(GHS): ${payload[1].payload.amount}`}</div> */}
       </div>
     );
   }
@@ -83,7 +81,6 @@ export function DashboardPage(props) {
         },
       }
       ).then(response => response.json()).then(data => {
-        // save it to state
         setExpenses(data.expenses)
         setInventory(data.products)
         setSales(data.sales)
