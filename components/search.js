@@ -1,7 +1,7 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
-import PropTypes from 'prop-types; '
+import PropTypes from 'prop-types';
 
 export default function SearchButton({ onSearch }){
   const [searchQuery, setSearchQuery] = useState("");
