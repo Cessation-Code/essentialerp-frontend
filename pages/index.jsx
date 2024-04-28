@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 
-import Logo from "../public/icons/landing_page/landing";
 import Logo1 from "../public/icons/landing_page/landingicon01";
 import Logo2 from "../public/icons/landing_page/landingicon02";
 import Logo3 from "../public/icons/landing_page/landingicon03";
