@@ -12,6 +12,7 @@ function AddExpenseModal({ isOpen, onClose }) {
   const [amount, setAmount] = useState("");
   const [description, setDescription] = useState("");
   const router = useRouter();
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleSubmit = async (event) => {
 
@@ -29,7 +30,7 @@ function AddExpenseModal({ isOpen, onClose }) {
     else {
       setIsLoading(true);
       try {
-        const response = await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/createExpense", {
+        const response = await fetch(`${baseUrl}/api/v1/expense/createExpense`, {
           method: "POST",
           headers: {
             "Access-Control-Allow-Origin": "*",
