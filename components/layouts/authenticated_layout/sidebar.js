@@ -26,7 +26,7 @@ const Sidebar = () => {
   }
 
   return (
-    <div className='min-h-full h-fit py-4 bg-[#C4D7F8] flex justify-items-center flex-col w-48 justify-between'>
+    <div className='min-h-full py-4 bg-[#C4D7F8] flex justify-items-center flex-col w-48 justify-between'>
 
       <div className="flex flex-row col-span-5 place-self-center">
         <AppLogo />
