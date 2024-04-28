@@ -23,6 +23,8 @@ export default function SignUpPage() {
     setIsChecked(event.target.checked);
   };
 
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -47,7 +49,7 @@ export default function SignUpPage() {
 
       try {
         const response = await fetch(
-          "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/registerOrganisation",
+          `${baseUrl}/api/v1/auth/registerOrganisation`,
           {
             method: "POST",
             headers: {
@@ -63,9 +65,14 @@ export default function SignUpPage() {
           localStorage.setItem("token", responseData.token);
           localStorage.setItem(
             "username",
-            responseData.employee.firstName + " " + responseData.employee.lastName
+            responseData.employee.firstName +
+              " " +
+              responseData.employee.lastName
           );
-          localStorage.setItem("organisation", responseData.employee.organisation_name);
+          localStorage.setItem(
+            "organisation",
+            responseData.employee.organisation_name
+          );
           router.push({
             pathname: "dashboard",
             query: {
@@ -86,10 +93,10 @@ export default function SignUpPage() {
   }
 
   const handleNextStage = () => {
-    if(!companyName || !email || !password || !confirmPassword){
+    if (!companyName || !email || !password || !confirmPassword) {
       setError("Please fill in all the fields.");
       return;
-    }else if (password !== confirmPassword) {
+    } else if (password !== confirmPassword) {
       setError("Passwords do not match.");
       return;
     } else {
@@ -104,13 +111,10 @@ export default function SignUpPage() {
   return (
     <UnauthenticatedLayout>
       <div className="flex flex-col h-screen w-full justify-center items-center bg-[#C4D7F8] min-h-screen">
-
         <div className="flex flex-col justify-center items-center bg-[#E4EFFF] rounded-xl p-10">
-
           <div className="flex flex-row justify-center">
             <Logo />
           </div>
-
           <div className="flex flex-row justify-center text-center pt-5 text-sm">
             <div className="flex flex-col">
               <div>Create an account with email</div>
@@ -122,7 +126,6 @@ export default function SignUpPage() {
               </div>
             </div>
           </div>
-
           <div className="flex flex-row justify-center">
             {/* form starts here, in scaffolded in this row */}
             <form onSubmit={handleSubmit} className="w-full max-w-sm p-6">
@@ -138,7 +141,10 @@ export default function SignUpPage() {
                       id="companyName"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={companyName}
-                      onChange={(event) => {setCompanyName(event.target.value); setError("")}}
+                      onChange={(event) => {
+                        setCompanyName(event.target.value);
+                        setError("");
+                      }}
                       required
                     />
                   </div>
@@ -151,7 +157,10 @@ export default function SignUpPage() {
                       id="email"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={email}
-                      onChange={(event) =>{ setEmail(event.target.value); setError("")}}
+                      onChange={(event) => {
+                        setEmail(event.target.value);
+                        setError("");
+                      }}
                       required
                     />
                   </div>
@@ -167,7 +176,10 @@ export default function SignUpPage() {
                       id="password"
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={password}
-                      onChange={(event) => {setPassword(event.target.value); setError("")}}
+                      onChange={(event) => {
+                        setPassword(event.target.value);
+                        setError("");
+                      }}
                       minLength={5}
                       required
                     />
@@ -185,8 +197,8 @@ export default function SignUpPage() {
                       className="w-full px-3 py-1 border border-gray-400 rounded h-7"
                       value={confirmPassword}
                       onChange={(event) => {
-                        setConfirmPassword(event.target.value)
-                        setError("")
+                        setConfirmPassword(event.target.value);
+                        setError("");
                       }}
                       minLength={5}
                       required
@@ -200,7 +212,10 @@ export default function SignUpPage() {
                 <div>
                   <div className="flex flex-row mb-4 gap-4">
                     <div>
-                      <label htmlFor="text" className="text-xs font-medium mb-2">
+                      <label
+                        htmlFor="text"
+                        className="text-xs font-medium mb-2"
+                      >
                         First Name:
                       </label>
                       <input
@@ -213,7 +228,10 @@ export default function SignUpPage() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="text" className="text-xs font-medium mb-2">
+                      <label
+                        htmlFor="text"
+                        className="text-xs font-medium mb-2"
+                      >
                         Last Name:
                       </label>
                       <input
@@ -228,7 +246,10 @@ export default function SignUpPage() {
                   </div>
                   <div className="mb-4">
                     <div>
-                      <label htmlFor="text" className="text-xs font-medium mb-2">
+                      <label
+                        htmlFor="text"
+                        className="text-xs font-medium mb-2"
+                      >
                         Phone Number
                       </label>
                       <input
@@ -273,10 +294,11 @@ export default function SignUpPage() {
               <div className="flex flex-row justify-center">
                 {/* show continue button on stage 1 */}
                 {stage === 1 && (
-                  <button type="button"
+                  <button
+                    type="button"
                     className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
                     onClick={() => {
-                      handleNextStage()
+                      handleNextStage();
                     }}
                   >
                     Continue
@@ -293,8 +315,9 @@ export default function SignUpPage() {
                     )}
 
                     <div
-                      className={`${loading ? "invisible" : "visible"
-                        } flex flex-row gap-5`}
+                      className={`${
+                        loading ? "invisible" : "visible"
+                      } flex flex-row gap-5`}
                     >
                       <button
                         type="submit"
@@ -314,7 +337,8 @@ export default function SignUpPage() {
                 )}
               </div>
             </form>
-          </div>        </div>
+          </div>{" "}
+        </div>
       </div>
     </UnauthenticatedLayout>
   );
