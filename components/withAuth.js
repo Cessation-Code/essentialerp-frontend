@@ -13,41 +13,41 @@ export default function withAuth(WrappedComponent){
         const [navUsername, setNavUsername] = useState()
         const [navOrganisation, setNavOrganisation] = useState()
         const router = useRouter()
+        const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+        async function fetchEmployee(data) {
+            try{
+                let response = await fetch(`${baseUrl}/api/v1/employee/getEmployee`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${data}`
+                    }
+                });
+                if (response.status == 200){
+                    response = await response.json();
+                    setEmployee(response.employee)
+                    setNavOrganisation(response.organisation.organisation_name)
+                    setNavUsername(response.employee.first_name)
+                    setToken(data)
+                } else {
+                    router.replace('/login')
+                    localStorage.removeItem('token')
+                    localStorage.removeItem('username')
+                    localStorage.removeItem('organisation')
+                }
+            }catch(e){
+                console.log(e)
+                setEmployee(null)
+            }
+        }
 
         useEffect(() => {
-
-            setNavUsername(localStorage.getItem('username'))
-            setNavOrganisation(localStorage.getItem('organisation'))
-
-            async function fetchEmployee() {
-                try {
-                    await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/getEmployee', {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            Authorization: `Bearer ${localStorage.getItem('token')}`
-                        }
-                    }).then(response => response.json()).then(data => {
-                        // if token is invalid, redirect to login page
-                        if (data.message === 'Authentication Invalid') {
-                            router.replace('/login')
-                            localStorage.removeItem('token')
-                            localStorage.removeItem('username')
-                            localStorage.removeItem('organisation')
-                        }
-                        setEmployee(data)
-                    });
-                } catch (e) {
-                    setEmployee(null)
-                }
-            }
-
             const data = localStorage.getItem('token')
-            setToken(data)
-            if (!localStorage.getItem('token') || !localStorage.getItem('username') || !localStorage.getItem('organisation')) { router.replace('/login') }
-            fetchEmployee()
+            fetchEmployee(data)
         }, [])
 
+        
         if (!token || !employee) {
             return (
                 <AuthenticatedLayout username={navUsername} organisation={navOrganisation}>
