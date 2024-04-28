@@ -10,8 +10,8 @@ export default function withAuth(WrappedComponent){
 
         const [token, setToken] = useState("")
         const [employee, setEmployee] = useState(null)
-        const [navUsername, setNavUsername] = useState()
-        const [navOrganisation, setNavOrganisation] = useState()
+        const [navUsername, setNavUsername] = useState("")
+        const [navOrganisation, setNavOrganisation] = useState("")
         const router = useRouter()
         const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -67,5 +67,5 @@ export default function withAuth(WrappedComponent){
 };
 
 withAuth.PropTypes = {
-    withAuth: PropTypes.node.isRequired
+    WrappedComponent: PropTypes.node.isRequired
 }
