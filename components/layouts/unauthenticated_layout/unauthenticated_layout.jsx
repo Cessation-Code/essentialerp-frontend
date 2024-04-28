@@ -1,5 +1,8 @@
+'use client'
+
 import React from "react";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 export default function UnauthenticatedLayout({ children }) {
     
@@ -12,4 +15,8 @@ export default function UnauthenticatedLayout({ children }) {
     return (
         <div>{children}</div>
   );
+}
+
+UnauthenticatedLayout.propTypes = {
+    children: PropTypes.node.isRequired
 }
