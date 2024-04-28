@@ -65,6 +65,7 @@ export function DashboardPage(props) {
   const [inventory, setInventory] = useState([]);
   const [sales, setSales] = useState([]);
   const [expenses, setExpenses] = useState([]);
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
     getDashboardData();
@@ -73,7 +74,7 @@ export function DashboardPage(props) {
   async function getDashboardData() {
     try {
       // get expense items
-      await fetch("https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/employee/getDashboardData", {
+      await fetch(`${baseUrl}/api/v1/employee/getDashboardData`, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",

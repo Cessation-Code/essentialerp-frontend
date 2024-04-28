@@ -25,6 +25,8 @@ export default function LoginPage() {
     event.preventDefault();
     setLoading(true);
 
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
+
     const loginData = {
       email: email,
       password: password,
@@ -32,7 +34,7 @@ export default function LoginPage() {
 
     try {
       const response = await fetch(
-        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/auth/login",
+        `${baseUrl}/api/v1/auth/login`,
         {
           method: "POST",
           headers: {
