@@ -28,7 +28,7 @@ const LoadingSpinner = () => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-60">
       {isLoading && (
-        <div className="animate-spin rounded-full h-20 w-20 border-b-4 border-gray-900"></div>
+        <div className="animate-spin rounded-full h-20 w-20 border-[8px] border-b-gray-300 border-gray-900"></div>
       )}
       {!isLoading && error && (
         <div>
