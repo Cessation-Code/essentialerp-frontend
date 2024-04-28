@@ -8,6 +8,7 @@ const Finance = () => {
   const [activeTab, setActiveTab] = useState("sales");
   const [expenseItems, setExpenseItems] = useState("");
   const [salesEntries, setSalesEntries] = useState([]);
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   useEffect(() => {
     console.log(window.location.hash);
@@ -25,9 +26,8 @@ const Finance = () => {
 
   async function getSalesEntries() {
     try {
-      // get expense items
       await fetch(
-        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/sale/",
+        `${baseUrl}/api/v1/sale/`,
         {
           method: "GET",
           headers: {
@@ -39,7 +39,6 @@ const Finance = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          // save it to state
           setSalesEntries(data.sales);
         });
     } catch (error) {
@@ -47,12 +46,10 @@ const Finance = () => {
     }
   }
 
-  // get expense items
   async function getExpenseItems() {
     try {
-      // get expense items
       await fetch(
-        "https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/",
+        `${baseUrl}/api/v1/expense/`,
         {
           method: "GET",
           headers: {
@@ -64,7 +61,6 @@ const Finance = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          // save it to state
           setExpenseItems(data.expenses);
           console.log(data.expenses);
         });
@@ -87,61 +83,36 @@ const Finance = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
+
       <h3 className="text-3xl font-bold my-4">Finances - Sales and Expenses</h3>
 
-      <div className="text-sm mb-2 breadcrumbs overflow-y-hidden">
-        <ul className="flex">
-          {/* <li>Finances</li> */}
-          {activeTab === "expenses" && (
-            <>
-              <li>Finances</li>
-              <li>Expenses</li>
-              
-            </>
-          )}
-          {activeTab === "sales" && (
-            <>
-              <li>Finances</li>
-              <li>Sales</li>
-            </>
-          )}
-          {activeTab === "report" && (
-            <>
-              <li>Finances</li>
-              <li>Report</li>
-            </>
-          )}
-        </ul>
-      </div>
+      <button className="bg-blue-200 rounded space-x-4 w-fit mb-4 p-2">
 
-      <div className="tabs tabs-boxed w-fit mb-4">
         <a
-          className={`tab ${activeTab === "sales" ? "tab-active" : ""}`}
+          className={`p-1 ${activeTab === "sales" ? "bg-blue-400 rounded" : ""}`}
           onClick={() => handleTabClick("sales")}
         >
           Sales
         </a>
         <a
-          className={`tab ${activeTab === "expenses" ? "tab-active" : ""}`}
+          className={`p-1 ${activeTab === "expenses" ? "bg-blue-400 rounded" : ""}`}
           onClick={() => handleTabClick("expenses")}
         >
           Expenses
         </a>
         <a
-          className={`tab ${activeTab === "report" ? "tab-active" : ""}`}
+          className={`p-1 ${activeTab === "report" ? "bg-blue-400 rounded" : ""}`}
           onClick={() => handleTabClick("report")}
         >
           Report
         </a>
-      </div>
 
-      {activeTab === "sales" && <SalesTable salesEntries={salesEntries} />}
-      {activeTab === "expenses" && (
-        <ExpenseTable id="expenses" expenseItems={expenseItems} />
-      )}
-      {activeTab === "report" && (
-        <Report salesEntries={salesEntries} expenseEntries={expenseItems} />
-      )}
+      </button>
+
+      { activeTab === "sales" && <SalesTable salesEntries={salesEntries} /> }
+      { activeTab === "expenses" && <ExpenseTable id="expenses" expenseItems={expenseItems}/> }
+      { activeTab === "report" && <Report salesEntries={salesEntries} expenseEntries={expenseItems}/> }
+      
     </div>
   );
 };

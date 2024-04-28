@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SearchButton from "../../../components/search";
 import AddExpenseModal from "./addExpenseModal";
 import ViewExpenseModal from "./viewExpenseModal";
 import LoadingSpinner from "../../../components/loadingSpinner";
@@ -12,20 +11,6 @@ const ExpenseTable = ({ expenseItems }) => {
   const [selectedRowData, setSelectedRowData] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-
-  const handleSearch = (query) => {
-    setSearchQuery(query); // Update the search query state
-    if (query.trim() === "") {
-      // If the search query is empty, reset the search results
-      setSearchResults([]);
-    } else {
-      // Include all elements which include the search query
-      const filteredData = expenseItems.filter((item) =>
-        item.name.toLowerCase().includes(query.toLowerCase())
-      );
-      setSearchResults(filteredData);
-    }
-  };
 
   const openAddExpenseModal = () => {
     setIsAddExpenseModalOpen(true);
@@ -48,7 +33,6 @@ const ExpenseTable = ({ expenseItems }) => {
     return date.toLocaleDateString("en-US");
   }
 
-  // show loading spinner if expense aren't loaded yet
   if (!expenseItems) {
     return <LoadingSpinner />;
   } else {
@@ -57,7 +41,6 @@ const ExpenseTable = ({ expenseItems }) => {
         <div className="flex flex-row justify-between mb-4">
           <h3 className="text-3xl text ml-2 font-semibold">Expense Table</h3>
           <div className="flex flex-row items-baseline">
-            {/* <SearchButton onSearch={handleSearch} /> */}
             <button className="btn" onClick={openAddExpenseModal}>
               Add Expense
             </button>

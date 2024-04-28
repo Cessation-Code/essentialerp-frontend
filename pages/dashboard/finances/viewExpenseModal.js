@@ -14,6 +14,7 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
   const [description, setDescription] = useState(selectedRowData.description);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -21,10 +22,9 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
   };
 
   async function handleDelete() {
-    // delete expense
     setIsLoading(true);
     try {
-      const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/deleteExpense', {
+      const response = await fetch(`${baseUrl}/api/v1/expense/deleteExpense`, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",
@@ -54,10 +54,9 @@ const ViewExpenseModal = ({ isOpen, onClose, selectedRowData }) => {
   }
 
   async function handleEdit() {
-    // edit expense
     setIsLoading(true);
     try {
-      const response = await fetch('https://essential-erp-10cac5b0da28.herokuapp.com/api/v1/expense/editExpense', {
+      const response = await fetch(`${baseUrl}/api/v1/expense/editExpense`, {
         method: "POST",
         headers: {
           "Access-Control-Allow-Origin": "*",

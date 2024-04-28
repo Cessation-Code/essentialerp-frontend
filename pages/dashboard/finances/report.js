@@ -21,11 +21,9 @@ const CustomTooltip01 = ({ active, payload, label }) => {
       <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <p className="label">{`Date:(${formatDate(label)})`}</p>
         <p className="label">{`Sale Made: ${payload[0].payload.amount}`}</p>
-        {/* <p className="label">{`Expense Incurred: ${(payload[1].value)}`}</p> */}
       </div>
     );
   }
-
   return null;
 };
 
@@ -35,7 +33,6 @@ const CustomTooltip02 = ({ active, payload, label }) => {
     return (
       <div className="flex flex-col bg-slate-400 p-3 bg-opacity-20 text-xs gap-1 font-semibold">
         <p className="label">{`Date:(${formatDate(label)})`}</p>
-        {/* <p className="label">{`Sale Made: ${payload[0].value}`}</p> */}
         <p className="label">{`Expense Incurred: ${(payload[0].payload.amount)}`}</p>
       </div>
     );
@@ -71,7 +68,6 @@ const Report = ({ salesEntries, expenseEntries }) => {
               <YAxis dataKey='amount' />
               <Tooltip content={<CustomTooltip01 />} />
               <Legend />
-              {/* <Bar data={expenseEntries} name="expense" dataKey="amount" fill="#8884d8" /> */}
               <Bar data={salesEntries} name="sale" dataKey="amount" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
@@ -95,7 +91,6 @@ const Report = ({ salesEntries, expenseEntries }) => {
               <Tooltip content={<CustomTooltip02 />} />
               <Legend />
               <Bar data={expenseEntries} name="expense" dataKey="amount" fill="#8884d8" />
-              {/* <Bar data={salesEntries} name="sale" dataKey="amount" fill="#82ca9d" /> */}
             </BarChart>
           </ResponsiveContainer>
         </div>
