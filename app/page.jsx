@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
 import AppLogo from "../components/logo";
@@ -107,7 +105,7 @@ export default function HomePage() {
         {services.map((item, index) => (
           <button
             key={index}
-            className="border-2 rounded-full border-blue-800 p-3 w-80 h-72"
+            className="border-[3px] hover:bg-blue-100 transition-all rounded-full border-blue-800 p-3 w-80 h-72"
           >
             <div className="flex flex-col">
               <div>{item.logo}</div>
